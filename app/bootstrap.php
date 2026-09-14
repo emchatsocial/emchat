@@ -94,7 +94,7 @@ if (PHP_SAPI !== 'cli' && !headers_sent()) {
     header('Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=(), browsing-topics=()');
     $nonce = csp_nonce();
     header(
-        "Content-Security-Policy: default-src 'self'; img-src 'self' data: blob: https://www.google-analytics.com https://*.google-analytics.com; media-src 'self' blob:; "
+        "Content-Security-Policy: default-src 'self'; img-src 'self' data: blob: https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com; media-src 'self' blob:; "
         . "style-src 'self' 'unsafe-inline'; script-src 'self' 'nonce-{$nonce}' https://www.googletagmanager.com; font-src 'self'; "
         . "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; "
         . "form-action 'self'; frame-ancestors 'self'; base-uri 'self'; object-src 'none'"

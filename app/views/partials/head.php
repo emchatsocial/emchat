@@ -28,6 +28,8 @@ $user = current_user();
 <meta name="description" content="<?= e($m['description']) ?>">
 <meta name="robots" content="<?= e($m['robots']) ?>">
 <link rel="canonical" href="<?= e($m['canonical']) ?>">
+<link rel="icon" href="/favicon.ico?v=64" sizes="any">
+<link rel="icon" href="/assets/img/favicon.svg?v=64" type="image/svg+xml">
 <link rel="icon" href="/assets/img/favicon-48.png?v=64" sizes="48x48" type="image/png">
 <link rel="icon" href="/assets/img/favicon-16.png?v=64" sizes="16x16" type="image/png">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png?v=64">
