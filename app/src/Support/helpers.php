@@ -214,6 +214,23 @@ function require_login(): array
         $_SESSION['_intended'] = safe_path($_SERVER['REQUEST_URI'] ?? '/feed');
         redirect('/login');
     }
+    if ($user['suspended_at'] !== null) {
+        // Clear just the auth marker (not a full logout()) so the session
+        // survives long enough to carry this flash message to the next request.
+        unset($_SESSION['uid']);
+        flash('Your account has been suspended.', 'error');
+        redirect('/login');
+    }
+    return $user;
+}
+
+/** Like require_login(), but also requires the 'admin' role. */
+function require_admin(): array
+{
+    $user = require_login();
+    if (($user['role'] ?? 'user') !== 'admin') {
+        abort(403, 'You don\'t have access to this page.');
+    }
     return $user;
 }
 

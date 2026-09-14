@@ -122,4 +122,53 @@ final class User
             [$like, $like, $query, $limit]
         );
     }
+
+    // ---------------------------------------------------------------- admin
+
+    /** @return array{0:array<int,array>,1:int} rows, total matching count */
+    public static function adminList(string $q, int $page, int $perPage = 25): array
+    {
+        $db = App::db();
+        $where = '';
+        $params = [];
+        if ($q !== '') {
+            $like = '%' . str_replace(['%', '_'], ['\%', '\_'], $q) . '%';
+            $where = ' WHERE username LIKE ? OR display_name LIKE ? OR email LIKE ?';
+            $params = [$like, $like, $like];
+        }
+        $total = (int) $db->column("SELECT COUNT(*) FROM users$where", $params);
+        $rows = $db->all(
+            "SELECT id, username, display_name, email, avatar_path, role, is_private, suspended_at, created_at,
+                    (SELECT COUNT(*) FROM posts p WHERE p.user_id = users.id AND p.deleted_at IS NULL) AS posts_count
+             FROM users$where ORDER BY id DESC LIMIT ? OFFSET ?",
+            [...$params, $perPage, max(0, $page - 1) * $perPage]
+        );
+        return [$rows, $total];
+    }
+
+    public static function setRole(int $id, string $role): bool
+    {
+        $role = $role === 'admin' ? 'admin' : 'user';
+        return App::db()->run('UPDATE users SET role = ? WHERE id = ?', [$role, $id])->rowCount() > 0;
+    }
+
+    public static function setSuspended(int $id, bool $suspended): bool
+    {
+        return App::db()->run(
+            'UPDATE users SET suspended_at = ' . ($suspended ? 'NOW()' : 'NULL') . ' WHERE id = ?',
+            [$id]
+        )->rowCount() > 0;
+    }
+
+    public static function counts(): array
+    {
+        $db = App::db();
+        return [
+            'total'       => (int) $db->column('SELECT COUNT(*) FROM users'),
+            'admins'      => (int) $db->column("SELECT COUNT(*) FROM users WHERE role = 'admin'"),
+            'suspended'   => (int) $db->column('SELECT COUNT(*) FROM users WHERE suspended_at IS NOT NULL'),
+            'new_today'   => (int) $db->column('SELECT COUNT(*) FROM users WHERE created_at >= CURDATE()'),
+            'new_week'    => (int) $db->column('SELECT COUNT(*) FROM users WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)'),
+        ];
+    }
 }

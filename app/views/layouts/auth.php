@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /** @var string $content  @var array $meta */
 ?><!doctype html>
 <html lang="en" data-theme="dark">
@@ -37,6 +37,6 @@
   </main>
 </div>
 <div id="toasts" class="toasts" aria-live="polite"></div>
-<script src="/assets/js/app.js?v=68" defer></script>
+<script src="/assets/js/app.js?v=69" defer></script>
 </body>
 </html>

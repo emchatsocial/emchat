@@ -211,6 +211,11 @@ final class Messaging
         return $id;
     }
 
+    public static function countAll(): int
+    {
+        return (int) App::db()->column('SELECT COUNT(*) FROM messages WHERE deleted_at IS NULL');
+    }
+
     /** Conversations in the user's normal inbox. */
     public static function inbox(int $userId): array
     {
@@ -381,6 +386,22 @@ final class Messaging
         $db = App::db();
         $m = $db->first('SELECT * FROM messages WHERE id = ?', [$messageId]);
         if (!$m || (int) $m['sender_id'] !== $userId || $m['deleted_at'] !== null) {
+            return false;
+        }
+        foreach ($db->all('SELECT path FROM message_attachments WHERE message_id = ?', [$messageId]) as $a) {
+            @unlink(rtrim((string) App::config('media_path'), '/') . '/' . $a['path']);
+        }
+        $db->run('DELETE FROM message_attachments WHERE message_id = ?', [$messageId]);
+        $db->run("UPDATE messages SET body = '', deleted_at = NOW() WHERE id = ?", [$messageId]);
+        return true;
+    }
+
+    /** Moderator deletion: same tombstone as deleteForEveryone(), skips the sender check. */
+    public static function adminDeleteMessage(int $messageId): bool
+    {
+        $db = App::db();
+        $m = $db->first('SELECT * FROM messages WHERE id = ?', [$messageId]);
+        if (!$m || $m['deleted_at'] !== null) {
             return false;
         }
         foreach ($db->all('SELECT path FROM message_attachments WHERE message_id = ?', [$messageId]) as $a) {

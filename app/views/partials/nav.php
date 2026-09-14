@@ -35,6 +35,11 @@ $items = [
     </li>
   </ul>
   <div class="nav__foot">
+    <?php if (($user['role'] ?? 'user') === 'admin'): ?>
+      <a class="nav__link" href="<?= e(url('/admin')) ?>">
+        <span class="nav__ico"><?= icon('shield', '', 22) ?></span><span class="nav__label">Admin</span>
+      </a>
+    <?php endif; ?>
     <a class="nav__link" href="<?= e(url('/settings/profile')) ?>">
       <span class="nav__ico"><?= icon('settings', '', 22) ?></span><span class="nav__label">Settings</span>
     </a>
