@@ -33,6 +33,9 @@ final class InteractionController extends Controller
         if (!$target) {
             json_response(['ok' => false, 'error' => 'No such account.'], 404);
         }
+        if ($target['suspended_at'] !== null) {
+            json_response(['ok' => false, 'error' => 'That account is unavailable.'], 404);
+        }
         $status = Social::follow((int) $user['id'], (int) $target['id']);
         $this->respond(['ok' => true, 'status' => $status], '/@' . $target['username']);
     }

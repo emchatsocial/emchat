@@ -449,7 +449,7 @@ final class Messaging
         $params[] = $limit;
         return App::db()->all(
             "SELECT u.* FROM users u
-             WHERE u.id <> ?
+             WHERE u.id <> ? AND u.suspended_at IS NULL
                AND u.id NOT IN (SELECT blocked_id FROM blocks WHERE blocker_id = ?)
                AND u.id NOT IN (SELECT blocker_id FROM blocks WHERE blocked_id = ?)
                $where
