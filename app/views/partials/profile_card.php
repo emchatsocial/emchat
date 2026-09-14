@@ -54,6 +54,9 @@ $handleUrl = url('@' . $p['username']);
       <h1 class="pcard__name">
         <?= e($p['display_name']) ?>
         <?php if (!empty($p['is_private'])): ?><?= icon('lock', '', 15) ?><?php endif; ?>
+        <?php if (($p['role'] ?? 'user') === 'admin'): ?>
+          <span class="pcard__badge" title="Administrator"><?= icon('shield', '', 12) ?> Administrator</span>
+        <?php endif; ?>
       </h1>
       <span class="pcard__handle">@<?= e($p['username']) ?>
         <?php if (!empty($p['follows_you']) && !$isSelf): ?><span class="chip chip--soft">Follows you</span><?php endif; ?>
