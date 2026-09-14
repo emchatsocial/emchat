@@ -19,6 +19,17 @@ final class ProfileController extends Controller
         }
         $viewer = current_user();
         $viewerId = $viewer ? (int) $viewer['id'] : null;
+        $isAdminViewer = ($viewer['role'] ?? 'user') === 'admin';
+
+        if ($profile['suspended_at'] !== null) {
+            $this->render('profile-suspended', [
+                'meta'    => $this->meta(['title' => 'Account suspended · ' . config('app_name'), 'robots' => 'noindex,nofollow']),
+                'profile' => $profile,
+                'is_admin_viewer' => $isAdminViewer,
+            ], $viewer ? 'app' : 'marketing');
+            return;
+        }
+
         $profile = User::withStats($profile, $viewerId);
 
         if (!empty($profile['blocks_you'])) {
@@ -71,7 +82,7 @@ final class ProfileController extends Controller
     private function connections(string $username, string $kind): void
     {
         $profile = User::findByUsername($username);
-        if (!$profile) {
+        if (!$profile || $profile['suspended_at'] !== null) {
             abort(404);
         }
         $viewer = current_user();
@@ -100,7 +111,7 @@ final class ProfileController extends Controller
     public function card(array $params): void
     {
         $profile = User::findByUsername($params['username'] ?? '');
-        if (!$profile || $profile['is_private']) {
+        if (!$profile || $profile['is_private'] || $profile['suspended_at'] !== null) {
             abort(404);
         }
         $viewer = current_user();

@@ -117,7 +117,7 @@ final class User
         $like = '%' . str_replace(['%', '_'], ['\%', '\_'], $query) . '%';
         return App::db()->all(
             "SELECT * FROM users
-             WHERE discoverable = 1 AND (username LIKE ? OR display_name LIKE ?)
+             WHERE discoverable = 1 AND suspended_at IS NULL AND (username LIKE ? OR display_name LIKE ?)
              ORDER BY (username = ?) DESC, id DESC LIMIT ?",
             [$like, $like, $query, $limit]
         );

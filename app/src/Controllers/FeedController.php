@@ -75,7 +75,7 @@ final class FeedController extends Controller
     {
         return \App\App::db()->all(
             "SELECT u.* FROM users u
-             WHERE u.id <> ? AND u.discoverable = 1 AND u.is_private = 0
+             WHERE u.id <> ? AND u.discoverable = 1 AND u.is_private = 0 AND u.suspended_at IS NULL
                AND u.id NOT IN (SELECT followee_id FROM follows WHERE follower_id = ?)
                AND u.id NOT IN (SELECT blocked_id FROM blocks WHERE blocker_id = ?)
              ORDER BY (SELECT COUNT(*) FROM follows f WHERE f.followee_id = u.id) DESC, u.id DESC

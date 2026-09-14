@@ -8,7 +8,8 @@ use App\App;
 final class Post
 {
     private const SELECT = "
-        SELECT p.*, u.username, u.display_name, u.avatar_path, u.is_private AS author_private
+        SELECT p.*, u.username, u.display_name, u.avatar_path, u.is_private AS author_private,
+               u.suspended_at AS author_suspended_at
         FROM posts p JOIN users u ON u.id = p.user_id ";
 
     public static function create(int $userId, string $body, string $visibility, ?int $replyToId = null): int
@@ -175,6 +176,7 @@ final class Post
                     SELECT blocked_id FROM blocks WHERE blocker_id = ?
               )
               AND (p.visibility <> 'private')
+              AND u.suspended_at IS NULL
               $before
             ORDER BY p.id DESC LIMIT ?", $params);
 
@@ -197,6 +199,7 @@ final class Post
         $discovery = App::db()->all(self::SELECT . "
             WHERE p.deleted_at IS NULL AND p.reply_to_id IS NULL
               AND p.visibility = 'public' AND u.is_private = 0 AND u.discoverable = 1
+              AND u.suspended_at IS NULL
               AND p.user_id <> ?
               AND p.user_id NOT IN (SELECT followee_id FROM follows WHERE follower_id = ? AND status = 'accepted')
               AND p.user_id NOT IN (SELECT muted_id FROM mutes WHERE muter_id = ?)
@@ -250,6 +253,7 @@ final class Post
         $rows = App::db()->all(self::SELECT . "
             WHERE p.deleted_at IS NULL AND p.reply_to_id IS NULL
               AND p.visibility = 'public' AND u.is_private = 0 AND u.discoverable = 1
+              AND u.suspended_at IS NULL
               $tagWhere $blockWhere
             ORDER BY p.id DESC LIMIT ?", $params);
 
@@ -264,7 +268,7 @@ final class Post
             $sql .= ' AND p.reply_to_id IS NULL';
         }
         if ($viewerId !== $authorId) {
-            $sql .= " AND p.visibility = 'public'";
+            $sql .= " AND p.visibility = 'public' AND u.suspended_at IS NULL";
         }
         if ($beforeId) {
             $sql .= ' AND p.id < ?';
@@ -278,7 +282,7 @@ final class Post
     public static function replies(int $postId, ?int $viewerId, int $limit = 100): array
     {
         $rows = App::db()->all(
-            self::SELECT . 'WHERE p.reply_to_id = ? AND p.deleted_at IS NULL ORDER BY p.id ASC LIMIT ?',
+            self::SELECT . 'WHERE p.reply_to_id = ? AND p.deleted_at IS NULL AND u.suspended_at IS NULL ORDER BY p.id ASC LIMIT ?',
             [$postId, $limit]
         );
         $rows = array_values(array_filter($rows, static fn ($r) => self::visibleTo($r, $viewerId)));
@@ -349,6 +353,7 @@ final class Post
             "SELECT p.id, p.created_at, p.edited_at FROM posts p JOIN users u ON u.id = p.user_id
              WHERE p.deleted_at IS NULL AND p.visibility = 'public'
                AND u.is_private = 0 AND u.discoverable = 1 AND p.reply_to_id IS NULL
+               AND u.suspended_at IS NULL
              ORDER BY p.id DESC LIMIT ?",
             [$limit]
         );
