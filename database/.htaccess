@@ -1,0 +1,10 @@
+# This directory must never be web-accessible. It normally lives above the
+# document root; this is a safety net for shared hosts that force everything
+# into public_html.
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+</IfModule>
