@@ -13,8 +13,10 @@ final class Notification
             return;
         }
         $db = App::db();
-        // Collapse duplicate like/follow spam within a short window.
-        if (in_array($type, ['like', 'follow'], true)) {
+        // Collapse duplicate like/follow/message spam: same actor+subject within a
+        // day bumps the existing notification back to unread instead of piling up
+        // a new row per like, follow, or message.
+        if (in_array($type, ['like', 'follow', 'message'], true)) {
             $recent = $db->column(
                 'SELECT id FROM notifications WHERE user_id = ? AND actor_id = ? AND type = ?
                  AND (subject_id <=> ?) AND created_at > (NOW() - INTERVAL 1 DAY)',
