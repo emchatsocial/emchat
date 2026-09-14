@@ -8,6 +8,7 @@ $is_request = $is_request ?? false;
 $group      = $group ?? null;
 $seen_at    = $seen_at ?? null;
 $peerName   = $is_group ? ($group['title'] ?? 'Group') : ($other['display_name'] ?? 'Chat');
+$otherSuspended = !$is_group && $other && !empty($other['suspended_at']);
 
 // "Seen" under the last outgoing message
 $seenLine = false;
@@ -96,6 +97,10 @@ if ($seen_at && $messages) {
             <?= csrf_field() ?><button class="btn btn--ghost" type="submit">Delete</button>
           </form>
         </div>
+      </div>
+    <?php elseif ($otherSuspended): ?>
+      <div class="reqbar">
+        <p class="reqbar__text">This account is suspended. You can't send new messages here, but your chat history stays as it was.</p>
       </div>
     <?php else: ?>
       <form class="messenger__compose" method="post" action="<?= e(url('/messages/' . $cid)) ?>"
