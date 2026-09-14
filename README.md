@@ -4,11 +4,21 @@ EMChat is a social network built around one idea: your feed shouldn't be spying 
 
 You sign in with a one-time link sent to your email. No password to pick, remember, or have leaked in the next breach.
 
-It's plain PHP: 8.1 or newer, MySQL/MariaDB, no Composer, no build step, no third-party scripts loading in your browser. It's server-rendered on purpose, so the homepage, login and public profiles index properly in search. Live at `emchat.social`.
+|  |  |
+|---|---|
+| **Live at** | [emchat.social](https://emchat.social) |
+| **Stack** | PHP 8.1+, MySQL/MariaDB, no Composer, no build step |
+| **License** | Source-available, not open source ([details](#license)) |
 
-## License
+---
 
-The code is public so anyone can check what it actually does, not because it's open source. Read it, learn from it, run it yourself for personal use, that's all fine. What's not fine is taking it (or a modified version) and running it as a competing product. The full terms are in [LICENSE](LICENSE).
+## Contents
+
+- [What's actually in here](#whats-actually-in-here)
+- [License](#license)
+- [How it's laid out](#how-its-laid-out)
+- [Running your own copy](#if-you-want-to-run-your-own-copy)
+- [Customising](#if-you-want-to-tweak-it)
 
 ---
 
@@ -29,6 +39,12 @@ The code is public so anyone can check what it actually does, not because it's o
 **Moderation and privacy.** Private accounts, per-post visibility, block and mute, a discoverability toggle, exporting your own data as JSON, and a real account delete that actually deletes.
 
 **Under the hood.** CSRF checks on every form, prepared statements everywhere (no raw SQL string-building), a strict content-security policy, HSTS, and secure cookies.
+
+---
+
+## License
+
+The code is public so anyone can check what it actually does, not because it's open source. Read it, learn from it, run it yourself for personal use, that's all fine. What's not fine is taking it (or a modified version) and running it as a competing product. The full terms are in [LICENSE](LICENSE).
 
 ---
 
@@ -54,7 +70,7 @@ emchat/
 
 ## If you want to run your own copy
 
-This repo is here so people can see how it works, not as a ready-to-go product you deploy in five minutes (see the License section above). It's a plain PHP 8.1+ and MySQL app with no build step: point a webserver at `public/`, bring your own database and mail setup, and load `database/schema.sql`. I've deliberately left out the specific hosting provider, environment variable names, and mail configuration I use, if you're contributing and actually need those, open an issue.
+This repo is here so people can see how it works, not as a ready-to-go product you deploy in five minutes (see [License](#license) above). It's a plain PHP 8.1+ and MySQL app with no build step: point a webserver at `public/`, bring your own database and mail setup, and load `database/schema.sql`.
 
 **On the "live" updates:** there's no WebSocket server running in the background. Open conversations just poll every 3.5 seconds, and the nav badges poll every 12, both pausing when the tab isn't visible. Simple, and it's enough for what this is.
 
