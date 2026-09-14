@@ -20,7 +20,7 @@
   </ul>
 
   <h2>Source code</h2>
-  <p>We're in the process of publishing EMChat Media's source code publicly, so our privacy claims aren't something you have to just take our word for. It'll be source-available rather than fully open source: readable by anyone, usable for personal or noncommercial purposes, but not for running a commercial competing copy without permission. A link will go here as soon as it's live.</p>
+  <p>EMChat Media's source code is publicly available to read, so our privacy claims aren't something you have to just take our word for. It's source-available rather than fully open source: you're welcome to read it, learn from it, and run it for personal or noncommercial purposes, but running a commercial competing copy isn't permitted without permission. See the <a href="https://github.com/emchatsocial/emchat" rel="noopener">repository</a> and its license for the exact terms.</p>
 
   <h2>How this is funded</h2>
   <p>EMChat Media is free to use. There's no advertising business behind it and no paid tier today. If that ever changes, any paid features will be optional, clearly labelled, and will never depend on selling your data or showing you ads.</p>
