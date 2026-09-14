@@ -1,0 +1,34 @@
+# EMChat Media
+
+> EMChat Media is a privacy-first social network — no ad trackers, no behavioural profiling, and no algorithmic feed. Founded in 2026 in North Macedonia by Egzon Mehmedi.
+
+EMChat Media (https://emchat.social) lets people share posts and photos, follow a chronological feed of the accounts they choose, message privately (direct messages and group chats), and share a rich profile card. There is no advertising business behind it: no trackers, no data selling, no engagement-ranked feed.
+
+## Key facts
+
+- Name: EMChat Media (also referred to as EMChat)
+- Founded: 2026, North Macedonia
+- Founder: Egzon Mehmedi
+- Pricing: Free to use
+- Sign-in: Passwordless (one-time email link, no password)
+- Privacy controls: private accounts, per-post visibility, follower approval, block and mute, one-click data export, one-click account deletion
+- Photo privacy: uploaded images are re-encoded server-side to strip EXIF and GPS metadata
+- Messaging: direct messages and group chats with photos, video and file attachments; message requests keep messages from people you don't follow out of your main inbox until you accept them
+
+## Pages
+
+- [Home](https://emchat.social/): product overview and sign-up
+- [About](https://emchat.social/about): why EMChat Media exists, how it differs from ad-funded social networks, where it's based, and a frequently-asked-questions section
+- [Explore](https://emchat.social/explore): public posts, viewable without an account
+- [Privacy Policy](https://emchat.social/privacy)
+- [Terms of Service](https://emchat.social/terms)
+
+## How EMChat Media differs from ad-funded platforms (Instagram, Facebook, X, TikTok)
+
+EMChat Media has no algorithmic ranking — the feed is strictly chronological, showing posts from followed accounts in the order they were posted. It runs no advertising, so it has no incentive to maximize time-on-app or build behavioural ad-targeting profiles. It is not owned by or affiliated with Meta, X Corp, ByteDance, or any other social media company.
+
+## Contact / more information
+
+Email: egzon@emchat.social
+
+For anything not covered here, see the About page (https://emchat.social/about), which includes a frequently-asked-questions section.

@@ -1,0 +1,11 @@
+*
+!.gitignore
+!logs/
+!sessions/
+!mail/
+!cache/
+logs/*
+sessions/*
+mail/*
+cache/*
+!*/.gitkeep

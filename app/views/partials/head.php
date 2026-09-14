@@ -1,0 +1,52 @@
+<?php
+/** @var array $meta */
+$m = ($meta ?? []) + [
+    'title'       => config('app_name'),
+    'description' => config('app_tagline'),
+    'canonical'   => url('/'),
+    'robots'      => 'index,follow',
+    'og_image'    => url('/assets/img/og-default.png'),
+    'type'        => 'website',
+    'jsonld'      => null,
+];
+$user = current_user();
+?>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5f5f3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#161719" media="(prefers-color-scheme: dark)">
+<title><?= e($m['title']) ?></title>
+<meta name="description" content="<?= e($m['description']) ?>">
+<meta name="robots" content="<?= e($m['robots']) ?>">
+<link rel="canonical" href="<?= e($m['canonical']) ?>">
+<link rel="icon" href="/assets/img/favicon-48.png?v=64" sizes="48x48" type="image/png">
+<link rel="icon" href="/assets/img/favicon-16.png?v=64" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png?v=64">
+<link rel="manifest" href="/assets/site.webmanifest">
+<meta name="geo.region" content="MK">
+<meta name="geo.placename" content="North Macedonia">
+
+<meta property="og:site_name" content="<?= e(config('app_name')) ?>">
+<meta property="og:type" content="<?= e($m['type']) ?>">
+<meta property="og:title" content="<?= e($m['title']) ?>">
+<meta property="og:description" content="<?= e($m['description']) ?>">
+<meta property="og:url" content="<?= e($m['canonical']) ?>">
+<meta property="og:image" content="<?= e($m['og_image']) ?>">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="<?= e($m['title']) ?>">
+<meta name="twitter:description" content="<?= e($m['description']) ?>">
+<meta name="twitter:image" content="<?= e($m['og_image']) ?>">
+
+<link rel="preload" href="/assets/fonts/Michroma.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/Bricolage.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/Hanken.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/css/app.css?v=66" as="style">
+<link rel="stylesheet" href="/assets/css/app.css?v=66">
+<script nonce="<?= e(csp_nonce()) ?>">
+(function(){var d=document.documentElement;try{var t=localStorage.getItem('emc-theme');d.dataset.theme=(t==='light'||t==='dark')?t:'dark';}catch(e){d.dataset.theme='dark';}
+try{d.classList.add('js');}catch(e){}})();
+</script>
+<?php if (!empty($m['jsonld'])): ?>
+<script type="application/ld+json"><?= str_replace('</', '<\/', $m['jsonld']) /* pre-encoded JSON; escape </ so user text (bio, post body, ...) can never close this tag early */ ?></script>
+<?php endif; ?>
+<meta name="csrf-token" content="<?= e(csrf_token()) ?>">
