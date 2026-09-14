@@ -105,6 +105,14 @@ final class AuthController extends Controller
         $raw = (string) Request::input('token', '');
         $email = App::auth()->consumeLoginToken($raw);
         if (!$email) {
+            if (current_user()) {
+                // Already signed in (e.g. re-clicking an old/used link) — nothing
+                // actually went wrong for them, so just send them on instead of
+                // flashing an "expired" warning that showLogin() would otherwise
+                // carry straight through to their feed on the redirect-when-
+                // already-authenticated bounce below.
+                redirect('/feed');
+            }
             flash('That link is invalid or has expired. Request a new one.');
             redirect('/login');
         }
