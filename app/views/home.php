@@ -4,9 +4,9 @@
     <div class="lp-hero__text">
       <h1>Your world, shared with <span class="em">the people you choose</span>.</h1>
       <p class="lp-hero__lede">
-        EMChat Media is a social network without ad trackers, behavioural profiling,
-        or an algorithm deciding what you see. Post, message and follow the people who
-        matter, and take everything with you whenever you like.
+        EMChat Media is a social network without ad trackers or behavioural profiling.
+        Post, message and follow the people who matter, and take everything with you
+        whenever you like.
       </p>
       <div class="lp-hero__cta">
         <a class="btn btn--primary btn--lg" href="<?= e(url('/login')) ?>">Create your account</a>

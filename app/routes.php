@@ -20,6 +20,7 @@ $router->get('/', fn () => (new HomeController())->index());
 $router->get('/about', fn () => (new HomeController())->about());
 $router->get('/privacy', fn () => (new HomeController())->privacyPolicy());
 $router->get('/terms', fn () => (new HomeController())->terms());
+$router->get('/transparency', fn () => (new HomeController())->transparency());
 
 // SEO
 $router->get('/sitemap.xml', fn () => (new SitemapController())->index());
