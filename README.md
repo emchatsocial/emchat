@@ -1,13 +1,16 @@
 # EMChat Media
 
-A privacy-first social network — passwordless auth, rich profile cards, photo posts,
+A privacy-first social network: passwordless auth, rich profile cards, photo posts,
 follows / likes / comments, direct messages, notifications, private accounts, block/mute,
 data export & account deletion. Server-rendered PHP so the homepage, login and public
 profiles index cleanly in Google Search Console.
 
 - **Stack:** PHP 8.1+ and MySQL/MariaDB. No Composer, no build step, no CDN, no trackers.
-- **Target host:** Namecheap shared hosting (cPanel / Apache / PHP-FPM).
 - **Domain:** `emchat.social`
+- **License:** Source-available, not open source. The code is public so anyone can verify what
+  it does and doesn't do (see [`LICENSE`](LICENSE)) — you're welcome to read it, learn from it,
+  run it for personal/noncommercial purposes, and open issues or pull requests. Running it, or a
+  derivative of it, as a commercial or competing product is not permitted without permission.
 
 ---
 

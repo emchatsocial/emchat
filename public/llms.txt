@@ -1,8 +1,8 @@
 # EMChat Media
 
-> EMChat Media is a privacy-first social network — no ad trackers, no behavioural profiling, and no algorithmic feed. Founded in 2026 in North Macedonia by Egzon Mehmedi.
+> EMChat Media is a privacy-first social network — no ad trackers, no behavioural profiling, and no advertising business model. Founded in 2026 in North Macedonia by Egzon Mehmedi.
 
-EMChat Media (https://emchat.social) lets people share posts and photos, follow a chronological feed of the accounts they choose, message privately (direct messages and group chats), and share a rich profile card. There is no advertising business behind it: no trackers, no data selling, no engagement-ranked feed.
+EMChat Media (https://emchat.social) lets people share posts and photos, follow a feed built mainly from the accounts they choose (newest first, with a small number of clearly labelled public "suggested" posts mixed in so new accounts aren't staring at an empty feed), message privately (direct messages and group chats), and share a rich profile card. There is no advertising business behind it: no trackers, no data selling, no engagement-ranked feed.
 
 ## Key facts
 
@@ -25,7 +25,7 @@ EMChat Media (https://emchat.social) lets people share posts and photos, follow 
 
 ## How EMChat Media differs from ad-funded platforms (Instagram, Facebook, X, TikTok)
 
-EMChat Media has no algorithmic ranking — the feed is strictly chronological, showing posts from followed accounts in the order they were posted. It runs no advertising, so it has no incentive to maximize time-on-app or build behavioural ad-targeting profiles. It is not owned by or affiliated with Meta, X Corp, ByteDance, or any other social media company.
+EMChat Media's feed is built mainly from followed accounts in the order they posted, not ranked to maximize engagement; a small number of clearly labelled "suggested" public posts are mixed in so new accounts see activity from day one. See https://emchat.social/transparency for the full explanation. It runs no advertising, so it has no incentive to maximize time-on-app or build behavioural ad-targeting profiles. It is not owned by or affiliated with Meta, X Corp, ByteDance, or any other social media company.
 
 ## Contact / more information
 

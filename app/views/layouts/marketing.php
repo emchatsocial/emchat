@@ -41,6 +41,7 @@ $user = current_user();
       <span class="site-footer__label">Legal</span>
       <a href="<?= e(url('/privacy')) ?>">Privacy Policy</a>
       <a href="<?= e(url('/terms')) ?>">Terms</a>
+      <a href="<?= e(url('/transparency')) ?>">Transparency</a>
     </nav>
     <nav>
       <span class="site-footer__label">Contact</span>

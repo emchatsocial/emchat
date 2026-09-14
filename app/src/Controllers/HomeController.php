@@ -17,7 +17,7 @@ final class HomeController extends Controller
             'meta' => $this->meta([
                 'title'       => 'EMChat: A Social Network That Keeps Your World Yours',
                 'description' => 'EMChat is a privacy-first social network from North Macedonia: no ad trackers, '
-                    . 'no algorithm, just posts from people you follow, newest first.',
+                    . 'no behavioural profiling, just posts from people you follow, newest first.',
                 'type'        => 'website',
                 'jsonld'      => $this->organizationJsonLd(),
             ]),
@@ -32,7 +32,7 @@ final class HomeController extends Controller
             'meta' => $this->meta([
                 'title'       => 'About EMChat: A Social Network Built for Privacy, Not Profit',
                 'description' => 'Why EMChat exists: a privacy-first social network with no trackers or '
-                    . 'algorithm, founded in 2026 in North Macedonia by Egzon Mehmedi.',
+                    . 'behavioural profiling, founded in 2026 in North Macedonia by Egzon Mehmedi.',
                 'jsonld'      => $this->faqJsonLd($faqs),
             ]),
             'faqs' => $faqs,
@@ -45,8 +45,8 @@ final class HomeController extends Controller
         return [
             ['What is EMChat Media?',
                 'EMChat Media is a privacy-first social network founded in 2026 in North Macedonia. It offers a '
-                . 'chronological feed, private messaging and group chats, and profile pages, with no ad trackers, '
-                . 'behavioural profiling, or algorithmic ranking.'],
+                . 'feed built mainly from the people you follow, private messaging and group chats, and profile '
+                . 'pages, with no ad trackers or behavioural profiling.'],
             ['Is EMChat Media free to use?',
                 'Yes, EMChat Media is free to use. There is no advertising business behind it, so no paid tier '
                 . 'is required for the core features.'],
@@ -55,9 +55,10 @@ final class HomeController extends Controller
                 . 're-encoded to strip EXIF and GPS metadata, and you can export or permanently delete your data '
                 . 'at any time.'],
             ['How is EMChat Media different from Instagram, Facebook, or X?',
-                'Unlike ad-funded platforms, EMChat Media has no algorithmic feed, no ad trackers, and no '
-                . 'behavioural profiling. Posts appear in the order they were shared from the people you follow, '
-                . 'not ranked for engagement.'],
+                'Unlike ad-funded platforms, EMChat Media has no ad trackers and no behavioural profiling. Your '
+                . 'feed is built from the people you follow, plus a small number of clearly labelled "suggested" '
+                . 'public posts so new accounts are never staring at an empty screen. Nothing is ranked to '
+                . 'maximise how long you scroll. See our transparency page for the full details.'],
             ['Who founded EMChat Media?',
                 'EMChat Media was founded by Egzon Mehmedi and is built and run independently from North Macedonia.'],
             ['Do I need a password to sign in to EMChat Media?',
@@ -102,6 +103,17 @@ final class HomeController extends Controller
             'meta' => $this->meta([
                 'title'       => 'Terms of Service · ' . config('app_name'),
                 'description' => 'The terms that govern your use of EMChat Media: your account, your content, and what we do and do not do with either.',
+            ]),
+        ], 'marketing');
+    }
+
+    public function transparency(): void
+    {
+        $this->render('transparency', [
+            'meta' => $this->meta([
+                'title'       => 'Transparency · ' . config('app_name'),
+                'description' => 'What EMChat Media actually does with your data, how the feed works, and where to read the source code yourself instead of taking our word for it.',
+                'canonical'   => url('/transparency'),
             ]),
         ], 'marketing');
     }
