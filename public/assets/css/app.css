@@ -503,7 +503,7 @@ body.marketing{--maxw:1320px}
 .shell__aside::-webkit-scrollbar{width:6px}
 .shell__aside::-webkit-scrollbar-thumb{background:var(--surface-3);border-radius:3px}
 @media(max-width:1080px){.shell{grid-template-columns:76px minmax(0,1fr);gap:0}.shell__aside{display:none}.shell__main{border-right:0}}
-@media(max-width:720px){.shell{grid-template-columns:1fr}.shell__nav{display:none}.shell__main{border:0;background:transparent}}
+@media(max-width:720px){.shell{grid-template-columns:minmax(0,1fr)}.shell__nav{display:none}.shell__main{border:0;background:transparent}}
 
 .nav{display:flex;flex-direction:column;width:100%;gap:3px}
 .nav__brand{font-family:var(--brand-font);font-weight:650;font-size:20px;letter-spacing:-.035em;padding:14px 14px 10px;color:var(--text);display:block}
@@ -962,17 +962,17 @@ body.marketing{--maxw:1320px}
   .shell__main{padding-bottom:76px}
   .tabbar{
     display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;
-    align-items:center;
-    padding:10px 0 calc(10px + env(safe-area-inset-bottom));
+    align-items:center;justify-content:space-between;
+    padding:10px 22px calc(10px + env(safe-area-inset-bottom));
     background:color-mix(in srgb,var(--surface) 82%,transparent);
     backdrop-filter:blur(22px) saturate(1.7);-webkit-backdrop-filter:blur(22px) saturate(1.7);
     border-top:1px solid var(--hairline);font-size:21px
   }
   .tabbar a,.tabbar button{color:var(--text-2);background:none;border:0;cursor:pointer;display:flex;padding:6px}
-  .tabbar__side{flex:1;display:flex;justify-content:space-around;align-items:center;min-width:0}
+  .tabbar__side{display:flex;align-items:center;gap:22px}
   .tabbar__post{position:absolute;left:50%;transform:translateX(-50%);
     background:var(--brand)!important;color:var(--brand-ink)!important;width:46px;height:46px;border-radius:50%;
-    align-items:center;justify-content:center;font-size:24px;box-shadow:0 4px 10px -2px color-mix(in srgb,var(--brand) 30%,transparent);margin-top:-22px}
+    align-items:center;justify-content:center;font-size:24px;box-shadow:0 3px 8px rgba(0,0,0,.4);margin-top:-22px}
   .messenger__panel{height:calc(100dvh - 76px)}
 }
 @media(min-width:721px){.tabbar{display:none}}
