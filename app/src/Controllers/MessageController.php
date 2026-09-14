@@ -360,6 +360,12 @@ final class MessageController extends Controller
         if (!Messaging::isParticipant($cid, $uid)) {
             $this->fail('This conversation is unavailable.');
         }
+        if (!Messaging::isGroup($cid)) {
+            $other = Messaging::other($cid, $uid);
+            if ($other && $other['suspended_at'] !== null) {
+                $this->fail('You can\'t send messages to this account right now.');
+            }
+        }
 
         $body = trim((string) Request::input('body', ''));
         $replyTo = Request::int('reply_to') ?: null;
