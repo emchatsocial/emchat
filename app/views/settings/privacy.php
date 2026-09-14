@@ -41,5 +41,5 @@
 
 <section class="panel panel--privacy">
   <h2 class="panel__title">What we collect</h2>
-  <p>EMChat stores only what you give us: your email (to sign in), your posts, and who you follow. No third-party analytics or advertising SDKs run on this site. <a href="<?= e(url('/privacy')) ?>">Read the full policy</a></p>
+  <p>EMChat stores only what you give us: your email (to sign in), your posts, and who you follow. We use basic Google Analytics to see visit counts, no advertising SDKs run on this site. <a href="<?= e(url('/privacy')) ?>">Read the full policy</a></p>
 </section>
