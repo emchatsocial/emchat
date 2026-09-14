@@ -315,6 +315,25 @@ final class Post
         return true;
     }
 
+    /** Moderator deletion: skips the ownership check delete() enforces. */
+    public static function adminDelete(int $postId): bool
+    {
+        $post = App::db()->first('SELECT * FROM posts WHERE id = ? AND deleted_at IS NULL', [$postId]);
+        if (!$post) {
+            return false;
+        }
+        App::db()->run('UPDATE posts SET deleted_at = NOW() WHERE id = ?', [$postId]);
+        if ($post['reply_to_id']) {
+            App::db()->run('UPDATE posts SET reply_count = GREATEST(reply_count - 1, 0) WHERE id = ?', [$post['reply_to_id']]);
+        }
+        return true;
+    }
+
+    public static function countAll(): int
+    {
+        return (int) App::db()->column('SELECT COUNT(*) FROM posts WHERE deleted_at IS NULL');
+    }
+
     public static function likers(int $postId): array
     {
         return App::db()->all(

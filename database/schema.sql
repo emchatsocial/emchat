@@ -15,12 +15,15 @@ CREATE TABLE IF NOT EXISTS users (
     avatar_path     VARCHAR(190) NULL,
     is_private      TINYINT(1)   NOT NULL DEFAULT 0,
     discoverable    TINYINT(1)   NOT NULL DEFAULT 1,  -- appears in search/sitemap
+    role            ENUM('user','admin') NOT NULL DEFAULT 'user',
     email_verified_at DATETIME   NULL,
     last_seen_at    DATETIME     NULL,
+    suspended_at    DATETIME     NULL,
     created_at      DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     UNIQUE KEY uq_users_username (username),
-    UNIQUE KEY uq_users_email (email)
+    UNIQUE KEY uq_users_email (email),
+    KEY idx_users_role (role)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS login_tokens (
@@ -189,6 +192,8 @@ CREATE TABLE IF NOT EXISTS reports (
     reason        VARCHAR(60) NOT NULL DEFAULT '',
     note          VARCHAR(500) NOT NULL DEFAULT '',
     handled_at    DATETIME NULL,
+    handled_by    BIGINT UNSIGNED NULL,
+    action        VARCHAR(30) NOT NULL DEFAULT '',
     created_at    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     UNIQUE KEY uq_report (reporter_id, subject_type, subject_id),

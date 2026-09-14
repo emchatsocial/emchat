@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /** @var string $content  @var array $meta */
 $user = current_user();
 ?><!doctype html>
@@ -51,6 +51,6 @@ $user = current_user();
   </div>
 </footer>
 <div id="toasts" class="toasts" aria-live="polite"></div>
-<script src="/assets/js/app.js?v=68" defer></script>
+<script src="/assets/js/app.js?v=69" defer></script>
 </body>
 </html>

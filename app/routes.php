@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use App\Router;
+use App\Controllers\AdminController;
 use App\Controllers\AuthController;
 use App\Controllers\FeedController;
 use App\Controllers\HomeController;
@@ -100,6 +101,16 @@ $router->post('/settings/privacy', fn () => (new SettingsController())->updatePr
 $router->get('/settings/account', fn () => (new SettingsController())->account());
 $router->post('/settings/account/export', fn () => (new SettingsController())->exportData());
 $router->post('/settings/account/delete', fn () => (new SettingsController())->deleteAccount());
+
+// Admin
+$router->get('/admin', fn () => (new AdminController())->dashboard());
+$router->get('/admin/users', fn () => (new AdminController())->users());
+$router->post('/admin/users/{id:\d+}/role', fn ($p) => (new AdminController())->setRole($p));
+$router->post('/admin/users/{id:\d+}/suspend', fn ($p) => (new AdminController())->suspend($p));
+$router->post('/admin/users/{id:\d+}/unsuspend', fn ($p) => (new AdminController())->unsuspend($p));
+$router->get('/admin/reports', fn () => (new AdminController())->reports());
+$router->post('/admin/reports/{id:\d+}/dismiss', fn ($p) => (new AdminController())->dismissReport($p));
+$router->post('/admin/reports/{id:\d+}/action', fn ($p) => (new AdminController())->actionReport($p));
 
 // Profiles — keep last: greedy @handle routes
 $router->get('/@{username:[a-zA-Z0-9_]+}', fn ($p) => (new ProfileController())->show($p));

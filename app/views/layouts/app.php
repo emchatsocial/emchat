@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /** @var string $content  @var array $meta */
 $user = current_user();
 if (!$user) { redirect('/login'); }
@@ -36,6 +36,6 @@ if (!$user) { redirect('/login'); }
 
 <div id="toasts" class="toasts" aria-live="polite" aria-atomic="false"></div>
 
-<script src="/assets/js/app.js?v=68" defer></script>
+<script src="/assets/js/app.js?v=69" defer></script>
 </body>
 </html>

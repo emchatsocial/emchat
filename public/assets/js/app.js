@@ -222,7 +222,17 @@
     if (kind === 'settings') return handleSettings(form);
     if (kind === 'remove-avatar') return handleRemoveAvatar(form);
     if (kind === 'onboard') return handleOnboard(form);
+    if (kind === 'admin-action') return handleAdminAction(form);
   });
+
+  function handleAdminAction(form) {
+    var t = toast('Saving…', 'loading');
+    post(form.action, new FormData(form)).then(function (res) {
+      if (!res.ok) { t.update(res.error || 'Could not save', 'error'); return; }
+      t.update(res.message || 'Done', 'success');
+      setTimeout(function () { location.reload(); }, 400);
+    });
+  }
 
   function handleOnboard(form) {
     var btn = form.querySelector('[data-finish]');
