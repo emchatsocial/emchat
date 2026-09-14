@@ -55,100 +55,17 @@ deny-all `.htaccess` in case your host forces everything into `public_html`.
 
 ---
 
-## Deploy to Namecheap shared hosting
+## Running your own copy
 
-1. **Create a database** in cPanel → *MySQL Databases*. Note the DB name, user, password
-   (they'll be prefixed, e.g. `cpanelusr_emchat`).
+This repository is published for transparency and review, not as a turnkey product (see
+**License** above). It's a standard PHP 8.1+ / MySQL app with no build step: point a webserver
+at `public/`, supply your own database and mail configuration, and load `database/schema.sql`.
+Deployment specifics (hosting provider, environment variable names, mail setup) are
+intentionally left out of this README; open an issue if you're a contributor and need them.
 
-2. **Upload the files.** Two options:
-
-   **A — domain document root is changeable (preferred).**
-   Upload the whole `emchat/` folder somewhere like `/home/USER/emchat/`, then in
-   cPanel → *Domains* set the document root of `emchat.social` to `/home/USER/emchat/public`.
-
-   **B — stuck with `public_html`.**
-   Put the contents of `public/` directly into `public_html/`, and upload `app/`,
-   `config/`, `database/`, `storage/` one level up (into `/home/USER/`). Then edit
-   the first lines of `public_html/index.php` so `EMCHAT_APP_DIR` points at your `app/`
-   folder (or set an `EMCHAT_APP_DIR` env var in `.htaccess`:
-   `SetEnv EMCHAT_APP_DIR /home/USER/app`).
-
-3. **Permissions.** Make `storage/` and `public/media/` writable (usually `755` is fine on
-   Namecheap; use `775` if PHP runs as a different user).
-
-4. **Run the installer.** Visit `https://emchat.social/install.php`, enter the site URL,
-   DB credentials and mail choice. It imports the schema and writes `config/config.php`.
-
-5. **Delete `public/install.php`.**
-
-6. **Email (magic links).** Configuration can come from `config/config.php` **or** a
-   `.env` file in the project root (copy `.env.example` → `.env`; `.env` is git-ignored
-   and overrides `config.php`). Two options:
-
-   **Resend (recommended, HTTPS API):**
-   ```
-   RESEND_API_KEY=re_xxxxxxxx
-   RESEND_FROM=no-reply@emchat.social
-   ```
-   Verify your sending domain in the Resend dashboard first (add the DNS records they
-   give you). While a domain is unverified, Resend only delivers to your own account
-   email; it also refuses `@example.com` test addresses. The driver auto-selects
-   `resend` whenever `RESEND_API_KEY` is set.
-
-   **SMTP (cPanel mailbox):**
-   ```
-   MAIL_DRIVER=smtp
-   SMTP_HOST=mail.emchat.social
-   SMTP_PORT=465
-   SMTP_ENCRYPTION=ssl
-   SMTP_USER=hello@emchat.social
-   SMTP_PASS=your_mailbox_password
-   ```
-   Create the mailbox in cPanel → *Email Accounts* and set SPF/DKIM so links don't
-   land in spam.
-
-   If sending ever fails, the check-your-email page shows the sign-in link on screen
-   as a fallback so nobody is locked out. Set `APP_DEBUG=true` locally to always show it.
-
-7. **SEO / Search Console.**
-   - Verify `https://emchat.social` in Google Search Console (HTML-tag or DNS).
-   - Submit `https://emchat.social/sitemap.xml`.
-   - `robots.txt` already allows `/`, `/login`, `/explore`, `/about`, `/privacy`, `/terms`
-     and public profiles/posts; it blocks the app's private areas.
-   - Replace `public/assets/img/og-default.png` and the logos with real brand art
-     (same filenames) when you have them.
-
-8. **Force HTTPS.** Enable AutoSSL in cPanel. The `.htaccess` already redirects HTTP→HTTPS
-   and `www`→apex (flip that rule if you prefer `www`).
-
-### PHP settings (cPanel → *Select PHP Version*)
-Enable extensions: `pdo_mysql`, `gd`, `mbstring`, `openssl`, `fileinfo`, `curl`.
-For video attachments set `upload_max_filesize` ≥ `45M`, `post_max_size` ≥ `50M`,
-`max_execution_time` ≥ `60`. Lower `max_video_bytes` in `config/config.php` if your plan caps uploads.
-
-### "Real-time" on shared hosting
-There are no WebSockets (shared hosting kills long-running processes), so live updates use
-lightweight polling: open conversations poll every 3.5s, nav badges every 12s, and both pause
-while the tab is hidden. This scales fine for a community-sized site. If you later move to a VPS
-you can swap `/x/pulse` and the message poll for SSE or a websocket without touching the UI.
-
-### Migrating an existing install
-Run the SQL files in `database/migrations/` in order against your database (the base
-`database/schema.sql` already includes them for fresh installs).
-
----
-
-## Local development
-
-```bash
-# from the repo root, with PHP 8.1+ and a local MySQL/MariaDB
-php -S localhost:8888 -t public public/index.php    # or use the built-in router
-```
-
-Create `config/config.php` from `config/config.example.php` (or run `/install.php`),
-point it at your local DB, load `database/schema.sql`, set `'debug' => true` and
-`'mail' => ['driver' => 'log', ...]` (sign-in links get written to `storage/mail/`
-and shown on the check-email screen).
+### "Real-time" without WebSockets
+There are no long-running WebSocket connections. Live updates use lightweight polling instead:
+open conversations poll every 3.5s, nav badges every 12s, and both pause while the tab is hidden.
 
 ---
 

@@ -1,5 +1,7 @@
 /.env
+/.env.example
 /config/config.php
+/config/config.example.php
 /public/config.php
 .claude/
 /public/media/avatars/*
