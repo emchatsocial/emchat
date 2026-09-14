@@ -4,7 +4,7 @@
 
   <h2>What we don't do</h2>
   <ul>
-    <li>No ad trackers, no analytics scripts, no advertising SDKs. The site loads only its own code.</li>
+    <li>No ad trackers, no advertising SDKs, no ad targeting. We run basic Google Analytics to see visit counts and popular pages, nothing beyond that.</li>
     <li>No selling, renting, or sharing your data with anyone.</li>
     <li>No behavioural profiling, and no reading your private messages for advertising or training.</li>
   </ul>

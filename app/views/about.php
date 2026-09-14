@@ -7,7 +7,7 @@
 
   <h2>How EMChat is different</h2>
   <ul>
-    <li><strong>No trackers.</strong> No Google Analytics, no Meta Pixel, no advertising SDKs. The site loads only its own code.</li>
+    <li><strong>No ad trackers.</strong> No Meta Pixel, no advertising SDKs, no selling or sharing your data with advertisers. We use basic visit analytics to see how the site is doing, never to build an ad profile of you.</li>
     <li><strong>No engagement ranking.</strong> Your timeline is the people you follow, newest first.</li>
     <li><strong>Passwordless.</strong> You sign in with a one-time email link, so there's no password to breach.</li>
     <li><strong>Photo privacy by default.</strong> Uploaded images are re-encoded server-side, which strips EXIF and GPS metadata.</li>

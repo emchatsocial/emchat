@@ -11,6 +11,15 @@ $m = ($meta ?? []) + [
 ];
 $user = current_user();
 ?>
+<!-- Google tag (gtag.js) -->
+<script async nonce="<?= e(csp_nonce()) ?>" src="https://www.googletagmanager.com/gtag/js?id=G-GCB737L718"></script>
+<script nonce="<?= e(csp_nonce()) ?>">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-GCB737L718');
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f5f5f3" media="(prefers-color-scheme: light)">
