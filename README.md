@@ -24,21 +24,48 @@ You sign in with a one-time link sent to your email. No password to pick, rememb
 
 ## What's actually in here
 
-**Accounts and sign-in.** Email link instead of a password, rate limiting and a honeypot field against bots, a quick three-step setup after your first sign-in (handle, display name, optional photo), and it still works fine with JavaScript off.
+### Accounts and sign-in
+- A one-time email link instead of a password
+- Rate limiting and a honeypot field against bots
+- A quick three-step setup after your first sign-in: handle, display name, optional photo
+- Works fine with JavaScript off
 
-**Profiles.** A proper profile card with photo, bio (links and @mentions work), follower stats, a shareable `/@user/card` page, and follower/following lists.
+### Profiles
+- A proper profile card with photo, bio, follower stats
+- Links and @mentions in bios are clickable
+- A shareable `/@user/card` page
+- Follower and following lists
 
-**Posts.** Text plus up to four images, three visibility levels (public, followers, private), replies, delete. Every uploaded image gets re-encoded on the server, which strips EXIF and GPS data automatically, so nobody's accidentally sharing their location in a photo.
+### Posts
+- Text plus up to four images, per-post visibility (public, followers, private)
+- Replies and delete
+- Every uploaded image is re-encoded on the server, which strips EXIF and GPS data automatically, so nobody's accidentally sharing their location in a photo
 
-**Following people.** Follow/unfollow, follow requests for private accounts, likes, threaded replies, mentions, hashtags.
+### Following people
+- Follow / unfollow, with follow requests for private accounts
+- Likes, threaded replies, mentions, hashtags
 
-**Messaging.** One-to-one conversations, a people picker for starting new ones, attachments (photos, video, audio, PDFs, docs, images get the same metadata stripping as posts), replying to a specific message, editing within 90 minutes, deleting for everyone or just for yourself, unread counts, and live delivery through short polling rather than a persistent connection.
+### Messaging
+- One-to-one conversations, with a people picker for starting new ones
+- Attachments: photos, video, audio, PDFs, docs (images get the same metadata stripping as posts)
+- Reply to a specific message, edit within 90 minutes
+- Delete for everyone, or just for yourself
+- Unread counts, and live delivery through short polling rather than a persistent connection
 
-**Notifications.** Likes, follows, follow requests, replies, mentions, messages. Repeated activity from the same person collapses into one entry instead of flooding your list, and the nav badge stays current without a page reload.
+### Notifications
+- Likes, follows, follow requests, replies, mentions, messages
+- Repeated activity from the same person collapses into one entry instead of flooding your list
+- The nav badge stays current without a page reload
 
-**Moderation and privacy.** Private accounts, per-post visibility, block and mute, a discoverability toggle, exporting your own data as JSON, and a real account delete that actually deletes.
+### Moderation and privacy
+- Private accounts, per-post visibility, block and mute
+- A discoverability toggle
+- Exporting your own data as JSON
+- A real account delete that actually deletes
 
-**Under the hood.** CSRF checks on every form, prepared statements everywhere (no raw SQL string-building), a strict content-security policy, HSTS, and secure cookies.
+### Under the hood
+- CSRF checks on every form, prepared statements everywhere (no raw SQL string-building)
+- A strict content-security policy, HSTS, secure cookies
 
 ---
 
