@@ -1,77 +1,68 @@
 # EMChat Media
 
-A privacy-first social network: passwordless auth, rich profile cards, photo posts,
-follows / likes / comments, direct messages, notifications, private accounts, block/mute,
-data export & account deletion. Server-rendered PHP so the homepage, login and public
-profiles index cleanly in Google Search Console.
+EMChat is a social network built around one idea: your feed shouldn't be spying on you. No trackers, no ad network, no algorithm quietly deciding what you see. Just profiles, posts, follows, direct messages, and notifications, the normal stuff, without the surveillance that usually comes bundled with it.
 
-- **Stack:** PHP 8.1+ and MySQL/MariaDB. No Composer, no build step, no CDN, no trackers.
-- **Domain:** `emchat.social`
-- **License:** Source-available, not open source. The code is public so anyone can verify what
-  it does and doesn't do (see [`LICENSE`](LICENSE)) — you're welcome to read it, learn from it,
-  run it for personal/noncommercial purposes, and open issues or pull requests. Running it, or a
-  derivative of it, as a commercial or competing product is not permitted without permission.
+You sign in with a one-time link sent to your email. No password to pick, remember, or have leaked in the next breach.
+
+It's plain PHP: 8.1 or newer, MySQL/MariaDB, no Composer, no build step, no third-party scripts loading in your browser. It's server-rendered on purpose, so the homepage, login and public profiles index properly in search. Live at `emchat.social`.
+
+## License
+
+The code is public so anyone can check what it actually does, not because it's open source. Read it, learn from it, run it yourself for personal use, that's all fine. What's not fine is taking it (or a modified version) and running it as a competing product. The full terms are in [LICENSE](LICENSE).
 
 ---
 
-## What's in the box
+## What's actually in here
 
-| Area | Feature |
-|---|---|
-| Auth | Magic-link sign in (no passwords), one-time tokens, rate limiting, honeypot |
-| Onboarding | 3-step wizard after first sign-in: claim handle (live availability check via `/x/username-available`), display name, optional profile photo + private-account choice. Works without JS as a single form. |
-| Profiles | Rich profile cards (profile photo, bio with links/mentions, stats, follow/message), shareable card page at `/@user/card`, followers/following lists |
-| Posts | Text + up to 4 images, visibility (public / followers / private), replies, delete |
-| Media privacy | Every upload re-encoded with GD → EXIF/GPS stripped automatically |
-| Social | Follow / unfollow, follow requests for private accounts, likes, threaded replies, mentions, hashtags |
-| Messaging | 1:1 conversations, a people picker to start new chats, photo/video/audio/PDF/doc attachments (images re-encoded to strip metadata), reply to a message, edit within 90 minutes, delete for everyone (tombstone) or delete for me (hidden from your view), live delivery + live edit/delete sync via 3.5s polling, unread counts |
-| Notifications | like / follow / follow-request / reply / mention / message, grouped; nav badges refresh live (12s pulse) |
-| Posts extras | Inline edit (with "edited" marker), per-post visibility change, copy link, and for others' posts: mute / block / report with a reason picker |
-| Feedback | Toast notifications for every action ("Posted", "Post updated", "Uploading… 60%", "Saved", "Blocked @user", …); privacy toggles autosave on change |
-| Privacy | Private accounts, per-post visibility, block, mute, discoverability toggle, JSON data export, hard account delete |
-| SEO | Server-rendered HTML, per-page `<title>`/meta/canonical, Open Graph + Twitter cards, JSON-LD (Organization, WebSite, ProfilePage, SocialMediaPosting), `/sitemap.xml`, `/robots.txt` |
-| Security | CSRF on every POST, prepared statements everywhere, strict CSP, HSTS, `X-Frame-Options`, secure cookies |
+**Accounts and sign-in.** Email link instead of a password, rate limiting and a honeypot field against bots, a quick three-step setup after your first sign-in (handle, display name, optional photo), and it still works fine with JavaScript off.
+
+**Profiles.** A proper profile card with photo, bio (links and @mentions work), follower stats, a shareable `/@user/card` page, and follower/following lists.
+
+**Posts.** Text plus up to four images, three visibility levels (public, followers, private), replies, delete. Every uploaded image gets re-encoded on the server, which strips EXIF and GPS data automatically, so nobody's accidentally sharing their location in a photo.
+
+**Following people.** Follow/unfollow, follow requests for private accounts, likes, threaded replies, mentions, hashtags.
+
+**Messaging.** One-to-one conversations, a people picker for starting new ones, attachments (photos, video, audio, PDFs, docs, images get the same metadata stripping as posts), replying to a specific message, editing within 90 minutes, deleting for everyone or just for yourself, unread counts, and live delivery through short polling rather than a persistent connection.
+
+**Notifications.** Likes, follows, follow requests, replies, mentions, messages. Repeated activity from the same person collapses into one entry instead of flooding your list, and the nav badge stays current without a page reload.
+
+**Moderation and privacy.** Private accounts, per-post visibility, block and mute, a discoverability toggle, exporting your own data as JSON, and a real account delete that actually deletes.
+
+**Under the hood.** CSRF checks on every form, prepared statements everywhere (no raw SQL string-building), a strict content-security policy, HSTS, and secure cookies.
 
 ---
 
-## Directory layout
+## How it's laid out
 
 ```
 emchat/
-├── public/            ← web root (point the domain here)
+├── public/            ← point your webserver here
 │   ├── index.php       front controller
 │   ├── .htaccess       rewrites + security headers
-│   ├── install.php     one-time browser installer (delete after use)
-│   ├── assets/         css / js / images  (no external deps)
-│   └── media/          uploaded images (writable)
-├── app/               application code (PHP, views) — not web-accessible
-├── config/            config.php lives here (created by installer)
+│   ├── install.php     one-time browser installer (delete once you've run it)
+│   ├── assets/         css / js / images, no external dependencies
+│   └── media/          uploaded images (needs to be writable)
+├── app/               application code and views, not reachable from the browser
+├── config/            config.php lives here, generated by the installer
 ├── database/schema.sql
-└── storage/           logs, sessions, cache, dev mail  (writable)
+└── storage/           logs, sessions, cache, dev mail (needs to be writable)
 ```
 
-`app/`, `config/`, `storage/`, `database/` sit **outside** the web root. Each also ships a
-deny-all `.htaccess` in case your host forces everything into `public_html`.
+`app/`, `config/`, `storage/` and `database/` all sit outside the web root on purpose. Each one also ships its own deny-all `.htaccess`, in case your host insists on putting everything under `public_html` anyway.
 
 ---
 
-## Running your own copy
+## If you want to run your own copy
 
-This repository is published for transparency and review, not as a turnkey product (see
-**License** above). It's a standard PHP 8.1+ / MySQL app with no build step: point a webserver
-at `public/`, supply your own database and mail configuration, and load `database/schema.sql`.
-Deployment specifics (hosting provider, environment variable names, mail setup) are
-intentionally left out of this README; open an issue if you're a contributor and need them.
+This repo is here so people can see how it works, not as a ready-to-go product you deploy in five minutes (see the License section above). It's a plain PHP 8.1+ and MySQL app with no build step: point a webserver at `public/`, bring your own database and mail setup, and load `database/schema.sql`. I've deliberately left out the specific hosting provider, environment variable names, and mail configuration I use, if you're contributing and actually need those, open an issue.
 
-### "Real-time" without WebSockets
-There are no long-running WebSocket connections. Live updates use lightweight polling instead:
-open conversations poll every 3.5s, nav badges every 12s, and both pause while the tab is hidden.
+**On the "live" updates:** there's no WebSocket server running in the background. Open conversations just poll every 3.5 seconds, and the nav badges poll every 12, both pausing when the tab isn't visible. Simple, and it's enough for what this is.
 
 ---
 
-## Customising
+## If you want to tweak it
 
-- **Brand colours:** CSS variables at the top of `public/assets/css/app.css` (`--brand`, etc.).
-- **Copy:** `app/views/home.php`, `about.php`, `privacy-policy.php`, `terms.php`.
-- **Reserved handles:** `App\Models\User::RESERVED` in `app/src/Models/User.php`.
-- **Rate limits / token lifetime / upload caps:** `config/config.php`.
+- **Colours:** the CSS variables near the top of `public/assets/css/app.css` (`--brand` and friends).
+- **Page copy:** `app/views/home.php`, `about.php`, `privacy-policy.php`, `terms.php`.
+- **Reserved usernames:** `App\Models\User::RESERVED` in `app/src/Models/User.php`.
+- **Rate limits, token lifetime, upload size caps:** `config/config.php`.
