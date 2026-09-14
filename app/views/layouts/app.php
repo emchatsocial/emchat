@@ -32,6 +32,7 @@ if (!$user) { redirect('/login'); }
   <button data-open-composer aria-label="New post" class="tabbar__post"><?= icon('plus', '', 24) ?></button>
   <a href="<?= e(url('/notifications')) ?>" aria-label="Notifications" data-badge="notifications" class="<?= str_starts_with($tp, '/notifications') ? 'is-active' : '' ?>"><?= icon('bell', '', 23) ?></a>
   <a href="<?= e(url('/messages')) ?>" aria-label="Messages" data-badge="messages" class="<?= str_starts_with($tp, '/messages') ? 'is-active' : '' ?>"><?= icon('mail', '', 23) ?></a>
+  <a href="<?= e(url('@' . $user['username'])) ?>" aria-label="Profile" class="tabbar__profile <?= str_starts_with($tp, '/@' . $user['username']) ? 'is-active' : '' ?>"><?= $view->partial('avatar', ['u' => $user, 'size' => 'xs']) ?></a>
 </nav>
 
 <div id="toasts" class="toasts" aria-live="polite" aria-atomic="false"></div>
