@@ -107,7 +107,7 @@ final class MessageController extends Controller
     {
         $user = require_login();
         $other = User::findByUsername($params['username'] ?? '');
-        if (!$other) {
+        if (!$other || $other['suspended_at'] !== null) {
             abort(404);
         }
         $cid = Messaging::conversationWith((int) $user['id'], (int) $other['id']);
