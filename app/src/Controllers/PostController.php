@@ -62,6 +62,9 @@ final class PostController extends Controller
         if (!$post) {
             abort(404, 'This post is unavailable.');
         }
+        if (!empty($post['author_suspended_at']) && (($viewer['role'] ?? 'user') !== 'admin')) {
+            abort(404, 'This post is unavailable.');
+        }
         $replies = Post::replies((int) $post['id'], $viewerId);
         $parent = $post['reply_to_id'] ? Post::find((int) $post['reply_to_id'], $viewerId) : null;
 
