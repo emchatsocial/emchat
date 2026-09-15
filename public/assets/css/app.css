@@ -959,7 +959,7 @@ body.marketing{--maxw:1320px}
 @media(max-width:720px){
   .page-head{border-radius:0}
   .composer-inline,.stream .post,.pcard--full,.tabs{border-radius:0}
-  .shell__main{padding-bottom:76px}
+  .shell__main{padding-bottom:max(76px, calc(66px + env(safe-area-inset-bottom)))}
   .tabbar{
     display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;
     align-items:center;justify-content:space-between;
@@ -1105,7 +1105,7 @@ strong,b{font-weight:600}
 .tabbar .ic{width:23px;height:23px}
 .tabbar a,.tabbar button{color:var(--muted)}
 .tabbar a.is-active{color:var(--brand-strong)}
-.tabbar__post .ic{width:24px;height:24px;color:#fff}
+.tabbar__post .ic{width:24px;height:24px;color:var(--brand-ink)}
 .tabbar__profile .avatar{width:24px;height:24px}
 .tabbar__profile.is-active .avatar{box-shadow:0 0 0 2px var(--brand-strong)}
 
