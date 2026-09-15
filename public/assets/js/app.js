@@ -341,6 +341,7 @@
         if (isReply) stream.appendChild(node); else stream.insertBefore(node, stream.firstChild);
         rebind();
       }
+      if (!isReply) { var emptyEl = $('.empty'); if (emptyEl) emptyEl.remove(); }
       form.reset();
       var pv = $('[data-previews]', form); if (pv) { pv.innerHTML = ''; pv.hidden = true; }
       $$('textarea', form).forEach(grow);

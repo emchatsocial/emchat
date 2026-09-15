@@ -27,20 +27,16 @@ if (!$user) { redirect('/login'); }
 
 <?php $tp = \App\Request::path(); ?>
 <nav class="tabbar" aria-label="Primary mobile">
-  <div class="tabbar__side">
-    <a href="<?= e(url('/feed')) ?>" aria-label="Home" class="<?= str_starts_with($tp, '/feed') ? 'is-active' : '' ?>"><?= icon('home', '', 23) ?></a>
-    <a href="<?= e(url('/explore')) ?>" aria-label="Explore" class="<?= str_starts_with($tp, '/explore') ? 'is-active' : '' ?>"><?= icon('compass', '', 23) ?></a>
-  </div>
+  <a href="<?= e(url('/feed')) ?>" aria-label="Home" class="<?= str_starts_with($tp, '/feed') ? 'is-active' : '' ?>"><?= icon('home', '', 23) ?></a>
+  <a href="<?= e(url('/explore')) ?>" aria-label="Explore" class="<?= str_starts_with($tp, '/explore') ? 'is-active' : '' ?>"><?= icon('compass', '', 23) ?></a>
   <button data-open-composer aria-label="New post" class="tabbar__post"><?= icon('plus', '', 24) ?></button>
-  <div class="tabbar__side">
-    <a href="<?= e(url('/notifications')) ?>" aria-label="Notifications" data-badge="notifications" class="<?= str_starts_with($tp, '/notifications') ? 'is-active' : '' ?>"><?= icon('bell', '', 23) ?></a>
-    <a href="<?= e(url('/messages')) ?>" aria-label="Messages" data-badge="messages" class="<?= str_starts_with($tp, '/messages') ? 'is-active' : '' ?>"><?= icon('mail', '', 23) ?></a>
-    <a href="<?= e(url('@' . $user['username'])) ?>" aria-label="Profile" class="tabbar__profile <?= str_starts_with($tp, '/@' . $user['username']) ? 'is-active' : '' ?>"><?= $view->partial('avatar', ['u' => $user, 'size' => 'xs']) ?></a>
-  </div>
+  <a href="<?= e(url('/notifications')) ?>" aria-label="Notifications" data-badge="notifications" class="<?= str_starts_with($tp, '/notifications') ? 'is-active' : '' ?>"><?= icon('bell', '', 23) ?></a>
+  <a href="<?= e(url('/messages')) ?>" aria-label="Messages" data-badge="messages" class="<?= str_starts_with($tp, '/messages') ? 'is-active' : '' ?>"><?= icon('mail', '', 23) ?></a>
+  <a href="<?= e(url('@' . $user['username'])) ?>" aria-label="Profile" class="tabbar__profile <?= str_starts_with($tp, '/@' . $user['username']) ? 'is-active' : '' ?>"><?= $view->partial('avatar', ['u' => $user, 'size' => 'xs']) ?></a>
 </nav>
 
 <div id="toasts" class="toasts" aria-live="polite" aria-atomic="false"></div>
 
-<script src="/assets/js/app.js?v=69" defer></script>
+<script src="/assets/js/app.js?v=70" defer></script>
 </body>
 </html>
