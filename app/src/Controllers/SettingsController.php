@@ -61,7 +61,7 @@ final class SettingsController extends Controller
 
         $avatarFile = $_FILES['avatar'] ?? null;
         if ($avatarFile && ($avatarFile['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_OK) {
-            $edge = (int) config('avatar_edge', 400);
+            $edge = (int) config('avatar_edge', 320);
             $res = Image::process($avatarFile, 'avatars', $edge, $edge);
             if (isset($res['error'])) {
                 $this->back($res['error'], '/settings/profile');

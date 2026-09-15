@@ -115,6 +115,13 @@ if (PHP_SAPI !== 'cli') {
     @ini_set('session.use_only_cookies', '1');
     @ini_set('session.cookie_httponly', '1');
     @ini_set('session.sid_length', '48');
+    // PHP's default session cache limiter sends Cache-Control: no-store on
+    // every request just for calling session_start(), which also blocks the
+    // browser's back/forward cache even on pages with nothing sensitive to
+    // protect (the logged-out marketing pages). Disable the automatic
+    // header here; require_login() re-adds it explicitly for pages that
+    // actually need it.
+    @ini_set('session.cache_limiter', '');
     // Keep people signed in across browser restarts so they aren't forced to
     // request a fresh magic-link email every time they close the tab. The
     // server-side session GC window must match, or the cookie would outlive
