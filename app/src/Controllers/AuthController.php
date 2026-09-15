@@ -194,7 +194,7 @@ final class AuthController extends Controller
         $avatarPath = null;
         $file = $_FILES['avatar'] ?? null;
         if ($file && ($file['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_OK) {
-            $edge = (int) config('avatar_edge', 400);
+            $edge = (int) config('avatar_edge', 320);
             $res = \App\Image::process($file, 'avatars', $edge, $edge);
             if (isset($res['error'])) {
                 $this->onboardFail($res['error']);

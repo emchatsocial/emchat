@@ -221,6 +221,13 @@ function require_login(): array
         flash('Your account has been suspended.', 'error');
         redirect('/login');
     }
+    // Keep authenticated pages out of any shared/proxy cache and the
+    // browser's disk cache (bootstrap.php disabled PHP's blanket no-store
+    // so logged-out pages could use bfcache; this restores it just for
+    // pages that actually show a signed-in user's own content).
+    if (!headers_sent()) {
+        header('Cache-Control: no-store, private');
+    }
     return $user;
 }
 
