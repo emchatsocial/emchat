@@ -65,6 +65,14 @@ ErrorDocument 403 /index.php
     <FilesMatch "\.(css|js|woff2?|svg|png|jpe?g|webp|ico)$">
         Header set Cache-Control "public, max-age=31536000, immutable"
     </FilesMatch>
+
+    # Browsers request /favicon.ico directly with no query string, so it
+    # can never be cache-busted with a ?v= like everything else here; give
+    # it a short lifetime instead of the immutable year above so a future
+    # logo change doesn't get stuck at the edge for months.
+    <Files "favicon.ico">
+        Header set Cache-Control "public, max-age=3600"
+    </Files>
 </IfModule>
 
 # Hide dotfiles and sensitive names
