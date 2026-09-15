@@ -8,7 +8,7 @@ $edited = !empty($post['edited_at']);
 $followStatus = $post['author_follow_status'] ?? null;
 ?>
 <article class="post" id="post-<?= (int) $post['id'] ?>" data-post="<?= (int) $post['id'] ?>" data-owner="<?= $isOwner ? '1' : '0' ?>">
-  <a class="post__avatar" href="<?= e(url('@' . $post['username'])) ?>">
+  <a class="post__avatar" href="<?= e(url('@' . $post['username'])) ?>" aria-label="<?= e($post['display_name']) ?>'s profile">
     <?= $view->partial('avatar', ['u' => $author, 'size' => 'md']) ?>
   </a>
   <div class="post__main">

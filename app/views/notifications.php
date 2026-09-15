@@ -12,7 +12,7 @@ $verb = [
     <h2 class="panel__title">Follow requests</h2>
     <?php foreach ($requests as $r): ?>
       <div class="notif notif--request">
-        <a href="<?= e(url('@' . $r['username'])) ?>"><?= $view->partial('avatar', ['u' => $r, 'size' => 'sm']) ?></a>
+        <a href="<?= e(url('@' . $r['username'])) ?>" aria-label="<?= e($r['display_name']) ?>'s profile"><?= $view->partial('avatar', ['u' => $r, 'size' => 'sm']) ?></a>
         <div class="notif__text">
           <a href="<?= e(url('@' . $r['username'])) ?>"><strong><?= e($r['display_name']) ?></strong></a>
           <span class="muted">@<?= e($r['username']) ?> wants to follow you</span>
