@@ -33,6 +33,6 @@ $nav = [
   </main>
 </div>
 <div id="toasts" class="toasts" aria-live="polite" aria-atomic="false"></div>
-<script src="/assets/js/app.js?v=70" defer></script>
+<script src="/assets/js/app.js?v=71" defer></script>
 </body>
 </html>
