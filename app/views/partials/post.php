@@ -13,15 +13,17 @@ $followStatus = $post['author_follow_status'] ?? null;
   </a>
   <div class="post__main">
     <header class="post__head">
-      <a class="post__author" href="<?= e(url('@' . $post['username'])) ?>"><?= e($post['display_name']) ?></a>
-      <span class="post__handle">@<?= e($post['username']) ?></span>
-      <span class="post__sep">·</span>
-      <a class="post__time" href="<?= e($permalink) ?>"><time datetime="<?= e(date('c', strtotime($post['created_at']))) ?>"><?= e(time_ago($post['created_at'])) ?></time></a>
-      <?php if ($edited): ?><span class="post__edited" title="Edited <?= e(date('M j, Y g:i a', strtotime($post['edited_at']))) ?>">· edited</span><?php endif; ?>
-      <?php if (!empty($post['is_suggested'])): ?><span class="post__suggested" title="Public post from someone you don't follow, shown because it's popular">· suggested</span><?php endif; ?>
-      <?php if ($post['visibility'] !== 'public'): ?>
-        <span class="post__vis" title="<?= e(ucfirst($post['visibility'])) ?>"><?= icon($post['visibility'] === 'private' ? 'lock' : 'users', '', 13) ?></span>
-      <?php endif; ?>
+      <span class="post__meta">
+        <a class="post__author" href="<?= e(url('@' . $post['username'])) ?>"><?= e($post['display_name']) ?></a>
+        <span class="post__handle">@<?= e($post['username']) ?></span>
+        <span class="post__sep">·</span>
+        <a class="post__time" href="<?= e($permalink) ?>"><time datetime="<?= e(date('c', strtotime($post['created_at']))) ?>"><?= e(time_ago($post['created_at'])) ?></time></a>
+        <?php if ($edited): ?><span class="post__edited" title="Edited <?= e(date('M j, Y g:i a', strtotime($post['edited_at']))) ?>">· edited</span><?php endif; ?>
+        <?php if (!empty($post['is_suggested'])): ?><span class="post__suggested" title="Public post from someone you don't follow, shown because it's popular">· suggested</span><?php endif; ?>
+        <?php if ($post['visibility'] !== 'public'): ?>
+          <span class="post__vis" title="<?= e(ucfirst($post['visibility'])) ?>"><?= icon($post['visibility'] === 'private' ? 'lock' : 'users', '', 13) ?></span>
+        <?php endif; ?>
+      </span>
 
       <?php if ($viewer): ?>
         <details class="post__menu">

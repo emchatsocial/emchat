@@ -609,12 +609,13 @@ body.marketing{--maxw:1320px}
 .stream .post:hover{background:color-mix(in srgb,var(--surface-2) 45%,transparent)}
 .post__avatar{flex:none}
 .post__main{flex:1;min-width:0}
-.post__head{display:flex;align-items:center;gap:5px;font-size:14px;flex-wrap:wrap}
-.post__author{font-weight:640;color:var(--text)}
+.post__head{display:flex;align-items:center;gap:5px;font-size:14px}
+.post__meta{display:flex;align-items:center;gap:5px;min-width:0;overflow:hidden;white-space:nowrap;flex:1}
+.post__author{font-weight:640;color:var(--text);flex:none}
 .post__author:hover{text-decoration:underline}
 .post__handle,.post__time,.post__sep,.post__vis{color:var(--muted);font-weight:400}
 .post__time:hover{text-decoration:underline}
-.post__menu{margin-left:auto;position:relative}
+.post__menu{margin-left:auto;flex:none;position:relative}
 .post__menu summary{list-style:none;cursor:pointer;color:var(--muted);padding:2px 8px;border-radius:8px;line-height:1}
 .post__menu summary::-webkit-details-marker{display:none}
 .post__menu summary:hover{background:var(--surface-2);color:var(--text)}
@@ -969,11 +970,7 @@ body.marketing{--maxw:1320px}
     border-top:1px solid var(--hairline);font-size:21px
   }
   .tabbar a,.tabbar button{color:var(--text-2);background:none;border:0;cursor:pointer;display:flex;padding:5px}
-  .tabbar__side{flex:1;display:flex;align-items:center;gap:14px;min-width:0}
-  .tabbar__side:first-of-type{justify-content:flex-end;padding-right:26px}
-  .tabbar__side:last-of-type{justify-content:flex-start;padding-left:26px}
   .tabbar__post{
-    position:absolute;left:50%;transform:translateX(-50%);
     background:var(--brand)!important;color:var(--brand-ink)!important;width:42px;height:42px;border-radius:50%;
     align-items:center;justify-content:center;font-size:24px;
     box-shadow:var(--shadow-brand),inset 0 1px 0 rgba(255,255,255,.14);margin-top:-2px}
