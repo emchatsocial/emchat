@@ -34,6 +34,10 @@ $user = current_user();
 <link rel="icon" href="/assets/img/favicon-16.png?v=64" sizes="16x16" type="image/png">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png?v=64">
 <link rel="manifest" href="/assets/site.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="EMChat">
 <meta name="geo.region" content="MK">
 <meta name="geo.placename" content="North Macedonia">
 
@@ -51,8 +55,8 @@ $user = current_user();
 <link rel="preload" href="/assets/fonts/Michroma.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/Bricolage.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/Hanken.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/css/app.css?v=81" as="style">
-<link rel="stylesheet" href="/assets/css/app.css?v=81">
+<link rel="preload" href="/assets/css/app.css?v=82" as="style">
+<link rel="stylesheet" href="/assets/css/app.css?v=82">
 <script nonce="<?= e(csp_nonce()) ?>">
 (function(){var d=document.documentElement;try{var t=localStorage.getItem('emc-theme');d.dataset.theme=(t==='light'||t==='dark')?t:'dark';}catch(e){d.dataset.theme='dark';}
 try{d.classList.add('js');}catch(e){}})();
