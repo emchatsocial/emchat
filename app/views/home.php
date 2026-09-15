@@ -48,7 +48,7 @@
 <section class="lp-live wrap">
   <div class="lp-live__head">
     <h2>Happening now</h2>
-    <a href="<?= e(url('/explore')) ?>">See more</a>
+    <a href="<?= e(url('/explore')) ?>">See more public posts</a>
   </div>
   <div class="lp-live__grid">
     <?php foreach (array_slice($preview, 0, 4) as $post): ?>

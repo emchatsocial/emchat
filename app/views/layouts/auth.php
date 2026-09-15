@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /** @var string $content  @var array $meta */
 ?><!doctype html>
 <html lang="en" data-theme="dark">

@@ -23,7 +23,7 @@ $handleUrl = url('@' . $p['username']);
 <article class="pcard pcard--full" data-username="<?= e($p['username']) ?>">
   <div class="pcard__body">
     <div class="pcard__toprow">
-      <a class="pcard__avatar" href="<?= e($handleUrl) ?>">
+      <a class="pcard__avatar" href="<?= e($handleUrl) ?>" aria-label="<?= e($p['display_name']) ?>'s profile">
         <?= $view->partial('avatar', ['u' => $p, 'size' => 'xl']) ?>
       </a>
       <div class="pcard__actions" data-follow-widget>

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /** @var string $content  @var array $meta */
 $user = current_user();
 if (!$user) { redirect('/login'); }

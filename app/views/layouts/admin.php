@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /** @var string $content  @var array $meta  @var array $admin  @var string $section */
 $admin = $admin ?? require_admin();
 $pendingReports = \App\Models\Report::countPending();

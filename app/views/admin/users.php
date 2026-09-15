@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /** @var array $people  @var int $total  @var int $page  @var int $per_page  @var string $query  @var array $admin */
 $pages = max(1, (int) ceil($total / $per_page));
 ?>
