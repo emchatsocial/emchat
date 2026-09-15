@@ -3,12 +3,12 @@
    ============================================================ */
 @font-face{
   font-family:'Bricolage';
-  src:url('/assets/fonts/Bricolage.woff2') format('woff2');
+  src:url('/assets/fonts/Bricolage.woff2?v=1') format('woff2');
   font-weight:200 800;font-style:normal;font-display:swap;
 }
 @font-face{
   font-family:'Hanken';
-  src:url('/assets/fonts/Hanken.woff2') format('woff2');
+  src:url('/assets/fonts/Hanken.woff2?v=1') format('woff2');
   font-weight:300 800;font-style:normal;font-display:swap;
 }
 @font-face{
@@ -23,7 +23,7 @@
 }
 @font-face{
   font-family:'Michroma';
-  src:url('/assets/fonts/Michroma.woff2') format('woff2');
+  src:url('/assets/fonts/Michroma.woff2?v=1') format('woff2');
   font-weight:400;font-style:normal;font-display:swap;
 }
 
