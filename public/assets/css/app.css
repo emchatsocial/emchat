@@ -574,11 +574,11 @@ body.marketing{--maxw:1320px}
 
 /* Composer */
 .composer{display:flex;gap:13px;padding:18px}
-.composer__fields{flex:1;display:grid;gap:10px;min-width:0}
-.composer textarea{border:0;background:transparent;padding:9px 0;font-size:18px;line-height:1.5;resize:none;color:var(--text);width:100%;font-family:inherit}
+.composer__fields{flex:1;display:grid;grid-template-columns:minmax(0,1fr);gap:10px;min-width:0}
+.composer textarea{border:0;background:transparent;padding:9px 0;font-size:18px;line-height:1.5;resize:none;color:var(--text);width:100%;min-width:0;font-family:inherit}
 .composer textarea:focus{outline:none;box-shadow:none}
 .composer textarea::placeholder{color:var(--muted)}
-.composer__bar{display:flex;align-items:center;gap:9px;border-top:1px solid var(--hairline);padding-top:11px}
+.composer__bar{display:flex;flex-wrap:wrap;align-items:center;gap:9px;border-top:1px solid var(--hairline);padding-top:11px}
 .composer__vis{width:auto;padding:7px 10px;border-radius:999px;font-size:13px;border:1px solid var(--border);background:var(--surface);color:var(--text-2)}
 .composer__count{margin-left:auto;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
 .composer__previews{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px}
@@ -867,7 +867,7 @@ body.marketing{--maxw:1320px}
 .messenger__composerow{display:flex;align-items:center;gap:8px;
   border:1px solid var(--border);border-radius:24px;padding:4px 6px 4px 8px;background:var(--surface);transition:border-color .15s}
 .messenger__composerow:focus-within{border-color:var(--text-2)}
-.messenger__composerow textarea{flex:1;resize:none;max-height:120px;border:0!important;background:transparent;
+.messenger__composerow textarea{flex:1;min-width:0;resize:none;max-height:120px;border:0!important;background:transparent;
   box-shadow:none!important;outline:none;padding:9px 6px;font-size:14.5px;line-height:1.4;color:var(--text)}
 .messenger__composerow textarea::placeholder{color:var(--muted)}
 .messenger__composerow .btn--icon{width:34px;height:34px;flex:none;color:var(--text-2);border-radius:50%}
@@ -938,7 +938,7 @@ body.marketing{--maxw:1320px}
   background:var(--surface);border:1px solid var(--border);border-radius:999px;transition:border-color .15s,box-shadow .15s}
 .searchbar:focus-within{border-color:var(--brand);box-shadow:var(--ring)}
 .searchbar__ico{font-size:13px;opacity:.6;flex:none}
-.searchbar input{flex:1;border:0!important;background:transparent;padding:9px 0;font-size:14.5px;box-shadow:none!important;outline:none}
+.searchbar input{flex:1;min-width:0;border:0!important;background:transparent;padding:9px 0;font-size:14.5px;box-shadow:none!important;outline:none}
 .searchbar .btn{flex:none}
 .searchbar--aside{margin:0 0 16px}
 .searchbar--aside .btn{display:none}
@@ -963,16 +963,20 @@ body.marketing{--maxw:1320px}
   .tabbar{
     display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;
     align-items:center;justify-content:space-between;
-    padding:10px 20px calc(10px + env(safe-area-inset-bottom));
+    padding:10px 12px calc(10px + env(safe-area-inset-bottom));
     background:color-mix(in srgb,var(--surface) 82%,transparent);
     backdrop-filter:blur(22px) saturate(1.7);-webkit-backdrop-filter:blur(22px) saturate(1.7);
     border-top:1px solid var(--hairline);font-size:21px
   }
-  .tabbar a,.tabbar button{color:var(--text-2);background:none;border:0;cursor:pointer;display:flex;padding:6px}
+  .tabbar a,.tabbar button{color:var(--text-2);background:none;border:0;cursor:pointer;display:flex;padding:5px}
+  .tabbar__side{flex:1;display:flex;align-items:center;gap:14px;min-width:0}
+  .tabbar__side:first-of-type{justify-content:flex-end;padding-right:26px}
+  .tabbar__side:last-of-type{justify-content:flex-start;padding-left:26px}
   .tabbar__post{
+    position:absolute;left:50%;transform:translateX(-50%);
     background:var(--brand)!important;color:var(--brand-ink)!important;width:42px;height:42px;border-radius:50%;
     align-items:center;justify-content:center;font-size:24px;
-    box-shadow:var(--shadow-brand),inset 0 1px 0 rgba(255,255,255,.14);margin-top:-10px}
+    box-shadow:var(--shadow-brand),inset 0 1px 0 rgba(255,255,255,.14);margin-top:-2px}
   .messenger__panel{height:calc(100dvh - 76px)}
 }
 @media(min-width:721px){.tabbar{display:none}}
