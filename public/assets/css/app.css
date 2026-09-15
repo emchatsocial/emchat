@@ -28,8 +28,8 @@
 }
 
 *,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;overflow-x:hidden;width:100%;max-width:100%;overscroll-behavior-y:none}
-body{overflow-x:hidden;width:100%;max-width:100%;overscroll-behavior-y:none}
+html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;overflow-x:hidden;width:100%;max-width:100%}
+body{overflow-x:hidden;width:100%;max-width:100%}
 body{margin:0}
 [hidden]{display:none!important}
 
