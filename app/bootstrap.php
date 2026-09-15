@@ -115,9 +115,15 @@ if (PHP_SAPI !== 'cli') {
     @ini_set('session.use_only_cookies', '1');
     @ini_set('session.cookie_httponly', '1');
     @ini_set('session.sid_length', '48');
+    // Keep people signed in across browser restarts so they aren't forced to
+    // request a fresh magic-link email every time they close the tab. The
+    // server-side session GC window must match, or the cookie would outlive
+    // its session file and still bounce them back to /login.
+    $sessionLifetime = 60 * 60 * 24 * 30; // 30 days
+    @ini_set('session.gc_maxlifetime', (string) $sessionLifetime);
     $secure = (parse_url($config['app_url'], PHP_URL_SCHEME) === 'https');
     session_set_cookie_params([
-        'lifetime' => 0,
+        'lifetime' => $sessionLifetime,
         'path'     => '/',
         'domain'   => '',
         'secure'   => $secure,
