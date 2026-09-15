@@ -52,11 +52,11 @@ $user = current_user();
 <meta name="twitter:description" content="<?= e($m['description']) ?>">
 <meta name="twitter:image" content="<?= e($m['og_image']) ?>">
 
-<link rel="preload" href="/assets/fonts/Michroma.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/Bricolage.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/Hanken.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/css/app.css?v=85" as="style">
-<link rel="stylesheet" href="/assets/css/app.css?v=85">
+<link rel="preload" href="/assets/fonts/Michroma.woff2?v=1" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/Bricolage.woff2?v=1" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/Hanken.woff2?v=1" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/css/app.css?v=86" as="style">
+<link rel="stylesheet" href="/assets/css/app.css?v=86">
 <script nonce="<?= e(csp_nonce()) ?>">
 (function(){var d=document.documentElement;try{var t=localStorage.getItem('emc-theme');d.dataset.theme=(t==='light'||t==='dark')?t:'dark';}catch(e){d.dataset.theme='dark';}
 try{d.classList.add('js');}catch(e){}})();
