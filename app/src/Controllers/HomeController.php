@@ -130,7 +130,7 @@ final class HomeController extends Controller
                     'alternateName'    => 'EMChat',
                     'email'            => 'egzon@emchat.social',
                     'url'              => url('/'),
-                    'logo'             => url('/assets/img/logo-512.png?v=2'),
+                    'logo'             => url('/assets/img/logo-512.png?v=3'),
                     'description'      => 'EMChat Media is a privacy-first social network built independently in North Macedonia.',
                     'foundingDate'     => '2026',
                     'foundingLocation' => [

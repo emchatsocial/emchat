@@ -5,7 +5,7 @@ $m = ($meta ?? []) + [
     'description' => config('app_tagline'),
     'canonical'   => url('/'),
     'robots'      => 'index,follow',
-    'og_image'    => url('/assets/img/og-default.png?v=2'),
+    'og_image'    => url('/assets/img/og-default.png?v=3'),
     'type'        => 'website',
     'jsonld'      => null,
 ];
@@ -28,10 +28,10 @@ $user = current_user();
 <meta name="description" content="<?= e($m['description']) ?>">
 <meta name="robots" content="<?= e($m['robots']) ?>">
 <link rel="canonical" href="<?= e($m['canonical']) ?>">
-<link rel="icon" href="/favicon.ico?v=66" sizes="any">
-<link rel="icon" href="/assets/img/favicon-48.png?v=66" sizes="48x48" type="image/png">
+<link rel="icon" href="/favicon.ico?v=67" sizes="any">
+<link rel="icon" href="/assets/img/favicon-48.png?v=67" sizes="48x48" type="image/png">
 <link rel="icon" href="/assets/img/favicon-16.png?v=66" sizes="16x16" type="image/png">
-<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png?v=66">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png?v=67">
 <link rel="manifest" href="/assets/site.webmanifest">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
