@@ -78,7 +78,7 @@ final class PostController extends Controller
                 'description' => $snippet,
                 'canonical'   => url("/p/{$post['id']}"),
                 'robots'      => $indexable ? 'index,follow' : 'noindex,nofollow',
-                'og_image'    => !empty($post['media']) ? url(media_url($post['media'][0]['path'])) : url('/assets/img/og-default.png?v=1'),
+                'og_image'    => !empty($post['media']) ? url(media_url($post['media'][0]['path'])) : url('/assets/img/og-default.png?v=2'),
                 'type'        => 'article',
                 'jsonld'      => $indexable ? $this->postJsonLd($post) : null,
             ]),

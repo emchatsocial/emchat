@@ -37,7 +37,7 @@ abstract class Controller
             'description' => config('app_tagline'),
             'canonical'   => url(Request::path() === '/' ? '/' : Request::path()),
             'robots'      => 'index,follow',
-            'og_image'    => url('/assets/img/og-default.png?v=1'),
+            'og_image'    => url('/assets/img/og-default.png?v=2'),
             'type'        => 'website',
         ], $overrides);
     }
