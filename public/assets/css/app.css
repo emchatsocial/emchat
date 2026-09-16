@@ -92,6 +92,7 @@ body{margin:0}
 :root:not([data-theme="light"]){
   --bg:#161719;
   --bg-2:#1b1c1f;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.1'/%3E%3C/svg%3E");
   --surface:#202125;
   --surface-2:#292a2f;
   --surface-3:#34353b;
@@ -134,16 +135,12 @@ body{
   letter-spacing:-.003em;
   overflow-wrap:break-word;
 }
-/* Dark isn't just a flat fill: a faint ambient glow from the top plus a
-   whisper of grain, still strictly monochrome, no new hues. */
+/* Dark isn't just a flat fill: a whisper of grain, still strictly
+   monochrome, no new hues, no glow/spotlight effect. */
 :root:not([data-theme="light"]) body{
   background-color:var(--bg);
-  background-image:
-    radial-gradient(1200px 680px at 50% -10%, rgba(255,255,255,.055), transparent 60%),
-    radial-gradient(900px 600px at 100% 100%, rgba(255,255,255,.025), transparent 55%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
-  background-repeat:no-repeat, no-repeat, repeat;
-  background-attachment:fixed, fixed, fixed;
+  background-image:var(--grain);
+  background-repeat:repeat;
 }
 .ic{display:inline-block;vertical-align:middle;flex:none}
 h1,h2,h3,h4{font-family:var(--display);font-weight:600;letter-spacing:-.025em;line-height:1.06;margin:0 0 .5em;text-wrap:balance;
@@ -503,9 +500,10 @@ body.marketing{--maxw:1320px}
   grid-template-columns:var(--nav-w) minmax(0,var(--feed-w)) 1fr;gap:28px;padding:0 18px}
 .shell__nav{position:sticky;top:0;height:100dvh;padding:14px 6px;display:flex}
 .shell__main{
-  min-height:100dvh;background:var(--bg);
+  min-height:100dvh;background-color:var(--bg);background-image:var(--grain);background-repeat:repeat;
   border-left:1px solid var(--hairline);border-right:1px solid var(--hairline);
 }
+:root[data-theme="light"] .shell__main{background-image:none}
 /* Messaging takes the full width — no "who to follow" rail */
 .shell:has(.messenger){grid-template-columns:var(--nav-w) minmax(0,1fr);max-width:1180px}
 .shell:has(.messenger) .shell__aside{display:none}
