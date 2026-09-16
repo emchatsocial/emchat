@@ -55,8 +55,8 @@ $user = current_user();
 <link rel="preload" href="/assets/fonts/Michroma.woff2?v=1" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/Bricolage.woff2?v=1" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/Hanken.woff2?v=1" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/css/app.css?v=86" as="style">
-<link rel="stylesheet" href="/assets/css/app.css?v=86">
+<link rel="preload" href="/assets/css/app.css?v=87" as="style">
+<link rel="stylesheet" href="/assets/css/app.css?v=87">
 <script nonce="<?= e(csp_nonce()) ?>">
 (function(){var d=document.documentElement;try{var t=localStorage.getItem('emc-theme');d.dataset.theme=(t==='light'||t==='dark')?t:'dark';}catch(e){d.dataset.theme='dark';}
 try{d.classList.add('js');}catch(e){}})();
