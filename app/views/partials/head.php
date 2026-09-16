@@ -23,7 +23,7 @@ $user = current_user();
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f5f5f3" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#161719" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#0f1319" media="(prefers-color-scheme: dark)">
 <title><?= e($m['title']) ?></title>
 <meta name="description" content="<?= e($m['description']) ?>">
 <meta name="robots" content="<?= e($m['robots']) ?>">
@@ -55,8 +55,8 @@ $user = current_user();
 <link rel="preload" href="/assets/fonts/Michroma.woff2?v=1" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/Bricolage.woff2?v=1" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/Hanken.woff2?v=1" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/css/app.css?v=89" as="style">
-<link rel="stylesheet" href="/assets/css/app.css?v=89">
+<link rel="preload" href="/assets/css/app.css?v=90" as="style">
+<link rel="stylesheet" href="/assets/css/app.css?v=90">
 <script nonce="<?= e(csp_nonce()) ?>">
 (function(){var d=document.documentElement;try{var t=localStorage.getItem('emc-theme');d.dataset.theme=(t==='light'||t==='dark')?t:'dark';}catch(e){d.dataset.theme='dark';}
 try{d.classList.add('js');}catch(e){}})();
