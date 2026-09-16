@@ -381,13 +381,8 @@ body.marketing{--maxw:1320px}
 .auth{min-height:100dvh;background:var(--bg)}
 .auth__grid{min-height:100dvh;display:grid;grid-template-columns:1.08fr 1fr}
 .auth__brandpane{position:relative;overflow:hidden;padding:64px;display:flex;flex-direction:column;justify-content:center;
-  background:
-    radial-gradient(120% 90% at 12% 0,rgba(255,255,255,.06),transparent 55%),
-    radial-gradient(90% 70% at 100% 100%,rgba(0,0,0,.4),transparent 60%),
-    linear-gradient(155deg,#101012,#1c1c1f 45%,#0c0c0d);
+  background:var(--card);
   color:#fff;isolation:isolate}
-.auth__noise{position:absolute;inset:0;z-index:0;opacity:.5;mix-blend-mode:overlay;pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
 .auth__brandpane-inner{position:relative;z-index:2;max-width:440px}
 .auth__brandpane .auth__brand{margin-bottom:56px;display:inline-block;font-size:21px}
 .auth__pitch{font-family:var(--display);font-size:clamp(30px,3.8vw,44px);font-weight:640;letter-spacing:-.035em;line-height:1.04;margin-bottom:20px}
@@ -396,9 +391,6 @@ body.marketing{--maxw:1320px}
 .auth__pitchlist{list-style:none;padding:0;margin:0;display:grid;gap:14px;font-size:14.5px}
 .auth__pitchlist li{display:flex;gap:12px;align-items:center;color:rgba(255,255,255,.94)}
 .auth__pitchlist .tick{width:20px;height:20px;flex:none;display:grid;place-items:center;border-radius:7px;background:rgba(255,255,255,.16);color:#fff}
-.auth__glow{position:absolute;border-radius:50%;filter:blur(90px);z-index:1;pointer-events:none}
-.auth__glow--1{width:420px;height:420px;background:rgba(255,255,255,.10);top:-140px;right:-120px}
-.auth__glow--2{width:360px;height:360px;background:rgba(0,0,0,.4);bottom:-160px;left:-100px}
 
 .auth__formpane{display:flex;align-items:center;justify-content:center;padding:48px 24px;position:relative;background:var(--bg)}
 .auth__formwrap{width:100%;max-width:404px}

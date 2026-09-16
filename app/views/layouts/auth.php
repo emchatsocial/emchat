@@ -6,7 +6,6 @@
 <body class="auth">
 <div class="auth__grid">
   <aside class="auth__brandpane" aria-hidden="true">
-    <div class="auth__noise"></div>
     <div class="auth__brandpane-inner">
       <a class="auth__brand brand-wordmark brand-wordmark--light" href="<?= e(url('/')) ?>">EMChat<span class="brand-wordmark__soft"> Media</span></a>
       <h2 class="auth__pitch">A social&nbsp;network that&nbsp;keeps<span class="auth__pitch-em">your&nbsp;world&nbsp;yours.</span></h2>
@@ -17,8 +16,6 @@
         <li><span class="tick"><?= icon('check', '', 12) ?></span> Export or delete everything in one click</li>
       </ul>
     </div>
-    <div class="auth__glow auth__glow--1"></div>
-    <div class="auth__glow auth__glow--2"></div>
   </aside>
 
   <main id="main" class="auth__formpane">
