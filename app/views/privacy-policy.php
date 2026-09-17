@@ -18,7 +18,7 @@
     <li>No advertising trackers, ad SDKs, or Meta/TikTok-style pixels.</li>
     <li>No selling, renting, or sharing of your personal data with advertisers.</li>
     <li>No behavioural profiling or ad targeting.</li>
-    <li>No reading of your private messages for advertising or training.</li>
+    <li>No staff browsing of posts or messages. The only time anyone on our team sees your content is if it's reported by another user — and then only that specific post or message, to review the report.</li>
   </ul>
 
   <h2>Photo metadata</h2>
