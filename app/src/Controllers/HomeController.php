@@ -16,8 +16,8 @@ final class HomeController extends Controller
         $this->render('home', [
             'meta' => $this->meta([
                 'title'       => 'EMChat: A Social Network That Keeps Your World Yours',
-                'description' => 'EMChat is a privacy-first social network from North Macedonia: no ad trackers, '
-                    . 'no behavioural profiling, just posts from people you follow, newest first.',
+                'description' => 'Built independently in North Macedonia, EMChat skips ad trackers and '
+                    . 'behavioural profiling. Your feed only shows the people you actually follow.',
                 'type'        => 'website',
                 'jsonld'      => $this->organizationJsonLd(),
             ]),
