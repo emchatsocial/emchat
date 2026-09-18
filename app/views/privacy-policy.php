@@ -7,9 +7,6 @@
   <h2>What we collect</h2>
   <ul>
     <li><strong>Your email address</strong>: the only thing required to create an account. Used to send sign-in links and, rarely, essential account notices.</li>
-    <li><strong>Content you create</strong>: posts, replies, photos, profile details, and messages.</li>
-    <li><strong>Social graph</strong>: who you follow, who follows you, blocks and mutes.</li>
-    <li><strong>Minimal technical logs</strong>: server error logs and short-lived rate-limit counters (including a hashed record of your IP for abuse prevention). These are not used to profile you.</li>
     <li><strong>Basic visit analytics</strong>: we use Google Analytics to see things like how many people visit, which pages are popular, and roughly where visitors come from. This captures basic technical info including your IP address, which Google processes on our behalf. We don't use it to identify you individually or to build an advertising profile.</li>
   </ul>
 

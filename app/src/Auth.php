@@ -65,7 +65,7 @@ final class Auth
      * Create a magic-link token for the given email. Returns the raw token
      * (put in the URL) — only its hash is stored.
      */
-    public function createLoginToken(string $email, string $ipBinary): string
+    public function createLoginToken(string $email): string
     {
         $raw = bin2hex(random_bytes(32));
         $ttl = (int) App::config('login_token_ttl', 900);
@@ -74,7 +74,6 @@ final class Auth
             'token_hash' => hash('sha256', $raw),
             'purpose'    => 'login',
             'expires_at' => date('Y-m-d H:i:s', time() + $ttl),
-            'created_ip' => $ipBinary !== '' ? $ipBinary : null,
         ]);
         return $raw;
     }

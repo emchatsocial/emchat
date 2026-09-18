@@ -14,6 +14,11 @@ final class RateLimiter
     {
         $bucket = substr($bucket, 0, 120);
         $now = time();
+        // Opportunistic sweep (~1% of calls) so expired rows don't linger indefinitely —
+        // there's no cron on shared hosting, so cleanup has to piggyback on real traffic.
+        if (random_int(1, 100) === 1) {
+            $this->db->run('DELETE FROM rate_limits WHERE window_end < ?', [date('Y-m-d H:i:s', $now)]);
+        }
         $row = $this->db->first('SELECT hits, window_end FROM rate_limits WHERE bucket = ?', [$bucket]);
 
         if (!$row || strtotime($row['window_end']) < $now) {

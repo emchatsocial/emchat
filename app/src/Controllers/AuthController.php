@@ -56,17 +56,15 @@ final class AuthController extends Controller
     /** Mint a one-time link, email it, and route to the "check your email" page. */
     private function dispatchLink(string $email, bool $isResend = false): never
     {
-        $ipBucket = 'login_ip:' . Request::ip();
         $emailBucket = 'login_email:' . $email;
         $rate = config('login_rate');
         $limiter = App::limiter();
-        if (!$limiter->attempt($ipBucket, $rate['max'] * 3, $rate['per_seconds'])
-            || !$limiter->attempt($emailBucket, $rate['max'], $rate['per_seconds'])) {
+        if (!$limiter->attempt($emailBucket, $rate['max'], $rate['per_seconds'])) {
             flash('You have requested too many links. Please wait a while before trying again.', 'error');
             redirect($isResend ? '/login/check' : '/login');
         }
 
-        $raw = App::auth()->createLoginToken($email, Request::ipBinary());
+        $raw = App::auth()->createLoginToken($email);
         $link = url('/auth/callback?token=' . $raw);
         $sent = $this->sendMagicLink($email, $link);
 
@@ -151,7 +149,7 @@ final class AuthController extends Controller
     /** Live handle availability check used by the onboarding wizard. */
     public function usernameAvailable(): void
     {
-        if (!\App\App::limiter()->attempt('uname:' . Request::ip(), 150, 60)) {
+        if (!\App\App::limiter()->attempt('uname:' . session_id(), 150, 60)) {
             json_response(['ok' => false, 'error' => 'Slow down a moment.'], 429);
         }
         $u = (string) Request::input('u', '');
