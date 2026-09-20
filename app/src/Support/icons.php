@@ -9,7 +9,7 @@ declare(strict_types=1);
 /** @var array<string,string> $EMCHAT_ICONS  name => inner SVG markup */
 $GLOBALS['EMCHAT_ICONS'] = [
     'home'     => '<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/>',
-    'compass'  => '<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z"/>',
+    'compass'  => '<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z" fill="currentColor"/>',
     'bell'     => '<path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 20a2 2 0 0 0 4 0"/>',
     'bell-off' => '<path d="M8.7 5A6 6 0 0 1 18 9c0 3 .8 4.6 1.5 5.5M5 8.5c0 4-2 6-2 6h13M10 20a2 2 0 0 0 4 0"/><path d="m3 3 18 18"/>',
     'mail'     => '<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/>',
