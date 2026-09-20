@@ -10,10 +10,10 @@
   </ul>
 
   <h2>How your feed actually works</h2>
-  <p>Posts from people you follow appear newest first. To make sure new accounts don't stare at an empty screen before they've followed anyone, we also mix in a small number of public posts from people you don't follow, favouring ones more people have liked, with some randomness so quieter posts get a turn too. Every one of these is labelled "suggested" so it's never unclear why you're seeing it. This never includes private accounts or followers-only posts from people you don't follow: only content that's already public and shows up on Explore.</p>
+  <p>Your home feed is only posts from people you follow, newest first. Nothing else is mixed in, and no algorithm decides what you see or ranks posts to keep you scrolling.</p>
 
   <h2>What "Public" actually means when you post</h2>
-  <p>On EMChat, "Public" isn't the passive setting it is on some other platforms, where it mostly just means a post is theoretically visible if someone looks for it. Here, a public post can actively show up in the home feed of anyone on the site, even people who don't follow you, and it appears on Explore and search results too. If you'd rather your post only reach people who follow you, choose "Followers" instead.</p>
+  <p>Marking a post "Public" makes it visible to anyone who visits your profile directly, even people who don't follow you, unlike "Followers" which restricts it to accepted followers only. It is never pushed into other people's home feeds, never listed on Explore, and never indexed by search engines: the only way anyone sees it is by visiting your profile or opening a link to that specific post.</p>
 
   <h2>Your data, your control</h2>
   <ul>

@@ -147,13 +147,11 @@ final class Post
     }
 
     /**
-     * Home timeline: own posts + accepted-follow authors (chronological), with a
-     * few popular/random public posts from people the viewer doesn't follow
-     * blended in so the feed isn't only ever "whoever posted most recently".
-     * Respects mutes/blocks. The discovery pool is restricted to
-     * visibility='public' posts from discoverable, non-private accounts, the
-     * same rule Explore uses, so followers-only or private content never leaks
-     * to someone who isn't a follower.
+     * Home timeline: own posts + accepted-follow authors (chronological).
+     * Respects mutes/blocks. Public posts from accounts the viewer doesn't
+     * follow are never blended in here; visibility='public' only ever means
+     * "visible on the author's own profile to anyone", not "surfaced to
+     * people who didn't seek it out".
      */
     public static function timeline(int $viewerId, ?int $beforeId = null, int $limit = 20): array
     {
@@ -178,83 +176,6 @@ final class Post
               AND (p.visibility <> 'private')
               AND u.suspended_at IS NULL
               $before
-            ORDER BY p.id DESC LIMIT ?", $params);
-
-        $rows = self::blendDiscovery($rows, $viewerId, $limit);
-
-        return self::hydrate($rows, $viewerId);
-    }
-
-    /**
-     * Pick a handful of public posts from people the viewer doesn't follow,
-     * favouring more-liked posts but with enough randomness that quieter
-     * posts get a turn too, and interleave them into the chronological rows.
-     */
-    private static function blendDiscovery(array $mainRows, int $viewerId, int $limit): array
-    {
-        $pick = max(1, (int) round($limit / 5)); // roughly 1 in every 5 slots
-        $excludeIds = array_column($mainRows, 'id') ?: [0];
-        $in = implode(',', array_fill(0, count($excludeIds), '?'));
-
-        $discovery = App::db()->all(self::SELECT . "
-            WHERE p.deleted_at IS NULL AND p.reply_to_id IS NULL
-              AND p.visibility = 'public' AND u.is_private = 0 AND u.discoverable = 1
-              AND u.suspended_at IS NULL
-              AND p.user_id <> ?
-              AND p.user_id NOT IN (SELECT followee_id FROM follows WHERE follower_id = ? AND status = 'accepted')
-              AND p.user_id NOT IN (SELECT muted_id FROM mutes WHERE muter_id = ?)
-              AND p.user_id NOT IN (SELECT blocked_id FROM blocks WHERE blocker_id = ?)
-              AND p.user_id NOT IN (SELECT blocker_id FROM blocks WHERE blocked_id = ?)
-              AND p.id NOT IN ($in)
-            ORDER BY (p.like_count + RAND() * 8) DESC LIMIT ?",
-            [$viewerId, $viewerId, $viewerId, $viewerId, $viewerId, ...$excludeIds, $pick]
-        );
-        if (!$discovery) {
-            return $mainRows;
-        }
-        foreach ($discovery as &$d) {
-            $d['is_suggested'] = true;
-        }
-        unset($d);
-
-        $merged = [];
-        $gap = max(1, (int) ceil(count($mainRows) / (count($discovery) + 1)));
-        $di = 0;
-        foreach ($mainRows as $i => $row) {
-            $merged[] = $row;
-            if ($di < count($discovery) && ($i + 1) % $gap === 0) {
-                $merged[] = $discovery[$di++];
-            }
-        }
-        while ($di < count($discovery)) {
-            $merged[] = $discovery[$di++];
-        }
-        return $merged;
-    }
-
-    /** Public discovery feed (also used, filtered, for logged-out visitors). */
-    public static function explore(?int $viewerId, ?string $tag = null, int $limit = 30): array
-    {
-        $params = [];
-        $tagWhere = '';
-        if ($tag) {
-            $tagWhere = ' AND p.body LIKE ?';
-            $params[] = '%#' . str_replace(['%', '_'], ['\%', '\_'], $tag) . '%';
-        }
-        $blockWhere = '';
-        if ($viewerId !== null) {
-            $blockWhere = ' AND p.user_id NOT IN (SELECT blocked_id FROM blocks WHERE blocker_id = ?)
-                            AND p.user_id NOT IN (SELECT blocker_id FROM blocks WHERE blocked_id = ?)';
-            $params[] = $viewerId;
-            $params[] = $viewerId;
-        }
-        $params[] = $limit;
-
-        $rows = App::db()->all(self::SELECT . "
-            WHERE p.deleted_at IS NULL AND p.reply_to_id IS NULL
-              AND p.visibility = 'public' AND u.is_private = 0 AND u.discoverable = 1
-              AND u.suspended_at IS NULL
-              $tagWhere $blockWhere
             ORDER BY p.id DESC LIMIT ?", $params);
 
         return self::hydrate($rows, $viewerId);
@@ -346,16 +267,4 @@ final class Post
         );
     }
 
-    /** For sitemap: recent public posts by discoverable, public users. */
-    public static function publicForSitemap(int $limit = 5000): array
-    {
-        return App::db()->all(
-            "SELECT p.id, p.created_at, p.edited_at FROM posts p JOIN users u ON u.id = p.user_id
-             WHERE p.deleted_at IS NULL AND p.visibility = 'public'
-               AND u.is_private = 0 AND u.discoverable = 1 AND p.reply_to_id IS NULL
-               AND u.suspended_at IS NULL
-             ORDER BY p.id DESC LIMIT ?",
-            [$limit]
-        );
-    }
 }

@@ -12,7 +12,7 @@ $suggested = \App\App::db()->all(
 ?>
 <form class="searchbar searchbar--aside" method="get" action="<?= e(url('/explore')) ?>" role="search">
   <span class="searchbar__ico" aria-hidden="true"><?= icon('search', '', 15) ?></span>
-  <input type="search" name="q" placeholder="Search" aria-label="Search people & posts">
+  <input type="search" name="q" placeholder="Search" aria-label="Search people">
 </form>
 
 <?php if ($suggested): ?>

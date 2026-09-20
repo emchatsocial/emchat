@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Models\Post;
-
 final class HomeController extends Controller
 {
     public function index(): void
@@ -12,7 +10,6 @@ final class HomeController extends Controller
         if (current_user()) {
             redirect('/feed');
         }
-        $preview = Post::explore(null, null, 6);
         $this->render('home', [
             'meta' => $this->meta([
                 'title'       => 'EMChat: A Social Network That Keeps Your World Yours',
@@ -21,7 +18,6 @@ final class HomeController extends Controller
                 'type'        => 'website',
                 'jsonld'      => $this->organizationJsonLd(),
             ]),
-            'preview' => $preview,
         ], 'marketing');
     }
 
@@ -56,13 +52,13 @@ final class HomeController extends Controller
                 . 'at any time.'],
             ['How is EMChat Media different from Instagram, Facebook, or X?',
                 'Unlike ad-funded platforms, EMChat Media has no ad trackers and no behavioural profiling. Your '
-                . 'feed is built from the people you follow, plus a small number of clearly labelled "suggested" '
-                . 'public posts so new accounts are never staring at an empty screen. Nothing is ranked to '
-                . 'maximise how long you scroll. See our transparency page for the full details.'],
+                . 'feed is only posts from the people you follow, newest first, with nothing else mixed in and '
+                . 'nothing ranked to maximise how long you scroll. See our transparency page for the full details.'],
             ['What does setting a post to "Public" actually do?',
-                'It shows to everyone on EMChat, not just your followers. A public post can appear in other '
-                . 'people\'s home feeds as a suggested post, plus on Explore and in search results. Choose '
-                . '"Followers" instead if you\'d rather only the people who follow you see it.'],
+                'It makes the post visible to anyone who visits your profile, not just your followers. It is '
+                . 'never pushed into other people\'s home feeds and never listed on Explore, so the only way '
+                . 'someone sees it is by visiting your profile or opening a direct link to it. Choose "Followers" '
+                . 'instead if you\'d rather only the people who follow you see it at all.'],
             ['Who founded EMChat Media?',
                 'EMChat Media was founded by Egzon Mehmedi and is built and run independently from North Macedonia.'],
             ['Do I need a password to sign in to EMChat Media?',

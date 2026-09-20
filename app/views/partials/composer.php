@@ -16,7 +16,7 @@ $placeholder = $placeholder ?? "What's on your mind?";
         <?= icon('image', '', 19) ?><input type="file" name="images[]" accept="image/*" multiple hidden data-image-input>
       </label>
       <select name="visibility" class="composer__vis" aria-label="Who can see this">
-        <option value="public" title="Visible to everyone on EMChat, even people who don't follow you, and may be shown in their feed as a suggested post">Public</option>
+        <option value="public" title="Visible to anyone who visits your profile, even people who don't follow you">Public</option>
         <option value="followers">Followers</option>
         <option value="private">Only me</option>
       </select>

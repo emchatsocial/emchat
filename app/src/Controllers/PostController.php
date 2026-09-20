@@ -68,7 +68,6 @@ final class PostController extends Controller
         $replies = Post::replies((int) $post['id'], $viewerId);
         $parent = $post['reply_to_id'] ? Post::find((int) $post['reply_to_id'], $viewerId) : null;
 
-        $indexable = $post['visibility'] === 'public' && !$post['author_private'];
         $snippet = mb_substr(trim(preg_replace('/\s+/', ' ', $post['body'])), 0, 180)
             ?: "A post by @{$post['username']} on " . config('app_name');
 
@@ -77,10 +76,9 @@ final class PostController extends Controller
                 'title'       => "{$post['display_name']} on " . config('app_name') . ": \"" . mb_substr($post['body'], 0, 60) . '"',
                 'description' => $snippet,
                 'canonical'   => url("/p/{$post['id']}"),
-                'robots'      => $indexable ? 'index,follow' : 'noindex,nofollow',
+                'robots'      => 'noindex,nofollow',
                 'og_image'    => !empty($post['media']) ? url(media_url($post['media'][0]['path'])) : url('/assets/img/og-default.png?v=3'),
                 'type'        => 'article',
-                'jsonld'      => $indexable ? $this->postJsonLd($post) : null,
             ]),
             'post'    => $post,
             'parent'  => $parent,
@@ -200,24 +198,4 @@ final class PostController extends Controller
         redirect($back);
     }
 
-    private function postJsonLd(array $post): string
-    {
-        return json_encode(array_filter([
-            '@context'      => 'https://schema.org',
-            '@type'         => 'SocialMediaPosting',
-            'datePublished' => date('c', strtotime($post['created_at'])),
-            'author'        => [
-                '@type' => 'Person',
-                'name'  => $post['display_name'],
-                'url'   => url('@' . $post['username']),
-            ],
-            'articleBody'   => $post['body'] ?: null,
-            'url'           => url("/p/{$post['id']}"),
-            'interactionStatistic' => [
-                '@type'                => 'InteractionCounter',
-                'interactionType'      => 'https://schema.org/LikeAction',
-                'userInteractionCount' => (int) $post['like_count'],
-            ],
-        ]));
-    }
 }

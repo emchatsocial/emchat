@@ -38,27 +38,21 @@ final class FeedController extends Controller
     public function explore(): void
     {
         $viewer = current_user();
-        $viewerId = $viewer ? (int) $viewer['id'] : null;
         $q = trim((string) Request::input('q', ''));
-        $tag = trim((string) Request::input('tag', ''));
 
         $people = $q !== '' ? User::search($q, 12) : [];
-        $posts = Post::explore($viewerId, $tag ?: null, 30);
 
-        $title = $tag !== '' ? "#{$tag} · " . config('app_name')
-            : ($q !== '' ? "Search: {$q} · " . config('app_name') : 'Explore: Public Posts on EMChat');
+        $title = $q !== '' ? "Search: {$q} · " . config('app_name') : 'Find People on EMChat';
 
         $this->render('explore', [
             'meta' => $this->meta([
                 'title'       => $title,
-                'description' => 'Browse public posts and profiles on EMChat, shown in the order they were shared: no algorithm choosing what you see, no ads mixed in.',
+                'description' => 'Search for people to follow on EMChat.',
                 'canonical'   => url('/explore'),
-                'robots'      => ($q !== '' || $tag !== '') ? 'noindex,follow' : 'index,follow',
+                'robots'      => $q !== '' ? 'noindex,follow' : 'index,follow',
             ]),
             'query'  => $q,
-            'tag'    => $tag,
             'people' => $people,
-            'posts'  => $posts,
         ], $viewer ? 'app' : 'marketing');
     }
 

@@ -5,7 +5,6 @@ namespace App\Controllers;
 
 use App\App;
 use App\Controllers\HomeController;
-use App\Models\Post;
 
 final class SitemapController extends Controller
 {
@@ -38,15 +37,6 @@ final class SitemapController extends Controller
                 'freq'    => 'weekly',
             ];
         }
-        foreach (Post::publicForSitemap(5000) as $post) {
-            $urls[] = [
-                'loc'     => url("/p/{$post['id']}"),
-                'lastmod' => date('Y-m-d', strtotime($post['edited_at'] ?: $post['created_at'])),
-                'priority' => '0.5',
-                'freq'    => 'monthly',
-            ];
-        }
-
         echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
         echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
         foreach ($urls as $u) {

@@ -1,4 +1,3 @@
-<?php /** @var array $preview */ ?>
 <section class="lp-hero">
   <div class="wrap lp-hero__grid">
     <div class="lp-hero__text">
@@ -10,7 +9,7 @@
       </p>
       <div class="lp-hero__cta">
         <a class="btn btn--primary btn--lg" href="<?= e(url('/login')) ?>">Create your account</a>
-        <a class="btn btn--ghost btn--lg" href="<?= e(url('/explore')) ?>">Browse public posts</a>
+        <a class="btn btn--ghost btn--lg" href="<?= e(url('/explore')) ?>">Find people to follow</a>
       </div>
       <p class="lp-hero__note">Free to use. Sign in with your email, no password required.</p>
       <p class="lp-hero__origin">Built independently in North Macedonia.</p>
@@ -43,20 +42,6 @@
     </div>
   </div>
 </section>
-
-<?php if (!empty($preview)): ?>
-<section class="lp-live wrap">
-  <div class="lp-live__head">
-    <h2>Happening now</h2>
-    <a href="<?= e(url('/explore')) ?>">See more public posts</a>
-  </div>
-  <div class="lp-live__grid">
-    <?php foreach (array_slice($preview, 0, 4) as $post): ?>
-      <?= $view->partial('post', ['post' => $post, 'viewer' => null]) ?>
-    <?php endforeach; ?>
-  </div>
-</section>
-<?php endif; ?>
 
 <section class="lp-features wrap">
   <h2 class="sr-only">Everything EMChat Media gives you</h2>

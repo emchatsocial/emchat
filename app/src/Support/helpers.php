@@ -177,7 +177,7 @@ function rich_text(string $text): string
     );
     $html = preg_replace_callback(
         '~(^|\s)#([a-zA-Z0-9_]{1,40})~',
-        static fn ($m) => $m[1] . '<a href="' . e(url('explore?tag=' . rawurlencode($m[2]))) . '">#' . e($m[2]) . '</a>',
+        static fn ($m) => $m[1] . '<span class="hashtag">#' . e($m[2]) . '</span>',
         $html
     );
     return nl2br($html, false);

@@ -19,7 +19,6 @@ $followStatus = $post['author_follow_status'] ?? null;
         <span class="post__sep">·</span>
         <a class="post__time" href="<?= e($permalink) ?>"><time datetime="<?= e(date('c', strtotime($post['created_at']))) ?>"><?= e(time_ago($post['created_at'])) ?></time></a>
         <?php if ($edited): ?><span class="post__edited" title="Edited <?= e(date('M j, Y g:i a', strtotime($post['edited_at']))) ?>">· edited</span><?php endif; ?>
-        <?php if (!empty($post['is_suggested'])): ?><span class="post__suggested" title="Public post from someone you don't follow, shown because it's popular">· suggested</span><?php endif; ?>
         <?php if ($post['visibility'] !== 'public'): ?>
           <span class="post__vis" title="<?= e(ucfirst($post['visibility'])) ?>"><?= icon($post['visibility'] === 'private' ? 'lock' : 'users', '', 13) ?></span>
         <?php endif; ?>
@@ -72,7 +71,7 @@ $followStatus = $post['author_follow_status'] ?? null;
         <div class="post__edit-bar">
           <select name="visibility" aria-label="Visibility">
             <?php foreach (['public' => 'Public', 'followers' => 'Followers only', 'private' => 'Only me'] as $v => $lbl): ?>
-              <option value="<?= $v ?>" <?= $post['visibility'] === $v ? 'selected' : '' ?> <?= $v === 'public' ? 'title="Visible to everyone on EMChat, even people who don\'t follow you, and may be shown in their feed as a suggested post"' : '' ?>><?= $lbl ?></option>
+              <option value="<?= $v ?>" <?= $post['visibility'] === $v ? 'selected' : '' ?> <?= $v === 'public' ? 'title="Visible to anyone who visits your profile, even people who don\'t follow you"' : '' ?>><?= $lbl ?></option>
             <?php endforeach; ?>
           </select>
           <button class="btn btn--ghost btn--sm" type="button" data-cancel-edit>Cancel</button>

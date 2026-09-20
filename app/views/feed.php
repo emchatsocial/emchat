@@ -11,7 +11,7 @@ $user = current_user(); ?>
 <?php if ($empty_hint): ?>
   <div class="empty">
     <h2>Your timeline is quiet</h2>
-    <p>Follow a few people to fill your feed. We'll also mix in a few popular public posts so it's never empty.</p>
+    <p>Your feed only shows posts from people you follow. Follow a few people below, or search Explore, to get started.</p>
     <?php if ($suggestions): ?>
       <div class="urow-list empty__suggestions">
         <?php foreach ($suggestions as $s): ?>
