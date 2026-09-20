@@ -954,6 +954,7 @@ body.marketing{--maxw:1320px}
     backdrop-filter:blur(22px) saturate(1.7);-webkit-backdrop-filter:blur(22px) saturate(1.7);
     border-top:1px solid var(--hairline);font-size:21px
   }
+  .tabbar__side{flex:1;display:flex}
   .tabbar a,.tabbar button{color:var(--text-2);background:none;border:0;cursor:pointer;flex:1;display:flex;align-items:center;justify-content:center;padding:5px}
   .tabbar button.tabbar__post{
     flex:none;background:var(--brand)!important;color:var(--brand-ink)!important;width:42px;height:42px;border-radius:50%;
