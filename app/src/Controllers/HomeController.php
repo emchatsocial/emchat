@@ -118,6 +118,78 @@ final class HomeController extends Controller
         ], 'marketing');
     }
 
+    public function updates(): void
+    {
+        $entries = array_map(function (array $e) {
+            $e['jsonld'] = $this->blogPostingJsonLd($e);
+            return $e;
+        }, $this->updateEntries());
+        $this->render('updates', [
+            'meta' => $this->meta([
+                'title'       => 'Updates · ' . config('app_name'),
+                'description' => 'Latest news, feature releases, and milestones from EMChat.',
+                'canonical'   => url('/updates'),
+                'jsonld'      => $this->blogJsonLd(),
+            ]),
+            'entries' => $entries,
+        ], 'marketing');
+    }
+
+    /** Date of the most recent entry, for the sitemap's <lastmod>. */
+    public function latestUpdateDate(): string
+    {
+        return $this->updateEntries()[0]['date'];
+    }
+
+    /** @return array<int,array{date:string,headline:string,body:string}> Newest first. */
+    private function updateEntries(): array
+    {
+        return [
+            ['date' => '2026-09-20', 'headline' => 'Structured data and this updates page',
+                'body' => 'We added richer structured data so search engines and AI assistants can understand '
+                    . 'EMChat better, plus this page to keep a public record of what changes and when.'],
+            ['date' => '2026-09-19', 'headline' => 'More reliable account emails',
+                'body' => 'Sign-in links and account emails were sometimes landing in spam because of a mail '
+                    . 'server misconfiguration. We fixed DKIM signing and corrected our mail routing so delivery '
+                    . 'is reliable going forward.'],
+            ['date' => '2026-09-17', 'headline' => 'Faster on mobile',
+                'body' => 'We found our app icons were being fetched at full size on every page load, which was '
+                    . 'hurting mobile performance. They are now properly compressed with no visible quality loss.'],
+            ['date' => '2026-09-16', 'headline' => 'A calmer visual redesign',
+                'body' => 'We rebuilt EMChat\'s dark theme around a cooler slate palette instead of flat black, '
+                    . 'and restored our original neon brand mark as the site\'s logo across every page.'],
+        ];
+    }
+
+    private function blogJsonLd(): string
+    {
+        return json_encode([
+            '@context'    => 'https://schema.org',
+            '@type'       => 'Blog',
+            'name'        => 'EMChat Updates',
+            'url'         => url('/updates'),
+            'description' => 'Latest news, feature releases, and milestones from EMChat.',
+            'publisher'   => [
+                '@type' => 'Organization',
+                'name'  => 'EMChat',
+                'url'   => url('/'),
+            ],
+        ], JSON_UNESCAPED_SLASHES);
+    }
+
+    /** @param array{date:string,headline:string,body:string} $entry */
+    private function blogPostingJsonLd(array $entry): string
+    {
+        return json_encode([
+            '@context'     => 'https://schema.org',
+            '@type'        => 'BlogPosting',
+            'headline'     => $entry['headline'],
+            'datePublished' => $entry['date'],
+            'dateModified'  => $entry['date'],
+            'description'   => $entry['body'],
+        ], JSON_UNESCAPED_SLASHES);
+    }
+
     private function organizationJsonLd(): string
     {
         return json_encode([
@@ -162,6 +234,7 @@ final class HomeController extends Controller
                     'url'             => url('/'),
                     'publisher'       => ['@id' => url('/#organization')],
                     'inLanguage'      => 'en',
+                    'dateModified'    => date('Y-m-d'),
                     'potentialAction' => [
                         '@type'       => 'SearchAction',
                         'target'      => url('/explore?q={search_term_string}'),

@@ -12,6 +12,7 @@ $user = current_user();
     <nav class="site-header__nav">
       <a href="<?= e(url('/explore')) ?>">Explore</a>
       <a href="<?= e(url('/about')) ?>">About</a>
+      <a href="<?= e(url('/updates')) ?>">Updates</a>
       <a href="<?= e(url('/privacy')) ?>">Privacy</a>
       <?php if ($user): ?>
         <a class="btn btn--primary" href="<?= e(url('/feed')) ?>">Open EMChat</a>
@@ -35,6 +36,7 @@ $user = current_user();
       <span class="site-footer__label">Product</span>
       <a href="<?= e(url('/explore')) ?>">Explore</a>
       <a href="<?= e(url('/about')) ?>">About</a>
+      <a href="<?= e(url('/updates')) ?>">Updates</a>
       <a href="<?= e(url('/login')) ?>">Log in</a>
     </nav>
     <nav>

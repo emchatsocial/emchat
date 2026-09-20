@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\App;
+use App\Controllers\HomeController;
 use App\Models\Post;
 
 final class SitemapController extends Controller
@@ -13,11 +14,14 @@ final class SitemapController extends Controller
         header('Content-Type: application/xml; charset=utf-8');
         header('Cache-Control: public, max-age=3600');
 
+        $latestUpdate = (new HomeController())->latestUpdateDate();
+
         $urls = [
             ['loc' => url('/'), 'priority' => '1.0', 'freq' => 'daily'],
             ['loc' => url('/login'), 'priority' => '0.6', 'freq' => 'monthly'],
             ['loc' => url('/explore'), 'priority' => '0.7', 'freq' => 'daily'],
             ['loc' => url('/about'), 'priority' => '0.5', 'freq' => 'monthly'],
+            ['loc' => url('/updates'), 'lastmod' => $latestUpdate, 'priority' => '0.6', 'freq' => 'weekly'],
             ['loc' => url('/privacy'), 'priority' => '0.4', 'freq' => 'yearly'],
             ['loc' => url('/terms'), 'priority' => '0.3', 'freq' => 'yearly'],
         ];

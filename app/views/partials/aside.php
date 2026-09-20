@@ -39,6 +39,7 @@ $suggested = \App\App::db()->all(
 
 <footer class="aside__foot">
   <a href="<?= e(url('/about')) ?>">About</a> ·
+  <a href="<?= e(url('/updates')) ?>">Updates</a> ·
   <a href="<?= e(url('/privacy')) ?>">Privacy</a> ·
   <a href="<?= e(url('/terms')) ?>">Terms</a> ·
   <a href="<?= e(url('/transparency')) ?>">Transparency</a>
