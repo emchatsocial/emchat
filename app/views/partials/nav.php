@@ -43,6 +43,9 @@ $items = [
     <a class="nav__link" href="<?= e(url('/settings/profile')) ?>">
       <span class="nav__ico"><?= icon('settings', '', 22) ?></span><span class="nav__label">Settings</span>
     </a>
+    <a class="nav__link" href="<?= e(url('/contact')) ?>">
+      <span class="nav__ico"><?= icon('help', '', 22) ?></span><span class="nav__label">Contact</span>
+    </a>
     <form method="post" action="<?= e(url('/logout')) ?>">
       <?= csrf_field() ?>
       <button class="nav__link" type="submit">

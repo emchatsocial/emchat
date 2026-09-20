@@ -30,6 +30,7 @@ if (!$user) { redirect('/login'); }
   <div class="tabbar__side">
     <a href="<?= e(url('/feed')) ?>" aria-label="Home" class="<?= str_starts_with($tp, '/feed') ? 'is-active' : '' ?>"><?= icon('home', '', 23) ?></a>
     <a href="<?= e(url('/explore')) ?>" aria-label="Explore" class="<?= str_starts_with($tp, '/explore') ? 'is-active' : '' ?>"><?= icon('compass', '', 23) ?></a>
+    <a href="<?= e(url('/contact')) ?>" aria-label="Contact" class="<?= str_starts_with($tp, '/contact') ? 'is-active' : '' ?>"><?= icon('help', '', 23) ?></a>
   </div>
   <button data-open-composer aria-label="New post" class="tabbar__post"><?= icon('plus', '', 24) ?></button>
   <div class="tabbar__side">

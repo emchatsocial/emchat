@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\App;
+use App\Request;
+
 final class HomeController extends Controller
 {
     public function index(): void
@@ -116,6 +119,54 @@ final class HomeController extends Controller
                 'canonical'   => url('/transparency'),
             ]),
         ], 'marketing');
+    }
+
+    public function contact(): void
+    {
+        $viewer = current_user();
+        $this->render('contact', [
+            'meta' => $this->meta([
+                'title'       => 'Contact · ' . config('app_name'),
+                'description' => 'Get in touch with EMChat Media.',
+                'canonical'   => url('/contact'),
+            ]),
+        ], $viewer ? 'app' : 'marketing');
+    }
+
+    public function sendContact(): void
+    {
+        $this->verifyCsrf();
+        $email = mb_strtolower(trim((string) Request::input('email', '')));
+        $message = trim((string) Request::input('message', ''));
+
+        if (Request::input('website_url', '') !== '') {
+            redirect('/contact');
+        }
+        $_SESSION['_old']['email'] = $email;
+        $_SESSION['_old']['message'] = $message;
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            flash('Enter a valid email address.');
+            redirect('/contact');
+        }
+        if ($message === '' || mb_strlen($message) > 4000) {
+            flash('Write a message (up to 4000 characters).');
+            redirect('/contact');
+        }
+        unset($_SESSION['_old']);
+        if (!App::limiter()->attempt('contact:' . $email, 5, 600)) {
+            flash('You have sent too many messages. Please wait a while before trying again.', 'error');
+            redirect('/contact');
+        }
+
+        $html = '<div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:560px;margin:0 auto;color:#1a1a2e">'
+            . '<h2 style="margin:0 0 8px">New contact message</h2>'
+            . '<p style="color:#555">From: ' . e($email) . '</p>'
+            . '<p style="white-space:pre-wrap">' . e($message) . '</p></div>';
+        $text = "From: {$email}\n\n{$message}";
+        App::mailer()->send('egzon@emchat.social', 'New EMChat contact message', $html, $text);
+
+        flash('Thanks, your message has been sent.', 'success');
+        redirect('/contact');
     }
 
     public function updates(): void

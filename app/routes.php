@@ -23,6 +23,8 @@ $router->get('/privacy', fn () => (new HomeController())->privacyPolicy());
 $router->get('/terms', fn () => (new HomeController())->terms());
 $router->get('/transparency', fn () => (new HomeController())->transparency());
 $router->get('/updates', fn () => (new HomeController())->updates());
+$router->get('/contact', fn () => (new HomeController())->contact());
+$router->post('/contact', fn () => (new HomeController())->sendContact());
 
 // SEO
 $router->get('/sitemap.xml', fn () => (new SitemapController())->index());
