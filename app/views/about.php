@@ -14,6 +14,16 @@
     <li><strong>Real controls.</strong> Private accounts, per-post visibility, block, mute, full data export, and one-click account deletion.</li>
   </ul>
 
+  <h2>What you can do on EMChat</h2>
+  <ul>
+    <li><strong>Message privately, or in a group.</strong> Send photos, video, audio, and files, with message requests so people you don't follow can't land straight in your inbox.</li>
+    <li><strong>Reply and follow the thread.</strong> Every reply to a post shows up underneath it, so conversations stay readable instead of scattered.</li>
+    <li><strong>Mentions and hashtags.</strong> Tag people and topics directly in your posts.</li>
+    <li><strong>Notifications that matter.</strong> Likes, follows, replies, and messages, without a feed engineered to keep pulling you back.</li>
+    <li><strong>Up to four photos per post.</strong> Every one stripped of EXIF and GPS data automatically before it's stored.</li>
+    <li><strong>Moderation you can actually trust.</strong> Report a post or message and a real person reviews that one item, nothing else in your account.</li>
+  </ul>
+
   <h2>Profile cards</h2>
   <p>Every member gets a rich profile card — profile photo, a bio with working links and mentions, follower and following counts, and a follow button — that you can share as its own page at <code>emchat.social/@yourname/card</code>.</p>
 
