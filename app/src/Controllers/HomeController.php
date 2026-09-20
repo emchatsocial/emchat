@@ -153,10 +153,18 @@ final class HomeController extends Controller
             ['date' => '2026-09-20', 'headline' => 'Structured data and this updates page',
                 'body' => 'We added richer structured data so search engines and AI assistants can understand '
                     . 'EMChat better, plus this page to keep a public record of what changes and when.'],
+            ['date' => '2026-09-19', 'headline' => 'Faster page loads across the site',
+                'body' => 'We enabled faster connection resumption for returning visitors and let browsers start '
+                    . 'fetching key resources earlier, plus removed a third-party script that was slowing down '
+                    . 'every page without adding anything for you.'],
             ['date' => '2026-09-19', 'headline' => 'More reliable account emails',
                 'body' => 'Sign-in links and account emails were sometimes landing in spam because of a mail '
                     . 'server misconfiguration. We fixed DKIM signing and corrected our mail routing so delivery '
                     . 'is reliable going forward.'],
+            ['date' => '2026-09-18', 'headline' => 'We stopped collecting IP addresses',
+                'body' => 'EMChat no longer stores your IP address anywhere, not even for spam prevention or '
+                    . 'sign-in rate limiting. Those protections now work without ever touching it, and we purged '
+                    . 'any IP data collected before this change.'],
             ['date' => '2026-09-17', 'headline' => 'Faster on mobile',
                 'body' => 'We found our app icons were being fetched at full size on every page load, which was '
                     . 'hurting mobile performance. They are now properly compressed with no visible quality loss.'],
