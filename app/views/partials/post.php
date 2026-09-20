@@ -72,7 +72,7 @@ $followStatus = $post['author_follow_status'] ?? null;
         <div class="post__edit-bar">
           <select name="visibility" aria-label="Visibility">
             <?php foreach (['public' => 'Public', 'followers' => 'Followers only', 'private' => 'Only me'] as $v => $lbl): ?>
-              <option value="<?= $v ?>" <?= $post['visibility'] === $v ? 'selected' : '' ?>><?= $lbl ?></option>
+              <option value="<?= $v ?>" <?= $post['visibility'] === $v ? 'selected' : '' ?> <?= $v === 'public' ? 'title="Visible to everyone on EMChat, even people who don\'t follow you, and may be shown in their feed as a suggested post"' : '' ?>><?= $lbl ?></option>
             <?php endforeach; ?>
           </select>
           <button class="btn btn--ghost btn--sm" type="button" data-cancel-edit>Cancel</button>

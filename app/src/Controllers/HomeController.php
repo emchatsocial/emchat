@@ -59,6 +59,10 @@ final class HomeController extends Controller
                 . 'feed is built from the people you follow, plus a small number of clearly labelled "suggested" '
                 . 'public posts so new accounts are never staring at an empty screen. Nothing is ranked to '
                 . 'maximise how long you scroll. See our transparency page for the full details.'],
+            ['What does setting a post to "Public" actually do?',
+                'It shows to everyone on EMChat, not just your followers. A public post can appear in other '
+                . 'people\'s home feeds as a suggested post, plus on Explore and in search results. Choose '
+                . '"Followers" instead if you\'d rather only the people who follow you see it.'],
             ['Who founded EMChat Media?',
                 'EMChat Media was founded by Egzon Mehmedi and is built and run independently from North Macedonia.'],
             ['Do I need a password to sign in to EMChat Media?',
