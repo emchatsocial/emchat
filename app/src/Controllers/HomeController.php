@@ -145,6 +145,11 @@ final class HomeController extends Controller
     private function updateEntries(): array
     {
         return [
+            ['date' => '2026-09-20', 'headline' => 'A quick tour of what EMChat actually does',
+                'body' => 'Private messaging with group chats and photo, video, and file attachments. Mentions '
+                    . 'and hashtags. Notifications for likes, replies, and follows. Private accounts, per-post '
+                    . 'visibility, and one-click data export or deletion, all without ad trackers or an algorithm '
+                    . 'deciding what you see.'],
             ['date' => '2026-09-20', 'headline' => 'Structured data and this updates page',
                 'body' => 'We added richer structured data so search engines and AI assistants can understand '
                     . 'EMChat better, plus this page to keep a public record of what changes and when.'],
@@ -155,9 +160,9 @@ final class HomeController extends Controller
             ['date' => '2026-09-17', 'headline' => 'Faster on mobile',
                 'body' => 'We found our app icons were being fetched at full size on every page load, which was '
                     . 'hurting mobile performance. They are now properly compressed with no visible quality loss.'],
-            ['date' => '2026-09-16', 'headline' => 'A calmer visual redesign',
-                'body' => 'We rebuilt EMChat\'s dark theme around a cooler slate palette instead of flat black, '
-                    . 'and restored our original neon brand mark as the site\'s logo across every page.'],
+            ['date' => '2026-09-11', 'headline' => 'EMChat Media goes live',
+                'body' => 'We launched EMChat Media, an independent social network built from North Macedonia '
+                    . 'with no ad trackers and no algorithm deciding what you see.'],
         ];
     }
 
