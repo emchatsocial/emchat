@@ -27,7 +27,7 @@ final class FeedController extends Controller
 
         $suggestions = $this->suggestions((int) $user['id']);
         $this->render('feed', [
-            'meta'        => $this->meta(['title' => 'Home — ' . config('app_name'), 'robots' => 'noindex,nofollow']),
+            'meta'        => $this->meta(['title' => 'Home · ' . config('app_name'), 'robots' => 'noindex,nofollow']),
             'posts'       => $posts,
             'next'        => $next,
             'suggestions' => $suggestions,
@@ -42,14 +42,15 @@ final class FeedController extends Controller
 
         $people = $q !== '' ? User::search($q, 12) : [];
 
-        $title = $q !== '' ? "Search: {$q} · " . config('app_name') : 'Find People on EMChat';
+        $title = $q !== '' ? "Search: {$q} · " . config('app_name') : 'Find People · ' . config('app_name');
 
         $this->render('explore', [
             'meta' => $this->meta([
                 'title'       => $title,
-                'description' => 'Search for people to follow on EMChat.',
+                'description' => 'Search for people to follow on EMChat Media.',
                 'canonical'   => url('/explore'),
-                'robots'      => $q !== '' ? 'noindex,follow' : 'index,follow',
+                // A search box with no results has nothing worth indexing.
+                'robots'      => 'noindex,follow',
             ]),
             'query'  => $q,
             'people' => $people,

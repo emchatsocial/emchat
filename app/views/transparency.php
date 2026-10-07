@@ -13,7 +13,7 @@
   <p>Your home feed is only posts from people you follow, newest first. Nothing else is mixed in, and no algorithm decides what you see or ranks posts to keep you scrolling.</p>
 
   <h2>What "Public" actually means when you post</h2>
-  <p>Marking a post "Public" makes it visible to anyone who visits your profile directly, even people who don't follow you, unlike "Followers" which restricts it to accepted followers only. It is never pushed into other people's home feeds, never listed on Explore, and never indexed by search engines: the only way anyone sees it is by visiting your profile or opening a link to that specific post.</p>
+  <p>Marking a post "Public" makes it visible to anyone who visits your profile directly, even people who don't follow you, unlike "Followers" which restricts it to accepted followers only. It is never pushed into other people's home feeds or listed on Explore, so the only way anyone sees it is by visiting your profile or opening a link to that specific post. Search engines don't index individual posts, but they can see your profile page and the public posts on it. Turn off "Discoverable" in Settings if you want your profile kept out of search engines too.</p>
 
   <h2>Your data, your control</h2>
   <ul>

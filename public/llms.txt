@@ -1,6 +1,8 @@
 # EMChat Media
 
-> EMChat Media is a privacy-first social network — no ad trackers, no behavioural profiling, and no advertising business model. Founded in 2026 in North Macedonia by Egzon Mehmedi.
+> EMChat Media is a privacy-first social network with no ad trackers, no behavioural profiling, and no advertising business model. Founded in 2026 in North Macedonia by Egzon Mehmedi.
+
+EMChat Media (emchat.social) is a consumer social network. It is not related to other products with similar names, such as EMChat AI (a clinical assistant for emergency medicine), Emory Healthcare's emChat, or the emChat online discussion tool used for market research.
 
 EMChat Media (https://emchat.social) lets people share posts and photos, follow a feed built only from the accounts they choose (newest first, nothing else mixed in), message privately (direct messages and group chats), and share a rich profile card. There is no advertising business behind it: no trackers, no data selling, no engagement-ranked feed.
 
@@ -14,12 +16,17 @@ EMChat Media (https://emchat.social) lets people share posts and photos, follow 
 - Privacy controls: private accounts, per-post visibility, follower approval, block and mute, one-click data export, one-click account deletion
 - Photo privacy: uploaded images are re-encoded server-side to strip EXIF and GPS metadata
 - Messaging: direct messages and group chats with photos, video and file attachments; message requests keep messages from people you don't follow out of your main inbox until you accept them
+- Post visibility: public posts appear only on the author's profile and at their direct link; they are never pushed into other users' feeds
+- Source code: https://github.com/emchatsocial/emchat (source-available)
 
 ## Pages
 
 - [Home](https://emchat.social/): product overview and sign-up
 - [About](https://emchat.social/about): why EMChat Media exists, how it differs from ad-funded social networks, where it's based, and a frequently-asked-questions section
+- [Updates](https://emchat.social/updates): news, feature releases, and milestones, newest first
+- [Transparency](https://emchat.social/transparency): how the feed works, what happens to your data, and where to read the source code
 - [Explore](https://emchat.social/explore): search for people to follow
+- [Contact](https://emchat.social/contact): send a message to the team
 - [Privacy Policy](https://emchat.social/privacy)
 - [Terms of Service](https://emchat.social/terms)
 

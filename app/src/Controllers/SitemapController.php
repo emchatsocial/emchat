@@ -17,10 +17,11 @@ final class SitemapController extends Controller
 
         $urls = [
             ['loc' => url('/'), 'priority' => '1.0', 'freq' => 'daily'],
-            ['loc' => url('/login'), 'priority' => '0.6', 'freq' => 'monthly'],
-            ['loc' => url('/explore'), 'priority' => '0.7', 'freq' => 'daily'],
-            ['loc' => url('/about'), 'priority' => '0.5', 'freq' => 'monthly'],
-            ['loc' => url('/updates'), 'lastmod' => $latestUpdate, 'priority' => '0.6', 'freq' => 'weekly'],
+            ['loc' => url('/about'), 'priority' => '0.8', 'freq' => 'monthly'],
+            ['loc' => url('/updates'), 'lastmod' => $latestUpdate, 'priority' => '0.7', 'freq' => 'weekly'],
+            ['loc' => url('/transparency'), 'priority' => '0.6', 'freq' => 'monthly'],
+            ['loc' => url('/login'), 'priority' => '0.5', 'freq' => 'monthly'],
+            ['loc' => url('/contact'), 'priority' => '0.5', 'freq' => 'yearly'],
             ['loc' => url('/privacy'), 'priority' => '0.4', 'freq' => 'yearly'],
             ['loc' => url('/terms'), 'priority' => '0.3', 'freq' => 'yearly'],
         ];
@@ -60,6 +61,9 @@ final class SitemapController extends Controller
             'Allow: /login',
             'Allow: /explore',
             'Allow: /about',
+            'Allow: /updates',
+            'Allow: /transparency',
+            'Allow: /contact',
             'Allow: /privacy',
             'Allow: /terms',
             'Disallow: /feed',

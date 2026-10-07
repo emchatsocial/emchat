@@ -15,7 +15,7 @@ final class SettingsController extends Controller
     {
         $user = require_login();
         $this->render('settings/profile', [
-            'meta' => $this->meta(['title' => 'Edit profile — ' . config('app_name'), 'robots' => 'noindex']),
+            'meta' => $this->meta(['title' => 'Edit profile · ' . config('app_name'), 'robots' => 'noindex']),
             'user' => $user,
             'section' => 'profile',
         ]);
@@ -114,7 +114,7 @@ final class SettingsController extends Controller
             [$user['id']]
         );
         $this->render('settings/privacy', [
-            'meta'    => $this->meta(['title' => 'Privacy & safety — ' . config('app_name'), 'robots' => 'noindex']),
+            'meta'    => $this->meta(['title' => 'Privacy & safety · ' . config('app_name'), 'robots' => 'noindex']),
             'user'    => $user,
             'blocked' => $blocked,
             'muted'   => $muted,
@@ -149,7 +149,7 @@ final class SettingsController extends Controller
     {
         $user = require_login();
         $this->render('settings/account', [
-            'meta'    => $this->meta(['title' => 'Account — ' . config('app_name'), 'robots' => 'noindex']),
+            'meta'    => $this->meta(['title' => 'Account · ' . config('app_name'), 'robots' => 'noindex']),
             'user'    => $user,
             'section' => 'account',
         ]);

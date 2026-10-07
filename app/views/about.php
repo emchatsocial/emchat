@@ -1,20 +1,20 @@
 <section class="wrap prose">
   <h1>About EMChat Media</h1>
-  <p class="prose__lede">EMChat Media is a social network built on a simple trade: you get a place to share and connect, and we don't get to turn your life into an ad-targeting profile.</p>
+  <p class="prose__lede">EMChat Media is a social network built on a simple trade: you get a place to share and connect, and we don't get to turn your life into an advertising profile.</p>
 
   <h2>Why we built it</h2>
-  <p>Mainstream social platforms make money by keeping you scrolling and selling predictions about your behaviour. That business model shapes every product decision — the ranking, the notifications, the endless feed. We wanted the opposite: software that respects your attention and your data.</p>
+  <p>Mainstream social platforms make money by keeping you scrolling and selling predictions about your behaviour. That business model shapes every product decision, from the ranking to the notifications to the endless feed. We wanted the opposite: software that respects your attention and your data.</p>
 
-  <h2>How EMChat is different</h2>
+  <h2>How EMChat Media is different</h2>
   <ul>
     <li><strong>No ad trackers.</strong> No Meta Pixel, no advertising SDKs, no selling or sharing your data with advertisers. We use basic visit analytics to see how the site is doing, never to build an ad profile of you.</li>
     <li><strong>No engagement ranking.</strong> Your timeline is the people you follow, newest first.</li>
-    <li><strong>Passwordless.</strong> You sign in with a one-time email link, so there's no password to breach.</li>
-    <li><strong>Photo privacy by default.</strong> Uploaded images are re-encoded server-side, which strips EXIF and GPS metadata.</li>
-    <li><strong>Real controls.</strong> Private accounts, per-post visibility, block, mute, full data export, and one-click account deletion.</li>
+    <li><strong>No passwords.</strong> You sign in with a link sent to your email that works once, so there's no password to breach.</li>
+    <li><strong>Photo privacy by default.</strong> Every uploaded image is rebuilt on our server, which strips EXIF and GPS metadata.</li>
+    <li><strong>Real controls.</strong> Private accounts, visibility for each post, block, mute, full data export, and account deletion in one click.</li>
   </ul>
 
-  <h2>What you can do on EMChat</h2>
+  <h2>What you can do on EMChat Media</h2>
   <ul>
     <li><strong>Message privately, or in a group.</strong> Send photos, video, audio, and files, with message requests so people you don't follow can't land straight in your inbox.</li>
     <li><strong>Reply and follow the thread.</strong> Every reply to a post shows up underneath it, so conversations stay readable instead of scattered.</li>
@@ -25,10 +25,10 @@
   </ul>
 
   <h2>Profile cards</h2>
-  <p>Every member gets a rich profile card — profile photo, a bio with working links and mentions, follower and following counts, and a follow button — that you can share as its own page at <code>emchat.social/@yourname/card</code>.</p>
+  <p>Every member gets a rich profile card with a profile photo, a bio with working links and mentions, follower and following counts, and a follow button. You can share it as its own page at <code>emchat.social/@yourname/card</code>.</p>
 
   <h2>Where we're based</h2>
-  <p>EMChat Media is built and run independently from North Macedonia by founder <strong>Egzon Mehmedi</strong>. There's no outside ad network or data broker behind it — just a privacy-first, independently-run product built to treat your data as yours.</p>
+  <p>EMChat Media is built and run independently from North Macedonia by founder <strong>Egzon Mehmedi</strong>. There's no outside ad network or data broker behind it. It's an independent product, built from the start to treat your data as yours.</p>
 
   <h2>Contact</h2>
   <p>Questions, feedback, or press: <a href="mailto:egzon@emchat.social">egzon@emchat.social</a>.</p>

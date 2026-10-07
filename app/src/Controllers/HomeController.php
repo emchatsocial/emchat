@@ -15,8 +15,8 @@ final class HomeController extends Controller
         }
         $this->render('home', [
             'meta' => $this->meta([
-                'title'       => 'EMChat: A Social Network That Keeps Your World Yours',
-                'description' => 'Built independently in North Macedonia, EMChat skips ad trackers and '
+                'title'       => 'EMChat Media: A Private Social Network Without Ads',
+                'description' => 'Built independently in North Macedonia, EMChat Media skips ad trackers and '
                     . 'behavioural profiling. Your feed only shows the people you actually follow.',
                 'type'        => 'website',
                 'jsonld'      => $this->organizationJsonLd(),
@@ -29,9 +29,9 @@ final class HomeController extends Controller
         $faqs = $this->faqs();
         $this->render('about', [
             'meta' => $this->meta([
-                'title'       => 'About EMChat: A Social Network Built for Privacy, Not Profit',
-                'description' => 'Why EMChat exists: a privacy-first social network with no trackers or '
-                    . 'behavioural profiling, founded in 2026 in North Macedonia by Egzon Mehmedi.',
+                'title'       => 'About EMChat Media: Built for Privacy, Not Profit',
+                'description' => 'EMChat Media is a social network built for privacy, founded in 2026 in North '
+                    . 'Macedonia by Egzon Mehmedi. Here is why it exists and how it works.',
                 'jsonld'      => $this->faqJsonLd($faqs),
             ]),
             'faqs' => $faqs,
@@ -43,18 +43,18 @@ final class HomeController extends Controller
     {
         return [
             ['What is EMChat Media?',
-                'EMChat Media is a privacy-first social network founded in 2026 in North Macedonia. It offers a '
-                . 'feed built mainly from the people you follow, private messaging and group chats, and profile '
-                . 'pages, with no ad trackers or behavioural profiling.'],
+                'EMChat Media is a social network built for privacy, founded in 2026 in North Macedonia. It '
+                . 'offers a feed of posts from the people you follow, private messaging and group chats, and '
+                . 'profile pages, with no ad trackers or behavioural profiling.'],
             ['Is EMChat Media free to use?',
                 'Yes, EMChat Media is free to use. There is no advertising business behind it, so no paid tier '
                 . 'is required for the core features.'],
             ['Does EMChat Media sell or share my data?',
                 'No. EMChat Media has no advertising network or data broker relationships. Uploaded photos are '
-                . 're-encoded to strip EXIF and GPS metadata, and you can export or permanently delete your data '
-                . 'at any time.'],
+                . 'rebuilt on our server to strip EXIF and GPS metadata, and you can export or permanently delete '
+                . 'your data at any time.'],
             ['How is EMChat Media different from Instagram, Facebook, or X?',
-                'Unlike ad-funded platforms, EMChat Media has no ad trackers and no behavioural profiling. Your '
+                'Unlike platforms funded by advertising, EMChat Media has no ad trackers and no behavioural profiling. Your '
                 . 'feed is only posts from the people you follow, newest first, with nothing else mixed in and '
                 . 'nothing ranked to maximise how long you scroll. See our transparency page for the full details.'],
             ['What does setting a post to "Public" actually do?',
@@ -65,7 +65,7 @@ final class HomeController extends Controller
             ['Who founded EMChat Media?',
                 'EMChat Media was founded by Egzon Mehmedi and is built and run independently from North Macedonia.'],
             ['Do I need a password to sign in to EMChat Media?',
-                'No. EMChat Media uses passwordless sign-in — you receive a one-time link by email, so there is '
+                'No. EMChat Media does not use passwords. You get a link by email that works once, so there is '
                 . 'no password to create, remember, or have breached.'],
             ['Can I message people privately on EMChat Media?',
                 'Yes. EMChat Media supports direct messages and group chats with photos, video, and file '
@@ -114,7 +114,7 @@ final class HomeController extends Controller
     {
         $this->render('transparency', [
             'meta' => $this->meta([
-                'title'       => 'Transparency · ' . config('app_name'),
+                'title'       => 'Transparency: How EMChat Media Handles Your Data',
                 'description' => 'What EMChat Media actually does with your data, how the feed works, and where to read the source code yourself instead of taking our word for it.',
                 'canonical'   => url('/transparency'),
             ]),
@@ -126,8 +126,9 @@ final class HomeController extends Controller
         $viewer = current_user();
         $this->render('contact', [
             'meta' => $this->meta([
-                'title'       => 'Contact · ' . config('app_name'),
-                'description' => 'Get in touch with EMChat Media.',
+                'title'       => 'Contact EMChat Media',
+                'description' => 'Questions, feedback, or press inquiries? Send EMChat Media a message, or email '
+                    . 'egzon@emchat.social directly.',
                 'canonical'   => url('/contact'),
             ]),
         ], $viewer ? 'app' : 'marketing');
@@ -177,8 +178,8 @@ final class HomeController extends Controller
         }, $this->updateEntries());
         $this->render('updates', [
             'meta' => $this->meta([
-                'title'       => 'Updates · ' . config('app_name'),
-                'description' => 'Latest news, feature releases, and milestones from EMChat.',
+                'title'       => 'EMChat Media Updates: News and New Features',
+                'description' => 'News, feature releases, and milestones from EMChat Media, newest first.',
                 'canonical'   => url('/updates'),
                 'jsonld'      => $this->blogJsonLd(),
             ]),
@@ -196,6 +197,13 @@ final class HomeController extends Controller
     private function updateEntries(): array
     {
         return [
+            ['date' => '2026-09-20', 'headline' => 'Public posts now stay on your profile',
+                'body' => 'A public post is now only shown to people who visit your profile or open a direct link '
+                    . 'to it. It is no longer pushed into strangers\' feeds or listed on Explore, and individual '
+                    . 'posts are kept out of search engines.'],
+            ['date' => '2026-09-20', 'headline' => 'A contact page',
+                'body' => 'You can now reach us from the Contact link in the menu, without leaving EMChat Media or '
+                    . 'opening your own email app.'],
             ['date' => '2026-09-20', 'headline' => 'A quick tour of what EMChat actually does',
                 'body' => 'Private messaging with group chats and photo, video, and file attachments. Mentions '
                     . 'and hashtags. Notifications for likes, replies, and follows. Private accounts, per-post '
@@ -225,19 +233,28 @@ final class HomeController extends Controller
         ];
     }
 
+    /** Same @id as the homepage Organization node, so crawlers resolve every page to one entity. */
+    private function publisherRef(): array
+    {
+        return [
+            '@type' => 'Organization',
+            '@id'   => url('/#organization'),
+            'name'  => config('app_name'),
+            'url'   => url('/'),
+            'logo'  => url('/assets/img/logo-512.png?v=3'),
+        ];
+    }
+
     private function blogJsonLd(): string
     {
         return json_encode([
             '@context'    => 'https://schema.org',
             '@type'       => 'Blog',
-            'name'        => 'EMChat Updates',
+            'name'        => 'EMChat Media Updates',
             'url'         => url('/updates'),
-            'description' => 'Latest news, feature releases, and milestones from EMChat.',
-            'publisher'   => [
-                '@type' => 'Organization',
-                'name'  => 'EMChat',
-                'url'   => url('/'),
-            ],
+            'description' => 'News, feature releases, and milestones from EMChat Media.',
+            'inLanguage'  => 'en',
+            'publisher'   => $this->publisherRef(),
         ], JSON_UNESCAPED_SLASHES);
     }
 
@@ -245,12 +262,16 @@ final class HomeController extends Controller
     private function blogPostingJsonLd(array $entry): string
     {
         return json_encode([
-            '@context'     => 'https://schema.org',
-            '@type'        => 'BlogPosting',
-            'headline'     => $entry['headline'],
-            'datePublished' => $entry['date'],
-            'dateModified'  => $entry['date'],
-            'description'   => $entry['body'],
+            '@context'         => 'https://schema.org',
+            '@type'            => 'BlogPosting',
+            'headline'         => $entry['headline'],
+            'datePublished'    => $entry['date'],
+            'dateModified'     => $entry['date'],
+            'description'      => $entry['body'],
+            'url'              => url('/updates'),
+            'mainEntityOfPage' => url('/updates'),
+            'author'           => $this->publisherRef(),
+            'publisher'        => $this->publisherRef(),
         ], JSON_UNESCAPED_SLASHES);
     }
 
@@ -263,11 +284,12 @@ final class HomeController extends Controller
                     '@type'            => 'Organization',
                     '@id'              => url('/#organization'),
                     'name'             => config('app_name'),
-                    'alternateName'    => 'EMChat',
+                    'alternateName'    => ['EMChat', 'emchat.social'],
                     'email'            => 'egzon@emchat.social',
                     'url'              => url('/'),
                     'logo'             => url('/assets/img/logo-512.png?v=3'),
-                    'description'      => 'EMChat Media is a privacy-first social network built independently in North Macedonia.',
+                    'sameAs'           => ['https://github.com/emchatsocial'],
+                    'description'      => 'EMChat Media is a social network built for privacy, made independently in North Macedonia.',
                     'foundingDate'     => '2026',
                     'foundingLocation' => [
                         '@type'         => 'Place',
@@ -294,7 +316,7 @@ final class HomeController extends Controller
                     '@type'           => 'WebSite',
                     '@id'             => url('/#website'),
                     'name'            => config('app_name'),
-                    'alternateName'   => 'EMChat',
+                    'alternateName'   => ['EMChat', 'emchat.social'],
                     'url'             => url('/'),
                     'publisher'       => ['@id' => url('/#organization')],
                     'inLanguage'      => 'en',

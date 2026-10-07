@@ -150,7 +150,7 @@ final class PostController extends Controller
             abort(404);
         }
         $this->render('likers', [
-            'meta'  => $this->meta(['title' => 'Liked by — ' . config('app_name'), 'robots' => 'noindex']),
+            'meta'  => $this->meta(['title' => 'Liked by · ' . config('app_name'), 'robots' => 'noindex']),
             'post'  => $post,
             'people' => Post::likers((int) $post['id']),
             'viewer' => $viewer,

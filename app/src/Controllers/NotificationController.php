@@ -16,7 +16,7 @@ final class NotificationController extends Controller
         Notification::markAllRead((int) $user['id']);
 
         $this->render('notifications', [
-            'meta'     => $this->meta(['title' => 'Notifications — ' . config('app_name'), 'robots' => 'noindex,nofollow']),
+            'meta'     => $this->meta(['title' => 'Notifications · ' . config('app_name'), 'robots' => 'noindex,nofollow']),
             'items'    => $items,
             'requests' => $requests,
             'viewer'   => $user,

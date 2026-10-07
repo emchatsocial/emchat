@@ -26,7 +26,7 @@
           <ul class="lp-scan__list">
             <li data-scan-item><span class="lp-scan__mark"><?= icon('check', '', 12) ?></span> No analytics scripts</li>
             <li data-scan-item><span class="lp-scan__mark"><?= icon('check', '', 12) ?></span> No advertising SDKs</li>
-            <li data-scan-item><span class="lp-scan__mark"><?= icon('check', '', 12) ?></span> No third-party requests</li>
+            <li data-scan-item><span class="lp-scan__mark"><?= icon('check', '', 12) ?></span> No ad network requests</li>
             <li data-scan-item><span class="lp-scan__mark"><?= icon('check', '', 12) ?></span> No fingerprinting</li>
           </ul>
           <div class="lp-scan__result">

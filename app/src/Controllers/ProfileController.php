@@ -53,7 +53,7 @@ final class ProfileController extends Controller
 
         $this->render('profile', [
             'meta' => $this->meta([
-                'title'       => "{$profile['display_name']} (@{$profile['username']}) — " . config('app_name'),
+                'title'       => "{$profile['display_name']} (@{$profile['username']}) · " . config('app_name'),
                 'description' => mb_substr($desc, 0, 200),
                 'canonical'   => url('@' . $profile['username']),
                 'robots'      => $indexable ? 'index,follow' : 'noindex,nofollow',
@@ -97,7 +97,7 @@ final class ProfileController extends Controller
 
         $this->render('connections', [
             'meta'    => $this->meta([
-                'title'  => ucfirst($kind) . " of @{$profile['username']} — " . config('app_name'),
+                'title'  => ucfirst($kind) . " of @{$profile['username']} · " . config('app_name'),
                 'robots' => 'noindex,follow',
             ]),
             'profile' => User::withStats($profile, $viewerId),

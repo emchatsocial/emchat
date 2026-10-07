@@ -41,6 +41,7 @@ $user = current_user();
 <meta name="geo.placename" content="North Macedonia">
 
 <meta property="og:site_name" content="<?= e(config('app_name')) ?>">
+<meta property="og:locale" content="en_US">
 <meta property="og:type" content="<?= e($m['type']) ?>">
 <meta property="og:title" content="<?= e($m['title']) ?>">
 <meta property="og:description" content="<?= e($m['description']) ?>">

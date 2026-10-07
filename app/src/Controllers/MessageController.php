@@ -16,7 +16,7 @@ final class MessageController extends Controller
     {
         $user = require_login();
         $this->render('messages/index', [
-            'meta'    => $this->meta(['title' => 'Messages — ' . config('app_name'), 'robots' => 'noindex,nofollow']),
+            'meta'    => $this->meta(['title' => 'Messages · ' . config('app_name'), 'robots' => 'noindex,nofollow']),
             'threads' => Messaging::inbox((int) $user['id']),
             'active'  => null,
         ]);
@@ -27,7 +27,7 @@ final class MessageController extends Controller
         $user = require_login();
         $uid  = (int) $user['id'];
         $this->render('messages/requests', [
-            'meta'    => $this->meta(['title' => 'Message requests — ' . config('app_name'), 'robots' => 'noindex,nofollow']),
+            'meta'    => $this->meta(['title' => 'Message requests · ' . config('app_name'), 'robots' => 'noindex,nofollow']),
             'threads' => Messaging::inbox($uid),
             'requests' => Messaging::requests($uid),
             'active'  => 'requests',
@@ -95,7 +95,7 @@ final class MessageController extends Controller
             ]);
         }
         $this->render('messages/new', [
-            'meta'    => $this->meta(['title' => 'New message — ' . config('app_name'), 'robots' => 'noindex']),
+            'meta'    => $this->meta(['title' => 'New message · ' . config('app_name'), 'robots' => 'noindex']),
             'threads' => Messaging::inbox((int) $user['id']),
             'people'  => $people,
             'query'   => $q,
@@ -164,8 +164,8 @@ final class MessageController extends Controller
         $seenAt = (!$isGroup && !$isRequest) ? Messaging::readReceipt($cid, $uid) : null;
 
         $title = $isGroup
-            ? (($group['title'] ?? 'Group') . ' — ' . config('app_name'))
-            : ('Chat with @' . ($other['username'] ?? '') . ' — ' . config('app_name'));
+            ? (($group['title'] ?? 'Group') . ' · ' . config('app_name'))
+            : ('Chat with @' . ($other['username'] ?? '') . ' · ' . config('app_name'));
 
         $this->render('messages/thread', [
             'meta'     => $this->meta(['title' => $title, 'robots' => 'noindex,nofollow']),
@@ -190,7 +190,7 @@ final class MessageController extends Controller
         $user = require_login();
         $people = Messaging::searchRecipients((int) $user['id'], '', 50);
         $this->render('messages/new_group', [
-            'meta'    => $this->meta(['title' => 'New group — ' . config('app_name'), 'robots' => 'noindex']),
+            'meta'    => $this->meta(['title' => 'New group · ' . config('app_name'), 'robots' => 'noindex']),
             'threads' => Messaging::inbox((int) $user['id']),
             'people'  => $people,
             'active'  => 'new',
@@ -234,7 +234,7 @@ final class MessageController extends Controller
         $addable = $isAdmin ? $this->addableTo($cid, $uid) : [];
 
         $this->render('messages/group_info', [
-            'meta'     => $this->meta(['title' => ($group['title'] ?: 'Group') . ' — ' . config('app_name'), 'robots' => 'noindex,nofollow']),
+            'meta'     => $this->meta(['title' => ($group['title'] ?: 'Group') . ' · ' . config('app_name'), 'robots' => 'noindex,nofollow']),
             'threads'  => Messaging::inbox($uid),
             'group'    => $group,
             'members'  => $members,
