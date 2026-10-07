@@ -5,6 +5,6 @@
 <head><?= $view->renderPartial('partials/head', ['meta' => $meta ?? []]) ?></head>
 <body class="bare">
 <main id="main" class="bare__wrap"><?= $content ?></main>
-<script src="/assets/js/app.js?v=71" defer></script>
+<script src="/assets/js/app.js?v=72" defer></script>
 </body>
 </html>

@@ -42,6 +42,6 @@ if (!$user) { redirect('/login'); }
 
 <div id="toasts" class="toasts" aria-live="polite" aria-atomic="false"></div>
 
-<script src="/assets/js/app.js?v=71" defer></script>
+<script src="/assets/js/app.js?v=72" defer></script>
 </body>
 </html>

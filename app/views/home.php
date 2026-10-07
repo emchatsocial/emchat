@@ -20,18 +20,18 @@
         <article class="lp-card lp-scan" data-scan data-reveal="1">
           <div class="lp-scan__top">
             <span class="lp-scan__pulse"></span>
-            <span data-scan-label>Checking this page for trackers</span>
+            <span data-scan-label>Checking this page for ad tracking</span>
           </div>
           <div class="lp-scan__bar"><i data-scan-bar></i></div>
           <ul class="lp-scan__list">
-            <li data-scan-item><span class="lp-scan__mark"><?= icon('check', '', 12) ?></span> No analytics scripts</li>
+            <li data-scan-item><span class="lp-scan__mark"><?= icon('check', '', 12) ?></span> No Meta or TikTok pixels</li>
             <li data-scan-item><span class="lp-scan__mark"><?= icon('check', '', 12) ?></span> No advertising SDKs</li>
             <li data-scan-item><span class="lp-scan__mark"><?= icon('check', '', 12) ?></span> No ad network requests</li>
             <li data-scan-item><span class="lp-scan__mark"><?= icon('check', '', 12) ?></span> No fingerprinting</li>
           </ul>
           <div class="lp-scan__result">
-            <span><b data-scan-n0>0</b> trackers</span>
-            <span><b data-scan-n1>0</b> requests to other sites</span>
+            <span><b data-scan-n0>0</b> ad trackers</span>
+            <span><b data-scan-n1>1</b> analytics tool</span>
           </div>
         </article>
 

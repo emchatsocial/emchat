@@ -695,7 +695,7 @@
       $$('[data-scan-item]', scan).forEach(function (li) { li.classList.add('on'); });
       var b0 = $('[data-scan-bar]', scan); if (b0) b0.style.width = '100%';
       scan.classList.add('is-done');
-      $('[data-scan-label]', scan).textContent = 'Nothing tracking you here';
+      $('[data-scan-label]', scan).textContent = 'No ad tracking on this page';
       return;
     }
 
@@ -710,7 +710,7 @@
       clearTimers();
       scan.classList.remove('is-done');
       scan.classList.add('is-scanning');
-      label.textContent = 'Checking this page for trackers';
+      label.textContent = 'Checking this page for ad tracking';
       items.forEach(function (li) { li.classList.remove('on'); });
       bar.style.transition = 'none'; bar.style.width = '0%';
       // force reflow then animate
@@ -721,7 +721,7 @@
       at(2050, function () {
         scan.classList.remove('is-scanning');
         scan.classList.add('is-done');
-        label.textContent = 'Nothing tracking you here';
+        label.textContent = 'No ad tracking on this page';
       });
       at(8500, function () { if (!document.hidden) runScan(); });
     }
