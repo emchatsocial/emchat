@@ -42,6 +42,7 @@ if (!$user) { redirect('/login'); }
 
 <div id="toasts" class="toasts" aria-live="polite" aria-atomic="false"></div>
 
-<script src="/assets/js/app.js?v=72" defer></script>
+<script src="/assets/js/app.js?v=74" defer></script>
+<?php if (\App\Models\E2E::enabledFor($user)): ?><script src="/assets/js/e2e.js?v=8" defer></script><?php endif; ?>
 </body>
 </html>

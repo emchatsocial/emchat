@@ -34,7 +34,7 @@
             <?php endif; ?>
             <span class="reqrow__id">
               <span class="reqrow__name"><?= e($name) ?><?php if (!$isGroup): ?> <span class="reqrow__handle">@<?= e($t['username']) ?></span><?php endif; ?></span>
-              <span class="reqrow__preview"><?= e(mb_strimwidth((string) $t['last_body'], 0, 70, '…')) ?></span>
+              <span class="reqrow__preview"><?= e(\App\Models\E2E::isEnvelope((string) $t['last_body']) ? '🔒 Encrypted message' : mb_strimwidth((string) $t['last_body'], 0, 70, '…')) ?></span>
             </span>
           </a>
           <div class="reqrow__actions">

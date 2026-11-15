@@ -26,6 +26,12 @@ final class SitemapController extends Controller
             ['loc' => url('/terms'), 'priority' => '0.3', 'freq' => 'yearly'],
         ];
 
+        $articles = BlogController::all();
+        $urls[] = ['loc' => url('/blog'), 'lastmod' => $articles[0]['updated'] ?? null, 'priority' => '0.8', 'freq' => 'weekly'];
+        foreach ($articles as $a) {
+            $urls[] = ['loc' => url('/blog/' . $a['slug']), 'lastmod' => $a['updated'], 'priority' => '0.7', 'freq' => 'monthly'];
+        }
+
         $people = App::db()->all(
             'SELECT username, last_seen_at, created_at FROM users
              WHERE is_private = 0 AND discoverable = 1 ORDER BY id DESC LIMIT 5000'
@@ -38,6 +44,22 @@ final class SitemapController extends Controller
                 'freq'    => 'weekly',
             ];
         }
+        // Public posts from public, Discoverable, non-suspended accounts.
+        $posts = App::db()->all(
+            "SELECT p.id, COALESCE(p.edited_at, p.created_at) AS updated FROM posts p JOIN users u ON u.id = p.user_id
+             WHERE p.visibility = 'public' AND p.deleted_at IS NULL
+               AND u.is_private = 0 AND u.discoverable = 1 AND u.suspended_at IS NULL
+             ORDER BY p.id DESC LIMIT 20000"
+        );
+        foreach ($posts as $p) {
+            $urls[] = [
+                'loc'      => url('/p/' . $p['id']),
+                'lastmod'  => date('Y-m-d', strtotime($p['updated'])),
+                'priority' => '0.6',
+                'freq'     => 'monthly',
+            ];
+        }
+
         echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
         echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
         foreach ($urls as $u) {
@@ -62,6 +84,7 @@ final class SitemapController extends Controller
             'Allow: /explore',
             'Allow: /about',
             'Allow: /updates',
+            'Allow: /blog',
             'Allow: /transparency',
             'Allow: /contact',
             'Allow: /privacy',

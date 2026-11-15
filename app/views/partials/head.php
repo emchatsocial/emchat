@@ -55,8 +55,8 @@ $user = current_user();
 <link rel="preload" href="/assets/fonts/Michroma.woff2?v=1" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/Bricolage.woff2?v=1" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/Hanken.woff2?v=1" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/css/app.css?v=95" as="style">
-<link rel="stylesheet" href="/assets/css/app.css?v=95">
+<link rel="preload" href="/assets/css/app.css?v=104" as="style">
+<link rel="stylesheet" href="/assets/css/app.css?v=104">
 <script nonce="<?= e(csp_nonce()) ?>">
 (function(){var d=document.documentElement;try{var t=localStorage.getItem('emc-theme');d.dataset.theme=(t==='light'||t==='dark')?t:'dark';}catch(e){d.dataset.theme='dark';}
 try{d.classList.add('js');}catch(e){}})();
@@ -65,3 +65,6 @@ try{d.classList.add('js');}catch(e){}})();
 <script type="application/ld+json"><?= str_replace('</', '<\/', $m['jsonld']) /* pre-encoded JSON; escape </ so user text (bio, post body, ...) can never close this tag early */ ?></script>
 <?php endif; ?>
 <meta name="csrf-token" content="<?= e(csrf_token()) ?>">
+<?php $e2eUser = current_user(); if ($e2eUser && \App\Models\E2E::enabledFor($e2eUser)): ?>
+<meta name="emc-e2e" content="<?= (int) $e2eUser['id'] ?>">
+<?php endif; ?>

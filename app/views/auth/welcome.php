@@ -54,7 +54,7 @@
     <label class="switch onboard__switch">
       <input type="checkbox" name="is_private" value="1">
       <span class="switch__track"></span>
-      <span class="switch__label"><strong>Make my account private</strong><small>You approve every follower, and posts stay hidden from the public.</small></span>
+      <span class="switch__label"><strong>Make my account private</strong><small>You approve every follower. Only posts you mark Public are visible to everyone.</small></span>
     </label>
 
     <div class="onboard__nav">

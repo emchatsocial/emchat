@@ -12,6 +12,9 @@ final class Notification
         if ($userId === $actorId) {
             return;
         }
+        if (Social::blockedEitherWay($userId, $actorId)) {
+            return;
+        }
         $db = App::db();
         // Collapse duplicate like/follow/message spam: same actor+subject within a
         // day bumps the existing notification back to unread instead of piling up

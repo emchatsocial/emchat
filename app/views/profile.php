@@ -16,13 +16,16 @@
     </details>
   <?php endif; ?>
 
-  <?php if (!$can_view): ?>
+  <?php if (!$can_view && !$posts && $tab === 'posts'): ?>
     <div class="empty empty--locked">
       <div class="empty__icon"><?= icon('lock','',34) ?></div>
       <h2>This account is private</h2>
       <p>Follow @<?= e($profile['username']) ?> to see their posts.</p>
     </div>
   <?php else: ?>
+    <?php if (!$can_view): ?>
+      <p class="muted profile-page__empty"><?= icon('lock','',13) ?> This account is private. You're seeing only their public posts. Follow @<?= e($profile['username']) ?> to see more.</p>
+    <?php endif; ?>
     <nav class="tabs">
       <a class="tab <?= $tab === 'posts' ? 'is-active' : '' ?>" href="<?= e(url('@' . $profile['username'])) ?>">Posts</a>
       <a class="tab <?= $tab === 'replies' ? 'is-active' : '' ?>" href="<?= e(url('@' . $profile['username'] . '?tab=replies')) ?>">Replies</a>

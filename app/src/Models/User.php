@@ -112,14 +112,24 @@ final class User
         ) !== null;
     }
 
-    public static function search(string $query, int $limit = 20): array
+    public static function search(string $query, int $limit = 20, ?int $viewerId = null): array
     {
         $like = '%' . str_replace(['%', '_'], ['\%', '\_'], $query) . '%';
+        $params = [$like, $like];
+        $blockSql = '';
+        if ($viewerId !== null) {
+            $blockSql = ' AND id NOT IN (SELECT blocked_id FROM blocks WHERE blocker_id = ?)
+                          AND id NOT IN (SELECT blocker_id FROM blocks WHERE blocked_id = ?)';
+            $params[] = $viewerId;
+            $params[] = $viewerId;
+        }
+        $params[] = $query;
+        $params[] = $limit;
         return App::db()->all(
             "SELECT * FROM users
-             WHERE discoverable = 1 AND suspended_at IS NULL AND (username LIKE ? OR display_name LIKE ?)
+             WHERE discoverable = 1 AND suspended_at IS NULL AND (username LIKE ? OR display_name LIKE ?)$blockSql
              ORDER BY (username = ?) DESC, id DESC LIMIT ?",
-            [$like, $like, $query, $limit]
+            $params
         );
     }
 

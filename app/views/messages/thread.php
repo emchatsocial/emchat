@@ -24,8 +24,10 @@ if ($seen_at && $messages) {
   <div class="messenger__list">
     <?= $view->partial('thread_list', ['threads' => $threads, 'active' => $active]) ?>
   </div>
+  <?php $e2eChat = ($is_group || $other) && \App\Models\E2E::enabledFor($user); ?>
   <div class="messenger__panel" data-conversation="<?= (int) $cid ?>"
-       data-poll-url="<?= e(url('/messages/' . $cid)) ?>" data-last-id="<?= (int) $last_id ?>">
+       data-poll-url="<?= e(url('/messages/' . $cid)) ?>" data-last-id="<?= (int) $last_id ?>"
+       <?= $e2eChat ? 'data-e2e-chat="1"' . ($is_group ? ' data-e2e-group="1"' : ' data-e2e-peer="' . e($other['username']) . '"') : '' ?>>
     <header class="messenger__head">
       <a class="back--inline" href="<?= e(url('/messages')) ?>" aria-label="Back to messages"><?= icon('arrow-left', '', 20) ?></a>
 
@@ -98,6 +100,19 @@ if ($seen_at && $messages) {
           </form>
         </div>
       </div>
+    <?php elseif (($block_state ?? null) === 'you'): ?>
+      <div class="reqbar">
+        <p class="reqbar__text">You blocked @<?= e($other['username']) ?>. Neither of you can send messages here while they're blocked.</p>
+        <div class="reqbar__actions">
+          <form method="post" action="<?= e(url('/x/unblock/' . $other['username'])) ?>" data-group-action>
+            <?= csrf_field() ?><button class="btn btn--ghost" type="submit">Unblock</button>
+          </form>
+        </div>
+      </div>
+    <?php elseif (($block_state ?? null) === 'them'): ?>
+      <div class="reqbar">
+        <p class="reqbar__text">You can't send messages in this chat anymore.</p>
+      </div>
     <?php elseif ($otherSuspended): ?>
       <div class="reqbar">
         <p class="reqbar__text">This account is suspended. You can't send new messages here, but your chat history stays as it was.</p>
@@ -107,6 +122,7 @@ if ($seen_at && $messages) {
             enctype="multipart/form-data" data-ajax="message">
         <?= csrf_field() ?>
         <input type="hidden" name="reply_to" value="" data-reply-input>
+        <?php if ($e2eChat): ?><p class="e2e-status" data-e2e-status hidden></p><?php endif; ?>
         <div class="messenger__replybar" data-reply-bar hidden>
           <div class="messenger__replybar-body">
             <span class="messenger__replybar-to" data-reply-to></span>

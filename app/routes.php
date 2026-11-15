@@ -4,6 +4,8 @@ declare(strict_types=1);
 use App\Router;
 use App\Controllers\AdminController;
 use App\Controllers\AuthController;
+use App\Controllers\BlogController;
+use App\Controllers\E2EController;
 use App\Controllers\FeedController;
 use App\Controllers\HomeController;
 use App\Controllers\InteractionController;
@@ -24,6 +26,8 @@ $router->get('/terms', fn () => (new HomeController())->terms());
 $router->get('/transparency', fn () => (new HomeController())->transparency());
 $router->get('/updates', fn () => (new HomeController())->updates());
 $router->get('/contact', fn () => (new HomeController())->contact());
+$router->get('/blog', fn () => (new BlogController())->index());
+$router->get('/blog/{slug:[a-z0-9-]+}', fn ($p) => (new BlogController())->show($p));
 $router->post('/contact', fn () => (new HomeController())->sendContact());
 
 // SEO
@@ -94,6 +98,16 @@ $router->get('/notifications', fn () => (new NotificationController())->index())
 // Live badges
 $router->get('/x/pulse', fn () => (new PulseController())->pulse());
 
+// End-to-end encrypted messages
+$router->get('/x/e2e/state', fn () => (new E2EController())->state());
+$router->get('/x/e2e/backup', fn () => (new E2EController())->backup());
+$router->post('/x/e2e/setup', fn () => (new E2EController())->setup());
+$router->post('/x/e2e/backup', fn () => (new E2EController())->saveBackup());
+$router->post('/x/e2e/backup/delete', fn () => (new E2EController())->deleteBackups());
+$router->get('/x/e2e/keys', fn () => (new E2EController())->keys());
+$router->get('/x/e2e/peer/{cid:\d+}', fn ($p) => (new E2EController())->peer($p));
+$router->get('/x/e2e/members/{cid:\d+}', fn ($p) => (new E2EController())->members($p));
+
 // Settings
 $router->get('/settings', fn () => redirect('/settings/profile'));
 $router->get('/settings/profile', fn () => (new SettingsController())->profile());
@@ -102,6 +116,7 @@ $router->post('/settings/profile/avatar/remove', fn () => (new SettingsControlle
 $router->get('/settings/privacy', fn () => (new SettingsController())->privacy());
 $router->post('/settings/privacy', fn () => (new SettingsController())->updatePrivacy());
 $router->get('/settings/account', fn () => (new SettingsController())->account());
+$router->get('/settings/encryption', fn () => (new SettingsController())->encryption());
 $router->post('/settings/account/export', fn () => (new SettingsController())->exportData());
 $router->post('/settings/account/delete', fn () => (new SettingsController())->deleteAccount());
 

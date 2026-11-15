@@ -6,8 +6,10 @@ namespace App\Controllers;
 use App\App;
 use App\Request;
 use App\Upload;
+use App\Models\E2E;
 use App\Models\Messaging;
 use App\Models\Notification;
+use App\Models\Social;
 use App\Models\User;
 
 final class MessageController extends Controller
@@ -140,6 +142,7 @@ final class MessageController extends Controller
                 json_response([
                     'ok'    => true,
                     'now'   => time(),
+                    'seen'  => $this->lastMessageSeen($cid, $uid, $isGroup),
                     'items' => array_map(fn ($m) => [
                         'id'   => (int) $m['id'],
                         'mine' => (int) $m['sender_id'] === $uid,
@@ -161,6 +164,15 @@ final class MessageController extends Controller
         $group = $isGroup ? Messaging::groupMeta($cid) : null;
         $other = $isGroup ? null : Messaging::other($cid, $uid);
         $isRequest = Messaging::participantState($cid, $uid) === 'request';
+        // 'you' = viewer blocked them, 'them' = they blocked the viewer, null = no block
+        $blockState = null;
+        if ($other) {
+            if (App::db()->column('SELECT 1 FROM blocks WHERE blocker_id = ? AND blocked_id = ?', [$uid, $other['id']])) {
+                $blockState = 'you';
+            } elseif (App::db()->column('SELECT 1 FROM blocks WHERE blocker_id = ? AND blocked_id = ?', [$other['id'], $uid])) {
+                $blockState = 'them';
+            }
+        }
         $seenAt = (!$isGroup && !$isRequest) ? Messaging::readReceipt($cid, $uid) : null;
 
         $title = $isGroup
@@ -176,6 +188,7 @@ final class MessageController extends Controller
             'is_group'   => $isGroup,
             'is_admin'   => $isGroup && Messaging::isAdmin($cid, $uid),
             'is_request' => $isRequest,
+            'block_state' => $blockState,
             'seen_at'  => $seenAt,
             'cid'      => $cid,
             'active'   => $isRequest ? 'requests' : $cid,
@@ -365,16 +378,24 @@ final class MessageController extends Controller
             if ($other && $other['suspended_at'] !== null) {
                 $this->fail('You can\'t send messages to this account right now.');
             }
+            if ($other && Social::blockedEitherWay($uid, (int) $other['id'])) {
+                $this->fail('You can\'t send messages to this account.');
+            }
         }
 
         $body = trim((string) Request::input('body', ''));
         $replyTo = Request::int('reply_to') ?: null;
-        $attachments = $this->intakeFiles();
+        $encrypted = E2E::isEnvelope($body);
+        if ($encrypted && !$this->validEnvelopeFor($cid, $uid, $body)) {
+            $this->fail('This encrypted message could not be sent. Refresh the page and try again.');
+        }
+        // v2 encrypted messages upload their attachments as ciphertext.
+        $attachments = ($encrypted && str_starts_with($body, 'e2e2:')) ? $this->intakeFiles(true) : $this->intakeFiles();
 
         if ($body === '' && !$attachments) {
             $this->fail('Type a message or attach a file.');
         }
-        if ($body !== '' && looks_like_flood($body)) {
+        if ($body !== '' && !$encrypted && looks_like_flood($body)) {
             $this->fail('That looks like spam. Try writing something more varied.');
         }
         if (!App::limiter()->attempt('message:' . $uid, ...array_values(config('message_rate', ['max' => 60, 'per_seconds' => 300])))) {
@@ -408,7 +429,11 @@ final class MessageController extends Controller
             $this->fail('That message is unavailable.');
         }
         $editBody = (string) Request::input('body', '');
-        if (looks_like_flood($editBody)) {
+        if (E2E::isEnvelope($editBody)) {
+            if (!$this->validEnvelopeFor((int) $params['cid'], $uid, $editBody)) {
+                $this->fail('This encrypted message could not be saved. Refresh the page and try again.');
+            }
+        } elseif (looks_like_flood($editBody)) {
             $this->fail('That looks like spam. Try writing something more varied.');
         }
         $updated = Messaging::editMessage($mid, $uid, $editBody);
@@ -461,16 +486,54 @@ final class MessageController extends Controller
         if (Messaging::conversationOf($mid) !== (int) $params['cid'] || !Messaging::isParticipant((int) $params['cid'], $uid)) {
             $this->fail('That message is unavailable.');
         }
+        // For an encrypted message the server can't read, the reporter's browser
+        // shares the decrypted text it is reporting.
+        $evidence = '';
+        $msg = Messaging::messageById($mid, $uid);
+        if ($msg && E2E::isEnvelope((string) $msg['body'])) {
+            $evidence = mb_substr(strip_invisible_chars((string) Request::input('evidence', '')), 0, 4000);
+        }
         \App\Models\Report::file(
             $uid, 'message', $mid,
             (string) Request::input('reason', 'other'),
-            (string) Request::input('note', '')
+            (string) Request::input('note', ''),
+            $evidence
         );
         json_response(['ok' => true]);
     }
 
+    /** 1:1 chats: has the other person read the latest message, if the viewer sent it? (drives the live "Seen" marker) */
+    private function lastMessageSeen(int $cid, int $uid, bool $isGroup): bool
+    {
+        if ($isGroup || Messaging::participantState($cid, $uid) === 'request') {
+            return false;
+        }
+        $last = Messaging::messages($cid, 1, 0, $uid)[0] ?? null;
+        if (!$last || (int) $last['sender_id'] !== $uid || !empty($last['deleted_at'])) {
+            return false;
+        }
+        $seenAt = Messaging::readReceipt($cid, $uid);
+        return $seenAt !== null && strtotime($seenAt) >= strtotime($last['created_at']);
+    }
+
+    /** An encrypted body must use the sender's own key and only keys of people in this chat (e2e1: 1:1 only). */
+    private function validEnvelopeFor(int $cid, int $uid, string $body): bool
+    {
+        if (!E2E::enabledFor(current_user())) {
+            return false;
+        }
+        if (str_starts_with($body, 'e2e2:')) {
+            return E2E::validEnvelope2($body, $uid, array_map(fn ($p) => (int) $p['id'], Messaging::participants($cid)));
+        }
+        if (Messaging::isGroup($cid)) {
+            return false;
+        }
+        $other = Messaging::other($cid, $uid);
+        return $other !== null && E2E::validEnvelope($body, $uid, (int) $other['id']);
+    }
+
     /** @return array<int,array> */
-    private function intakeFiles(): array
+    private function intakeFiles(bool $encrypted = false): array
     {
         $files = $_FILES['files'] ?? null;
         if (!$files || !is_array($files['name'] ?? null)) {
@@ -483,7 +546,7 @@ final class MessageController extends Controller
             if (($files['error'][$i] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_NO_FILE) {
                 continue;
             }
-            $res = Upload::messageFile([
+            $res = ($encrypted ? [Upload::class, 'encryptedBlob'] : [Upload::class, 'messageFile'])([
                 'name'     => $files['name'][$i],
                 'type'     => $files['type'][$i],
                 'tmp_name' => $files['tmp_name'][$i],

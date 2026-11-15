@@ -21,3 +21,6 @@ node_modules/
 
 /public/media/messages/*
 !/public/media/messages/.gitkeep
+
+# Marketing videos, images and video tools (large; not part of the app)
+/marketing/

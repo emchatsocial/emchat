@@ -33,17 +33,20 @@ final class ProfileController extends Controller
         $profile = User::withStats($profile, $viewerId);
 
         if (!empty($profile['blocks_you'])) {
-            abort(404, 'There is no @' . e($username) . ' here.');
+            $this->render('profile-blocked', [
+                'meta'    => $this->meta(['title' => '@' . $profile['username'] . ' · ' . config('app_name'), 'robots' => 'noindex,nofollow']),
+                'profile' => $profile,
+            ], 'app');
+            return;
         }
 
         $tab = in_array(Request::input('tab'), ['replies', 'media'], true) ? Request::input('tab') : 'posts';
         $canView = User::canViewProfilePosts($profile, $viewerId);
-        $posts = [];
-        if ($canView) {
-            $posts = Post::byUser((int) $profile['id'], $viewerId, $tab === 'replies', 30);
-            if ($tab === 'media') {
-                $posts = array_values(array_filter($posts, static fn ($p) => !empty($p['media'])));
-            }
+        // Public posts show to everyone, even on private accounts; byUser()
+        // filters out anything this viewer isn't allowed to see.
+        $posts = Post::byUser((int) $profile['id'], $viewerId, $tab === 'replies', 30);
+        if ($tab === 'media') {
+            $posts = array_values(array_filter($posts, static fn ($p) => !empty($p['media'])));
         }
 
         $indexable = !$profile['is_private'] && $profile['discoverable'];

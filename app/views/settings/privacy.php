@@ -7,12 +7,12 @@
   <label class="switch">
     <input type="checkbox" name="is_private" value="1" <?= $user['is_private'] ? 'checked' : '' ?>>
     <span class="switch__track"></span>
-    <span class="switch__label"><strong>Private account</strong><small>Only approved followers can see your posts, followers and following.</small></span>
+    <span class="switch__label"><strong>Private account</strong><small>Only approved followers can see your followers-only posts, followers and following. Posts you mark Public stay visible to everyone.</small></span>
   </label>
   <label class="switch">
     <input type="checkbox" name="discoverable" value="1" <?= $user['discoverable'] ? 'checked' : '' ?>>
     <span class="switch__track"></span>
-    <span class="switch__label"><strong>Discoverable</strong><small>Allow your profile to appear in search and the public sitemap indexed by search engines.</small></span>
+    <span class="switch__label"><strong>Discoverable</strong><small>Let people find you in search, and let search engines like Google index your profile and your Public posts.</small></span>
   </label>
   <button class="btn btn--primary" type="submit" data-autosave-hide>Save</button>
 </form>

@@ -27,6 +27,14 @@ use App\Models\Report as ReportModel;
           <?php elseif ($r['subject_type'] === 'user'): ?>
             <p><strong>@<?= e($subj['username']) ?></strong> — <?= e($subj['display_name']) ?></p>
             <a href="<?= e(url('@' . $subj['username'])) ?>" target="_blank" rel="noopener">View profile →</a>
+          <?php elseif ($r['subject_type'] === 'message' && \App\Models\E2E::isEnvelope((string) $subj['body'])): ?>
+            <p><strong>@<?= e($subj['username']) ?>:</strong> <em>End-to-end encrypted message.</em></p>
+            <?php if (!empty($r['evidence'])): ?>
+              <p class="muted">Text shared by the reporter (not verifiable by the server):</p>
+              <p>"<?= e(mb_strimwidth((string) $r['evidence'], 0, 600, '…')) ?>"</p>
+            <?php else: ?>
+              <p class="muted">The reporter's browser did not share the text.</p>
+            <?php endif; ?>
           <?php elseif ($r['subject_type'] === 'message'): ?>
             <p><strong>@<?= e($subj['username']) ?>:</strong> <?= e(mb_strimwidth((string) $subj['body'], 0, 200, '…')) ?></p>
           <?php endif; ?>

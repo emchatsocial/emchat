@@ -12,6 +12,7 @@ $user = current_user();
     <nav class="site-header__nav">
       <a href="<?= e(url('/explore')) ?>">Explore</a>
       <a href="<?= e(url('/about')) ?>">About</a>
+      <a href="<?= e(url('/blog')) ?>">Blog</a>
       <a href="<?= e(url('/updates')) ?>">Updates</a>
       <a href="<?= e(url('/privacy')) ?>">Privacy</a>
       <?php if ($user): ?>
@@ -36,6 +37,7 @@ $user = current_user();
       <span class="site-footer__label">Product</span>
       <a href="<?= e(url('/explore')) ?>">Explore</a>
       <a href="<?= e(url('/about')) ?>">About</a>
+      <a href="<?= e(url('/blog')) ?>">Blog</a>
       <a href="<?= e(url('/updates')) ?>">Updates</a>
       <a href="<?= e(url('/login')) ?>">Log in</a>
     </nav>

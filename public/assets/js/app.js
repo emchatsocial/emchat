@@ -151,8 +151,13 @@
     var reasons = [['spam', 'Spam or scam'], ['abuse', 'Harassment or hate'], ['nsfw', 'Sensitive content'],
       ['violence', 'Violence or threats'], ['impersonation', 'Impersonation'], ['other', 'Something else']];
     var label = form.getAttribute('data-report-label') || 'post';
+    // Encrypted message: the server can't read it, so the report includes the text this browser decrypted.
+    var e2eReport = form.hasAttribute('data-e2e-report');
+    var evBody = e2eReport && form.closest('.msg') ? form.closest('.msg').querySelector('[data-msg-body]') : null;
+    var evidence = evBody && evBody.getAttribute('data-plain') ? evBody.getAttribute('data-plain') : '';
     var wrap = document.createElement('div');
-    wrap.innerHTML = '<h3 class="modal-title">Report this ' + label + '</h3><p class="modal-sub">What\'s wrong with it?</p>' +
+    wrap.innerHTML = '<h3 class="modal-title">Report this ' + label + '</h3><p class="modal-sub">What\'s wrong with it?' +
+      (e2eReport ? ' This message is end-to-end encrypted, so reporting it shares its text with our team.' : '') + '</p>' +
       '<div class="modal-reasons">' + reasons.map(function (r) {
         return '<label class="modal-reason"><input type="radio" name="r" value="' + r[0] + '"' +
           (r[0] === 'spam' ? ' checked' : '') + '><span>' + r[1] + '</span></label>';
@@ -164,7 +169,9 @@
       var reason = (wrap.querySelector('input[name=r]:checked') || {}).value || 'other';
       closeModal();
       var t = toast('Submitting report…', 'loading');
-      post(form.action, { reason: reason }).then(function (res) {
+      var payload = { reason: reason };
+      if (e2eReport && evidence) payload.evidence = evidence;
+      post(form.action, payload).then(function (res) {
         t.update(res.ok ? 'Thanks — our team will review it' : (res.error || 'Could not submit'), res.ok ? 'success' : 'error');
         closeMenus();
       });
@@ -435,7 +442,14 @@
     var send = $('button[type=submit]', form);
     if (send) send.disabled = true;
     var t = hasFiles ? toast('Sending…', 'loading') : null;
-    post(form.action, new FormData(form), t ? function (p) { t.update('Sending… ' + p + '%', 'loading'); } : null).then(function (res) {
+    // End-to-end encryption (e2e.js) may replace the body with ciphertext first.
+    var fd0 = new FormData(form);
+    var prep = window.EmcE2E ? window.EmcE2E.prepareSend(form, fd0) : Promise.resolve(fd0);
+    prep.then(function (fd) {
+      if (!fd) { if (send) send.disabled = false; if (t) t.close(); return null; }
+      return post(form.action, fd, t ? function (p) { t.update('Sending… ' + p + '%', 'loading'); } : null);
+    }).then(function (res) {
+      if (!res) return;
       if (send) send.disabled = false;
       if (!res.ok) { if (t) t.update(res.error || 'Not sent', 'error'); else toast(res.error || 'Message not sent', 'error'); return; }
       if (t) t.close();
@@ -578,7 +592,13 @@
     if (!f.matches('[data-msg-edit-form]')) return;
     e.preventDefault();
     var t = toast('Saving…', 'loading');
-    post(f.action, new FormData(f)).then(function (res) {
+    var fd0 = new FormData(f);
+    var prep = window.EmcE2E ? window.EmcE2E.prepareEdit(f, fd0) : Promise.resolve(fd0);
+    prep.then(function (fd) {
+      if (!fd) { t.close(); return null; }
+      return post(f.action, fd);
+    }).then(function (res) {
+      if (!res) return;
       if (!res.ok || !res.html) { t.update(res.error || 'Could not edit', 'error'); return; }
       t.update('Message updated', 'success', { duration: 1500 });
       replaceMessage(res.id, res.html);
@@ -646,12 +666,25 @@
           if (($('[data-msg-edit-form]', $('[data-mid="' + it.id + '"]')) || {}).hidden === false) return;
           replaceMessage(it.id, it.html);
         });
-        if (!res.items || !res.items.length) return;
+        var items = res.items || [];
         var atBottom = cScroll.scrollHeight - cScroll.scrollTop - cScroll.clientHeight < 80;
-        appendMessages(cScroll, res.items);
-        var maxId = res.items.reduce(function (a, b) { return Math.max(a, b.id); }, +lastId);
-        convPanel.setAttribute('data-last-id', maxId);
-        if (atBottom) cScroll.scrollTop = cScroll.scrollHeight;
+        var seenEl = cScroll.querySelector('[data-seen]');
+        var changed = items.length > 0 || (typeof res.seen === 'boolean' && res.seen !== !!seenEl);
+        if (items.length) {
+          appendMessages(cScroll, items);
+          var maxId = items.reduce(function (a, b) { return Math.max(a, b.id); }, +lastId);
+          convPanel.setAttribute('data-last-id', maxId);
+        }
+        // live "Seen" under your last message (1:1 chats)
+        if (typeof res.seen === 'boolean') {
+          seenEl = cScroll.querySelector('[data-seen]');
+          if (seenEl) seenEl.remove();
+          if (res.seen) {
+            var s = document.createElement('div'); s.className = 'dmt__seen'; s.setAttribute('data-seen', ''); s.textContent = 'Seen';
+            cScroll.appendChild(s);
+          }
+        }
+        if (changed && atBottom) cScroll.scrollTop = cScroll.scrollHeight;
       });
     }, 3500);
   }

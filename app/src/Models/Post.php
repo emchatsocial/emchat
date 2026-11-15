@@ -90,11 +90,13 @@ final class Post
         if ($vis === 'private') {
             return false;
         }
-        $authorPrivate = $post['author_private'] ?? $post['is_private'] ?? false;
-        if ($vis === 'public' && !$authorPrivate) {
+        // Public posts are visible to anyone, even on a private account.
+        // A private account only restricts its followers-only posts and its
+        // follower/following lists.
+        if ($vis === 'public') {
             return true;
         }
-        // followers-only or private account: viewer must be an accepted follower
+        // followers-only: viewer must be an accepted follower
         if ($viewerId === null) {
             return false;
         }
@@ -189,7 +191,16 @@ final class Post
             $sql .= ' AND p.reply_to_id IS NULL';
         }
         if ($viewerId !== $authorId) {
-            $sql .= " AND p.visibility = 'public' AND u.suspended_at IS NULL";
+            $sql .= ' AND u.suspended_at IS NULL';
+            if ($viewerId === null) {
+                $sql .= " AND p.visibility = 'public'";
+            } else {
+                // Public posts for everyone; followers-only posts for accepted followers.
+                $sql .= " AND (p.visibility = 'public' OR (p.visibility = 'followers' AND EXISTS (
+                            SELECT 1 FROM follows f WHERE f.follower_id = ? AND f.followee_id = p.user_id AND f.status = 'accepted'
+                         )))";
+                $params[] = $viewerId;
+            }
         }
         if ($beforeId) {
             $sql .= ' AND p.id < ?';

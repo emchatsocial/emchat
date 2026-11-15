@@ -33,6 +33,7 @@ $reqCount = \App\Models\Messaging::requestCount((int) ($me['id'] ?? 0));
       $name = $isGroup ? ($t['title'] ?: 'Group') : $t['display_name'];
       $sys  = ($t['last_kind'] ?? '') === 'system';
       $meLast = !$sys && (int) ($t['last_sender_id'] ?? 0) === (int) ($me['id'] ?? 0);
+      if (\App\Models\E2E::isEnvelope((string) $t['last_body'])) { $t['last_body'] = '🔒 Encrypted message'; }
       if ($sys) {
           $preview = trim(($t['last_sender_name'] ?? '') . ' ' . (string) $t['last_body']);
       } elseif ($meLast) {

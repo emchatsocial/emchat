@@ -40,7 +40,7 @@ final class FeedController extends Controller
         $viewer = current_user();
         $q = trim((string) Request::input('q', ''));
 
-        $people = $q !== '' ? User::search($q, 12) : [];
+        $people = $q !== '' ? User::search($q, 12, $viewer ? (int) $viewer['id'] : null) : [];
 
         $title = $q !== '' ? "Search: {$q} · " . config('app_name') : 'Find People · ' . config('app_name');
 
@@ -73,9 +73,10 @@ final class FeedController extends Controller
              WHERE u.id <> ? AND u.discoverable = 1 AND u.is_private = 0 AND u.suspended_at IS NULL
                AND u.id NOT IN (SELECT followee_id FROM follows WHERE follower_id = ?)
                AND u.id NOT IN (SELECT blocked_id FROM blocks WHERE blocker_id = ?)
+               AND u.id NOT IN (SELECT blocker_id FROM blocks WHERE blocked_id = ?)
              ORDER BY (SELECT COUNT(*) FROM follows f WHERE f.followee_id = u.id) DESC, u.id DESC
              LIMIT 5",
-            [$userId, $userId, $userId]
+            [$userId, $userId, $userId, $userId]
         );
     }
 }

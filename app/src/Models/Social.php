@@ -91,6 +91,15 @@ final class Social
             [$blockerId, $blockedId, $blockedId, $blockerId]);
     }
 
+    /** True when either user has blocked the other. */
+    public static function blockedEitherWay(int $a, int $b): bool
+    {
+        return App::db()->column(
+            'SELECT 1 FROM blocks WHERE (blocker_id = ? AND blocked_id = ?) OR (blocker_id = ? AND blocked_id = ?)',
+            [$a, $b, $b, $a]
+        ) !== null;
+    }
+
     public static function unblock(int $blockerId, int $blockedId): void
     {
         App::db()->run('DELETE FROM blocks WHERE blocker_id = ? AND blocked_id = ?', [$blockerId, $blockedId]);

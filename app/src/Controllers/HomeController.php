@@ -95,7 +95,7 @@ final class HomeController extends Controller
         $this->render('privacy-policy', [
             'meta' => $this->meta([
                 'title'       => 'Privacy Policy · ' . config('app_name'),
-                'description' => 'Exactly what data EMChat Media collects, why, and the controls you have over it.',
+                'description' => 'How EMChat Media collects, uses and protects personal information, and the choices available to you.',
             ]),
         ], 'marketing');
     }
@@ -105,7 +105,7 @@ final class HomeController extends Controller
         $this->render('terms', [
             'meta' => $this->meta([
                 'title'       => 'Terms of Service · ' . config('app_name'),
-                'description' => 'The terms that govern your use of EMChat Media: your account, your content, and what we do and do not do with either.',
+                'description' => 'The terms that govern your use of EMChat Media, including your account, your content and acceptable use.',
             ]),
         ], 'marketing');
     }
@@ -115,7 +115,7 @@ final class HomeController extends Controller
         $this->render('transparency', [
             'meta' => $this->meta([
                 'title'       => 'Transparency: How EMChat Media Handles Your Data',
-                'description' => 'What EMChat Media actually does with your data, how the feed works, and where to read the source code yourself instead of taking our word for it.',
+                'description' => 'How EMChat Media handles your data, encrypts your messages end to end, how the feed works, and where to review the source code.',
                 'canonical'   => url('/transparency'),
             ]),
         ], 'marketing');
@@ -197,6 +197,40 @@ final class HomeController extends Controller
     private function updateEntries(): array
     {
         return [
+            ['date' => '2026-11-15', 'headline' => 'Your messages are now end-to-end encrypted',
+                'body' => 'Direct messages, group chats, and the photos, videos and files you send in them are now '
+                    . 'encrypted on your device before they leave it. Only the people in the conversation can read '
+                    . 'them, and we can\'t. Encryption is on by default, with nothing to set up: a conversation is '
+                    . 'encrypted once everyone in it has opened EMChat since today, and the chat shows when that\'s '
+                    . 'the case. We don\'t scan your messages. Photos in messages also have their location and other '
+                    . 'hidden data removed on your device before they\'re encrypted.'],
+            ['date' => '2026-11-15', 'headline' => 'Backup PIN and a new Encryption page in Settings',
+                'body' => 'Your encryption key lives in your browser. Set a backup PIN in Settings > Encryption so you '
+                    . 'can restore your encrypted messages after clearing your browser or on a new one. From the same '
+                    . 'page you can change or remove your PIN, create a new key, or remove your key from a shared computer. '
+                    . 'We never see your PIN, so keep it somewhere safe.'],
+            ['date' => '2026-11-15', 'headline' => '"Seen" now updates live',
+                'body' => 'In one-to-one chats, "Seen" now appears under your message within a few seconds of the other '
+                    . 'person reading it, without reloading the page.'],
+            ['date' => '2026-11-13', 'headline' => 'Public posts can now appear in search engines',
+                'body' => 'If your account is public and Discoverable is on, your Public posts can now be indexed by '
+                    . 'search engines like Google. Followers-only and Only-me posts, and everything from private '
+                    . 'accounts, stay out of search. Turn off Discoverable in Settings to opt out at any time.'],
+            ['date' => '2026-11-13', 'headline' => 'Introducing the EMChat Media blog',
+                'body' => 'Our new blog has practical guides on privacy and social media, from removing location data '
+                    . 'from your photos to how chronological and algorithmic feeds differ. Find it at emchat.social/blog.'],
+            ['date' => '2026-11-13', 'headline' => 'Stronger blocking',
+                'body' => 'When you block someone, they can no longer message you, including in an existing chat, '
+                    . 'trigger notifications for you, or find you in search and suggestions. If someone has blocked '
+                    . 'you, their profile now says so instead of showing an error. You can unblock people from the chat '
+                    . 'or from Settings > Privacy & safety.'],
+            ['date' => '2026-11-13', 'headline' => 'Public posts on private accounts',
+                'body' => 'If your account is private, posts you mark Public are now shown on your profile to everyone, '
+                    . 'as intended. Followers-only posts, and your followers and following lists, stay limited to your '
+                    . 'approved followers.'],
+            ['date' => '2026-11-13', 'headline' => 'Smaller improvements',
+                'body' => '"Who to follow" is now "Discover people", and suspended accounts no longer appear in it. '
+                    . 'Deleting a chat now reliably removes it from your inbox until a new message arrives.'],
             ['date' => '2026-09-20', 'headline' => 'Public posts now stay on your profile',
                 'body' => 'A public post is now only shown to people who visit your profile or open a direct link '
                     . 'to it. It is no longer pushed into strangers\' feeds or listed on Explore, and individual '

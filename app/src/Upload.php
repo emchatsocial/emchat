@@ -86,6 +86,32 @@ final class Upload
         ];
     }
 
+    /**
+     * An end-to-end encrypted attachment: opaque ciphertext the server can't read or inspect.
+     * Name, type and size of the real file travel inside the encrypted message.
+     */
+    public static function encryptedBlob(array $file): array
+    {
+        if (($file['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_INI_SIZE) {
+            return ['error' => 'That file is larger than the server allows.'];
+        }
+        if (($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK || !is_file($file['tmp_name'])) {
+            return ['error' => 'Upload failed. Try again.'];
+        }
+        $size = (int) ($file['size'] ?? filesize($file['tmp_name']));
+        $limit = max((int) App::config('max_video_bytes', 40 * 1024 * 1024), (int) App::config('max_file_bytes', 20 * 1024 * 1024)) + 65536;
+        if ($size < 28 || $size > $limit) {
+            return ['error' => 'That file is too large.'];
+        }
+        $rel = 'messages/' . date('Y/m') . '/' . bin2hex(random_bytes(16)) . '.bin';
+        $full = rtrim((string) App::config('media_path'), '/') . '/' . $rel;
+        @mkdir(dirname($full), 0775, true);
+        if (!move_uploaded_file($file['tmp_name'], $full) && !rename($file['tmp_name'], $full)) {
+            return ['error' => 'Could not store the file.'];
+        }
+        return ['kind' => 'file', 'path' => $rel, 'name' => 'encrypted', 'mime' => 'application/octet-stream', 'size' => $size, 'width' => 0, 'height' => 0];
+    }
+
     private static function safeName(string $name): string
     {
         $name = preg_replace('/[\x00-\x1f\/\\\\]+/', '', $name) ?? 'file';

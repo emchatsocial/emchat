@@ -16,17 +16,18 @@ final class Report
         'other'       => 'Something else',
     ];
 
-    public static function file(int $reporterId, string $type, int $subjectId, string $reason, string $note = ''): void
+    /** $evidence: for an encrypted message, the text the reporter's browser decrypted and chose to share. */
+    public static function file(int $reporterId, string $type, int $subjectId, string $reason, string $note = '', string $evidence = ''): void
     {
         if (!in_array($type, ['post', 'user', 'message'], true)) {
             return;
         }
         $reason = isset(self::REASONS[$reason]) ? $reason : 'other';
         App::db()->run(
-            'INSERT INTO reports (reporter_id, subject_type, subject_id, reason, note)
-             VALUES (?, ?, ?, ?, ?)
-             ON DUPLICATE KEY UPDATE reason = VALUES(reason), note = VALUES(note), created_at = NOW()',
-            [$reporterId, $type, $subjectId, $reason, mb_substr($note, 0, 500)]
+            'INSERT INTO reports (reporter_id, subject_type, subject_id, reason, note, evidence)
+             VALUES (?, ?, ?, ?, ?, ?)
+             ON DUPLICATE KEY UPDATE reason = VALUES(reason), note = VALUES(note), evidence = VALUES(evidence), created_at = NOW()',
+            [$reporterId, $type, $subjectId, $reason, mb_substr($note, 0, 500), $evidence !== '' ? mb_substr($evidence, 0, 4000) : null]
         );
     }
 

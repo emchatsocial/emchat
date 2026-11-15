@@ -1,43 +1,56 @@
 <section class="wrap prose">
   <h1>Transparency</h1>
-  <p class="prose__lede">Most platforms ask you to trust a privacy policy nobody reads. Here's what actually happens, in plain language, plus where to check for yourself.</p>
+  <p class="prose__lede">This page summarises how EMChat Media handles your data, how the feed works and how the service is run, with references you can check for yourself.</p>
 
-  <h2>What we don't do</h2>
+  <h2>Data practices</h2>
   <ul>
-    <li>No ad trackers, no advertising SDKs, no ad targeting. We run basic Google Analytics to see visit counts and popular pages, nothing beyond that.</li>
-    <li>No selling, renting, or sharing your data with anyone.</li>
-    <li>No behavioural profiling, and no reading your private messages for advertising or training.</li>
+    <li>We do not use advertising trackers, advertising SDKs or ad targeting. Google Analytics is used only to measure visits and page popularity.</li>
+    <li>We do not sell, rent or share your personal information.</li>
+    <li>We do not carry out behavioural profiling. We do not scan messages, and private messages are never read for advertising or used to train models.</li>
   </ul>
 
-  <h2>How your feed actually works</h2>
-  <p>Your home feed is only posts from people you follow, newest first. Nothing else is mixed in, and no algorithm decides what you see or ranks posts to keep you scrolling.</p>
-
-  <h2>What "Public" actually means when you post</h2>
-  <p>Marking a post "Public" makes it visible to anyone who visits your profile directly, even people who don't follow you, unlike "Followers" which restricts it to accepted followers only. It is never pushed into other people's home feeds or listed on Explore, so the only way anyone sees it is by visiting your profile or opening a link to that specific post. Search engines don't index individual posts, but they can see your profile page and the public posts on it. Turn off "Discoverable" in Settings if you want your profile kept out of search engines too.</p>
-
-  <h2>Your data, your control</h2>
+  <h2>End-to-end encrypted messages</h2>
+  <p>Since November 15, 2026, direct messages are end-to-end encrypted by default, including group chats and the photos, videos and files sent in them. They are encrypted in your browser before they are sent, and only the people in the conversation can decrypt them. Our servers store only the encrypted version.</p>
   <ul>
-    <li>Every photo you upload is re-encoded from scratch before it's stored, which strips hidden EXIF and GPS location data automatically. This isn't optional or something you have to remember to turn on.</li>
-    <li>Export a full copy of your data, or permanently delete your account, at any time from Settings. No support ticket, no waiting period.</li>
-    <li>Private accounts, per-post visibility, and follower approval are enforced at the database level, not just hidden in the interface.</li>
+    <li>Each user has a key pair created in their browser. Messages use a new random key, which is shared with each participant using their public key (elliptic-curve Diffie-Hellman with AES-256-GCM encryption).</li>
+    <li>Photos are re-encoded in your browser before they are encrypted, removing location and other metadata.</li>
+    <li>An optional backup PIN lets you restore your keys after clearing your browser or on a new browser. The backup is encrypted in your browser with that PIN, and we never receive the PIN.</li>
+    <li>A conversation is encrypted once everyone in it has opened EMChat Media since encryption was introduced. Messages sent earlier are not encrypted.</li>
+    <li>Who you talk to, and when messages are sent and read, are not encrypted, as they are needed to deliver messages.</li>
+    <li>When you report an encrypted message, your browser shares its text with us so we can review it.</li>
+  </ul>
+
+  <h2>How the feed works</h2>
+  <p>Your home feed contains posts from accounts you follow, in reverse chronological order. No other content is added, and posts are not ranked by engagement.</p>
+
+  <h2>Post visibility</h2>
+  <p>A <strong>Public</strong> post can be viewed by anyone who visits your profile or opens a link to it, including people who do not follow you. A <strong>Followers only</strong> post is limited to your approved followers, and an <strong>Only me</strong> post is visible to you alone. Public posts are not added to other people's home feeds or listed on Explore.</p>
+  <p>If your account is public and Discoverable is turned on, search engines may index your profile and your Public posts. Followers only and Only me posts are never indexed, and nothing from a private account is indexed. Turn off Discoverable in Settings to keep your profile and posts out of search engines.</p>
+
+  <h2>Your data and your controls</h2>
+  <ul>
+    <li>Uploaded photos are re-encoded before storage, which removes embedded EXIF and GPS location data automatically. Photos in messages are processed in your browser, before encryption.</li>
+    <li>You can export a copy of your data or permanently delete your account at any time from Settings, without contacting support. Deleting your account also removes your uploaded files and your encryption keys and backups.</li>
+    <li>You can manage your encryption backup PIN and keys in Settings &rarr; Encryption.</li>
+    <li>Private accounts, post visibility and follower approval are enforced on the server, not only hidden in the interface.</li>
   </ul>
 
   <h2>Source code</h2>
-  <p>EMChat Media's source code is publicly available to read, so our privacy claims aren't something you have to just take our word for. It's source-available rather than fully open source: you're welcome to read it, learn from it, and run it for personal or noncommercial purposes, but running a commercial competing copy isn't permitted without permission. See the <a href="https://github.com/emchatsocial/emchat" rel="noopener">repository</a> and its license for the exact terms.</p>
+  <p>EMChat Media's source code is publicly available so that our privacy commitments can be independently verified. The code is source-available rather than open source: you may read it, learn from it and run it for personal or noncommercial purposes, but commercial use requires permission. The full terms are set out in the <a href="https://github.com/emchatsocial/emchat" rel="noopener">repository</a> and its licence.</p>
 
-  <h2>How this is funded</h2>
-  <p>EMChat Media is free to use. There's no advertising business behind it and no paid tier today. If that ever changes, any paid features will be optional, clearly labelled, and will never depend on selling your data or showing you ads.</p>
+  <h2>Funding</h2>
+  <p>EMChat Media is free to use and is not funded by advertising. There is currently no paid tier. Should paid features be introduced, they will be optional, clearly labelled, and will not involve selling data or displaying advertising.</p>
 
-  <h2>Security practices</h2>
+  <h2>Security</h2>
   <ul>
-    <li>Every upload is validated by its actual file content, not the filename or extension a browser reports.</li>
-    <li>All traffic is served over HTTPS with modern security headers (strict transport security, a locked-down content security policy, and clickjacking protection).</li>
-    <li>Posting and messaging are rate-limited to make automated spam and abuse harder, on top of ordinary content moderation.</li>
+    <li>Uploaded files are validated by their actual content rather than their file name or extension.</li>
+    <li>All traffic is served over HTTPS with modern security headers, including strict transport security, a restrictive content security policy and clickjacking protection.</li>
+    <li>Posting and messaging are rate-limited to reduce automated spam and abuse, alongside content moderation.</li>
   </ul>
 
-  <h2>Uptime</h2>
-  <p>We don't yet have a public uptime history to show you here. We're setting up real monitoring so this section can show actual numbers instead of a promise. If the site is ever down, it fails to a plain error page rather than exposing any internal detail.</p>
+  <h2>Availability</h2>
+  <p>We do not yet publish uptime statistics. Monitoring is being put in place so that this section can report measured figures. If the service is unavailable, visitors are shown a generic error page that does not expose internal details.</p>
 
-  <h2>Questions</h2>
-  <p>If something on this page seems unclear or you want more detail on anything: <a href="mailto:egzon@emchat.social">egzon@emchat.social</a>.</p>
+  <h2>Contact</h2>
+  <p>For questions about anything on this page, please contact <a href="mailto:egzon@emchat.social">egzon@emchat.social</a>.</p>
 </section>

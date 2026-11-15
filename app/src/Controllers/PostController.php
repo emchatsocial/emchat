@@ -68,6 +68,12 @@ final class PostController extends Controller
         $replies = Post::replies((int) $post['id'], $viewerId);
         $parent = $post['reply_to_id'] ? Post::find((int) $post['reply_to_id'], $viewerId) : null;
 
+        // Index a post only if it's Public and its author is a public,
+        // Discoverable, non-suspended account. Everything else stays noindex.
+        $author = \App\Models\User::find((int) $post['user_id']);
+        $indexable = $post['visibility'] === 'public'
+            && $author && !$author['is_private'] && $author['discoverable'] && $author['suspended_at'] === null;
+
         $snippet = mb_substr(trim(preg_replace('/\s+/', ' ', $post['body'])), 0, 180)
             ?: "A post by @{$post['username']} on " . config('app_name');
 
@@ -76,7 +82,7 @@ final class PostController extends Controller
                 'title'       => "{$post['display_name']} on " . config('app_name') . ": \"" . mb_substr($post['body'], 0, 60) . '"',
                 'description' => $snippet,
                 'canonical'   => url("/p/{$post['id']}"),
-                'robots'      => 'noindex,nofollow',
+                'robots'      => $indexable ? 'index,follow' : 'noindex,nofollow',
                 'og_image'    => !empty($post['media']) ? url(media_url($post['media'][0]['path'])) : url('/assets/img/og-default.png?v=3'),
                 'type'        => 'article',
             ]),

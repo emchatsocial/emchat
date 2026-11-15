@@ -145,6 +145,20 @@ final class SettingsController extends Controller
         redirect('/settings/privacy');
     }
 
+    /** Settings → Encryption. The page is filled in by e2e.js, since keys only exist in the browser. */
+    public function encryption(): void
+    {
+        $user = require_login();
+        if (!\App\Models\E2E::enabledFor($user)) {
+            redirect('/settings/privacy');
+        }
+        $this->render('settings/encryption', [
+            'meta'    => $this->meta(['title' => 'Encryption · ' . config('app_name'), 'robots' => 'noindex']),
+            'user'    => $user,
+            'section' => 'encryption',
+        ]);
+    }
+
     public function account(): void
     {
         $user = require_login();
@@ -191,8 +205,18 @@ final class SettingsController extends Controller
         }
         $uid = (int) $user['id'];
         $db = App::db();
+        // Files to remove from disk once the rows are gone: message attachments and post media.
+        $files = array_merge(
+            array_column($db->all('SELECT a.path FROM message_attachments a JOIN messages m ON m.id = a.message_id WHERE m.sender_id = ?', [$uid]), 'path'),
+            array_column($db->all('SELECT pm.path FROM post_media pm JOIN posts p ON p.id = pm.post_id WHERE p.user_id = ?', [$uid]), 'path'),
+            [(string) ($user['avatar_path'] ?? '')]
+        );
         $db->transaction(function ($db) use ($uid) {
             foreach ([
+                'DELETE a FROM message_attachments a JOIN messages m ON m.id = a.message_id WHERE m.sender_id = ?',
+                'DELETE FROM e2e_backups WHERE user_id = ?',
+                'DELETE FROM e2e_links WHERE user_id = ?',
+                'DELETE FROM e2e_keys WHERE user_id = ?',
                 'DELETE FROM likes WHERE user_id = ?',
                 'DELETE FROM follows WHERE follower_id = ? OR followee_id = ?',
                 'DELETE FROM blocks WHERE blocker_id = ? OR blocked_id = ?',
@@ -209,6 +233,12 @@ final class SettingsController extends Controller
                 $db->run($sql, array_fill(0, $count, $uid));
             }
         });
+        $base = rtrim((string) App::config('media_path'), '/') . '/';
+        foreach ($files as $path) {
+            if (is_string($path) && $path !== '' && !str_contains($path, '..')) {
+                @unlink($base . ltrim($path, '/'));
+            }
+        }
         App::auth()->logout();
         redirect('/?deleted=1');
     }

@@ -19,12 +19,19 @@ $deleted = !empty($m['deleted_at']);
 $edited  = !empty($m['edited_at']) && !$deleted;
 $canEdit = $mine && !$deleted && $created > time() - \App\Models\Messaging::EDIT_WINDOW;
 $att     = $deleted ? [] : ($m['attachments'] ?? []);
+// Encrypted attachments are ciphertext: e2e.js downloads, decrypts and shows them.
+$e2eAtt  = (!$deleted && \App\Models\E2E::isEnvelope((string) $m['body']))
+    ? array_map(fn ($a) => ['u' => media_url($a['path']), 's' => (int) $a['size']], $att) : [];
+if ($e2eAtt) { $att = []; }
 $images  = array_values(array_filter($att, fn ($a) => $a['kind'] === 'image'));
 $others  = array_values(array_filter($att, fn ($a) => $a['kind'] !== 'image'));
 $hasText = trim((string) $m['body']) !== '';
 $cid     = (int) $m['conversation_id'];
 $reply   = $m['reply'] ?? null;
-$plain   = trim(preg_replace('/\s+/', ' ', (string) $m['body']));
+// End-to-end encrypted: the server only has ciphertext; e2e.js decrypts it in the browser.
+$isE2e   = !$deleted && \App\Models\E2E::isEnvelope((string) $m['body']);
+$plain   = $isE2e ? '' : trim(preg_replace('/\s+/', ' ', (string) $m['body']));
+$replyE2e = $reply && empty($reply['deleted_at']) && \App\Models\E2E::isEnvelope((string) $reply['body']);
 $showAva = $isGroup && !$mine;
 
 $cls = $mine ? 'msg--out' : 'msg--in';
@@ -42,9 +49,9 @@ if ($runEnd)    $cls .= ' msg--run-end';
       <div class="menu">
         <button class="menu__item" type="button" data-msg-reply
                 data-name="<?= e($m['display_name']) ?>"
-                data-snippet="<?= e(mb_strimwidth($plain !== '' ? $plain : ($images ? 'Photo' : 'Attachment'), 0, 90, '…')) ?>"><?= icon('reply') ?> Reply</button>
+                data-snippet="<?= e($isE2e ? 'Encrypted message' : mb_strimwidth($plain !== '' ? $plain : ($images ? 'Photo' : 'Attachment'), 0, 90, '…')) ?>"><?= icon('reply') ?> Reply</button>
         <?php if ($hasText): ?>
-          <button class="menu__item" type="button" data-copy="<?= e($m['body']) ?>"><?= icon('copy') ?> Copy</button>
+          <button class="menu__item" type="button" data-copy="<?= $isE2e ? '' : e($m['body']) ?>"<?= $isE2e ? ' data-e2e-copy' : '' ?>><?= icon('copy') ?> Copy</button>
         <?php endif; ?>
         <?php if ($canEdit): ?>
           <button class="menu__item" type="button" data-msg-edit><?= icon('pencil') ?> Edit</button>
@@ -57,7 +64,7 @@ if ($runEnd)    $cls .= ' msg--run-end';
           <button class="menu__item menu__item--danger" type="button"
                   data-msg-delete data-scope="me"
                   data-url="<?= e(url("/messages/{$cid}/m/{$m['id']}/delete")) ?>"><?= icon('trash') ?> Delete</button>
-          <form method="post" action="<?= e(url("/messages/{$cid}/m/{$m['id']}/report")) ?>" data-ajax="report" data-report-label="message">
+          <form method="post" action="<?= e(url("/messages/{$cid}/m/{$m['id']}/report")) ?>" data-ajax="report" data-report-label="message"<?= $isE2e ? ' data-e2e-report' : '' ?>>
             <?= csrf_field() ?><input type="hidden" name="reason" value="other">
             <button class="menu__item menu__item--danger" type="submit"><?= icon('flag') ?> Report</button>
           </form>
@@ -80,13 +87,23 @@ if ($runEnd)    $cls .= ' msg--run-end';
     <?php if ($reply): ?>
       <div class="msg__replyto">
         <span class="msg__replyto-name"><?= e($reply['display_name']) ?></span>
+        <?php if ($replyE2e): ?>
+        <span class="msg__replyto-text" data-e2e="<?= e($reply['body']) ?>" data-e2e-cid="<?= (int) $reply['conversation_id'] ?>"
+              data-e2e-sender="<?= (int) $reply['sender_id'] ?>" data-e2e-short>🔒 Encrypted message</span>
+        <?php else: ?>
         <span class="msg__replyto-text"><?= $reply['deleted_at'] ? '<em>original message deleted</em>' : e(mb_strimwidth(trim((string) $reply['body']), 0, 90, '…')) ?></span>
+        <?php endif; ?>
       </div>
     <?php endif; ?>
 
     <?php if ($deleted): ?>
       <div class="msg__bubble msg__bubble--gone"><?= $mine ? 'You unsent a message' : 'This message was deleted' ?></div>
     <?php else: ?>
+      <?php if ($e2eAtt): ?>
+        <div class="msg__e2e-att" data-e2e-att="<?= e(json_encode($e2eAtt)) ?>">
+          <?php foreach ($e2eAtt as $_): ?><span class="msg__e2e-loading">🔒 Encrypted attachment</span><?php endforeach; ?>
+        </div>
+      <?php endif; ?>
       <?php if ($images): ?>
         <div class="msg__images msg__images--<?= min(count($images), 4) ?>">
           <?php foreach ($images as $img): ?>
@@ -116,13 +133,18 @@ if ($runEnd)    $cls .= ' msg--run-end';
       <?php endforeach; ?>
 
       <?php if ($hasText): ?>
-        <div class="msg__bubble" data-msg-body><?= rich_text($m['body']) ?></div>
+        <?php if ($isE2e): ?>
+          <div class="msg__bubble msg__bubble--e2e" data-msg-body data-e2e="<?= e($m['body']) ?>"
+               data-e2e-cid="<?= $cid ?>" data-e2e-sender="<?= (int) $m['sender_id'] ?>"><span class="e2e-pending">🔒 Encrypted message</span></div>
+        <?php else: ?>
+          <div class="msg__bubble" data-msg-body><?= rich_text($m['body']) ?></div>
+        <?php endif; ?>
       <?php endif; ?>
 
       <?php if ($mine): ?>
         <form class="msg__edit" method="post" action="<?= e(url("/messages/{$cid}/m/{$m['id']}/edit")) ?>" data-msg-edit-form hidden>
           <?= csrf_field() ?>
-          <textarea name="body" rows="1" data-autogrow><?= e($m['body']) ?></textarea>
+          <textarea name="body" rows="1" data-autogrow<?= $isE2e ? ' data-e2e-fill' : '' ?>><?= $isE2e ? '' : e($m['body']) ?></textarea>
           <div class="msg__edit-actions">
             <button class="btn btn--ghost btn--sm" type="button" data-msg-edit-cancel>Cancel</button>
             <button class="btn btn--primary btn--sm" type="submit">Save</button>
@@ -133,6 +155,6 @@ if ($runEnd)    $cls .= ' msg--run-end';
   </div>
 
   <time class="msg__time" datetime="<?= e(date('c', $created)) ?>">
-    <?= e(date('g:i A', $created)) ?><?php if ($edited): ?> &middot; Edited<?php endif; ?>
+    <?php if ($isE2e): ?><span class="msg__lock" title="End-to-end encrypted">🔒</span> <?php endif; ?><?= e(date('g:i A', $created)) ?><?php if ($edited): ?> &middot; Edited<?php endif; ?>
   </time>
 </div>

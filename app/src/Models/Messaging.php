@@ -165,6 +165,12 @@ final class Messaging
         if (($body === '' && !$attachments) || !self::isParticipant($conversationId, $senderId)) {
             return null;
         }
+        if (!self::isGroup($conversationId)) {
+            $other = self::other($conversationId, $senderId);
+            if ($other && Social::blockedEitherWay($senderId, (int) $other['id'])) {
+                return null;
+            }
+        }
         $db = App::db();
         // Only allow replying to a live message in the same conversation.
         if ($replyToId !== null) {
@@ -180,7 +186,8 @@ final class Messaging
             'conversation_id' => $conversationId,
             'sender_id'       => $senderId,
             'reply_to_id'     => $replyToId,
-            'body'            => mb_substr($body, 0, 4000),
+            // Encrypted envelopes are longer than the 4000-character text they carry.
+            'body'            => E2E::isEnvelope($body) ? substr($body, 0, 60000) : mb_substr($body, 0, 4000),
         ]);
         foreach ($attachments as $a) {
             $db->insert('message_attachments', [
@@ -274,7 +281,7 @@ final class Messaging
              LEFT JOIN users other ON other.id = ocp.user_id
              WHERE cp.user_id = ? AND cp.state = ?
                AND (c.is_group = 1 OR other.id IS NOT NULL)
-               AND (cp.cleared_at IS NULL OR c.last_message_at IS NULL OR c.last_message_at > cp.cleared_at)
+               AND (cp.cleared_at IS NULL OR c.last_message_at > cp.cleared_at)
              ORDER BY c.last_message_at IS NULL, c.last_message_at DESC, c.id DESC",
             [$userId, $userId, $state]
         );
@@ -347,7 +354,7 @@ final class Messaging
         if ($replyIds) {
             $rin = implode(',', array_fill(0, count($replyIds), '?'));
             foreach ($db->all(
-                "SELECT m.id, m.body, m.deleted_at, u.display_name
+                "SELECT m.id, m.body, m.deleted_at, m.sender_id, m.conversation_id, u.display_name
                  FROM messages m JOIN users u ON u.id = m.sender_id WHERE m.id IN ($rin)",
                 $replyIds
             ) as $rr) {
@@ -376,7 +383,8 @@ final class Messaging
         if (strtotime($m['created_at']) < time() - self::EDIT_WINDOW) {
             return null;
         }
-        $db->run('UPDATE messages SET body = ?, edited_at = NOW() WHERE id = ?', [mb_substr($body, 0, 4000), $messageId]);
+        $body = E2E::isEnvelope($body) ? substr($body, 0, 60000) : mb_substr($body, 0, 4000);
+        $db->run('UPDATE messages SET body = ?, edited_at = NOW() WHERE id = ?', [$body, $messageId]);
         return self::messageById($messageId, $userId);
     }
 

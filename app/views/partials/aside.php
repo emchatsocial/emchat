@@ -2,7 +2,7 @@
 /** @var array $user */
 $suggested = \App\App::db()->all(
     "SELECT u.* FROM users u
-     WHERE u.id <> ? AND u.discoverable = 1 AND u.is_private = 0
+     WHERE u.id <> ? AND u.discoverable = 1 AND u.is_private = 0 AND u.suspended_at IS NULL
        AND u.id NOT IN (SELECT followee_id FROM follows WHERE follower_id = ?)
        AND u.id NOT IN (SELECT blocked_id FROM blocks WHERE blocker_id = ?)
        AND u.id NOT IN (SELECT blocker_id FROM blocks WHERE blocked_id = ?)
@@ -17,7 +17,7 @@ $suggested = \App\App::db()->all(
 
 <?php if ($suggested): ?>
 <section class="panel panel--flush">
-  <h2 class="panel__title">Who to follow</h2>
+  <h2 class="panel__title">Discover people</h2>
   <div class="urow-list urow-list--tight">
     <?php foreach ($suggested as $s): ?>
       <?= $view->partial('user_row', [
@@ -39,6 +39,7 @@ $suggested = \App\App::db()->all(
 
 <footer class="aside__foot">
   <a href="<?= e(url('/about')) ?>">About</a> ·
+  <a href="<?= e(url('/blog')) ?>">Blog</a> ·
   <a href="<?= e(url('/updates')) ?>">Updates</a> ·
   <a href="<?= e(url('/privacy')) ?>">Privacy</a> ·
   <a href="<?= e(url('/terms')) ?>">Terms</a> ·
