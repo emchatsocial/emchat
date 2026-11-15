@@ -16,7 +16,6 @@
     <li>Photos are re-encoded in your browser before they are encrypted, removing location and other metadata.</li>
     <li>An optional backup PIN lets you restore your keys after clearing your browser or on a new browser. The backup is encrypted in your browser with that PIN, and we never receive the PIN.</li>
     <li>A conversation is encrypted once everyone in it has opened EMChat Media since encryption was introduced. Messages sent earlier are not encrypted.</li>
-    <li>Who you talk to, and when messages are sent and read, are not encrypted, as they are needed to deliver messages.</li>
     <li>When you report an encrypted message, your browser shares its text with us so we can review it.</li>
   </ul>
 

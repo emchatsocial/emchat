@@ -17,7 +17,6 @@
   <ul>
     <li>Encryption is on by default. A conversation is end-to-end encrypted once everyone in it has opened EMChat Media since encryption was introduced on November 15, 2026. Until then, the conversation shows that it is not yet encrypted.</li>
     <li>Messages and attachments sent before that date are not end-to-end encrypted.</li>
-    <li>The names of the people in a conversation, and when messages are sent and read, are not encrypted, as we need them to deliver messages.</li>
     <li>If you clear your browser data or use a new browser, you need your backup PIN to read earlier encrypted messages. We cannot recover messages or PINs for you.</li>
   </ul>
 
