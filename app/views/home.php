@@ -55,6 +55,7 @@
     <p class="hx-eyebrow">End-to-end encryption</p>
     <h2>Private by design. Encrypted by default.</h2>
     <p>Every message, photo, video and file is locked on your device before it leaves. Our servers only ever hold the scrambled version, so not even we can read your conversations.</p>
+    <p class="hx-e2e__links"><a href="https://github.com/emchatsocial/emchat" rel="noopener" target="_blank">Read the source code on GitHub &rarr;</a> <span aria-hidden="true">&middot;</span> <a href="<?= e(url('/transparency')) ?>">How it works</a></p>
   </div>
   <div class="hx-flow" aria-hidden="true">
     <div class="hx-flow__node">

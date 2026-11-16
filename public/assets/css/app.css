@@ -1499,3 +1499,6 @@ body.admin{background:var(--bg)}
 }
 /* no glow on the header button */
 .site-header .btn--primary{box-shadow:none}
+.hx-e2e__head .hx-e2e__links{margin-top:18px;font-size:14.5px;color:var(--muted)}
+.hx-e2e__links a{color:var(--hx-accent);font-weight:600;text-decoration:none}
+.hx-e2e__links a:hover{text-decoration:underline}

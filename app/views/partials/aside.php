@@ -43,6 +43,7 @@ $suggested = \App\App::db()->all(
   <a href="<?= e(url('/updates')) ?>">Updates</a> ·
   <a href="<?= e(url('/privacy')) ?>">Privacy</a> ·
   <a href="<?= e(url('/terms')) ?>">Terms</a> ·
-  <a href="<?= e(url('/transparency')) ?>">Transparency</a>
+  <a href="<?= e(url('/transparency')) ?>">Transparency</a> ·
+  <a href="https://github.com/emchatsocial/emchat" rel="noopener" target="_blank">Source code</a>
   <p>&copy; <?= date('Y') ?> <?= e(config('app_name')) ?></p>
 </footer>
