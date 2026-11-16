@@ -47,7 +47,7 @@
   <p>We use one strictly necessary cookie to keep you signed in. Google Analytics sets additional cookies to distinguish visits; these are not used for advertising. Your browser also stores your encryption keys locally so that you can read your messages; they are not sent to us.</p>
 
   <h2>8. Service providers</h2>
-  <p>We rely on a limited number of providers to operate the service: web hosting, a content delivery and security network, an email delivery service and Google Analytics. These providers process data only as needed to perform their services for us. They receive end-to-end encrypted messages only in encrypted form.</p>
+  <p>We rely on a limited number of trusted providers to operate the service, including a security network, an email delivery service and Google Analytics. These providers process data only as needed to perform their services for us. They receive end-to-end encrypted messages only in encrypted form.</p>
 
   <h2>9. Your choices and rights</h2>
   <ul>
