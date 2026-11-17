@@ -1,164 +1,196 @@
-<?php /* Homepage. Styles: the "hx-" block at the end of assets/css/app.css. The tracker check reuses the lp-scan animation in app.js. */ ?>
-<section class="hx-hero">
-  <div class="wrap hx-hero__grid">
-    <div class="hx-hero__text">
-      <h1>Your world, shared with <span class="em">the people you choose</span>.</h1>
-      <p class="hx-hero__lede">
-        A social network without ads, ad trackers or algorithms deciding what you see.
-        Your messages, photos and files are end-to-end encrypted, so only the people you're talking to can read them.
-      </p>
-      <div class="hx-hero__cta">
-        <a class="btn btn--primary btn--lg" href="<?= e(url('/login')) ?>">Create your free account</a>
-        <a class="btn btn--ghost btn--lg" href="<?= e(url('/transparency')) ?>">How we protect you</a>
-      </div>
-      <ul class="hx-trust">
-        <li><?= icon('check', '', 13) ?> No ads</li>
-        <li><?= icon('check', '', 13) ?> No password needed</li>
-        <li><?= icon('check', '', 13) ?> Built in North Macedonia</li>
-      </ul>
+<?php /* Homepage. Styles: the "px-" block at the end of assets/css/app.css. No glows or floating elements by design. */
+$gh = 'https://github.com/emchatsocial/emchat'; ?>
+<section class="px-hero">
+  <div class="wrap px-hero__text">
+    <p class="px-kicker">End-to-end encrypted social network</p>
+    <h1>Your world, shared with <span class="em">the people you choose</span>.</h1>
+    <p class="px-hero__lede">No ads. No algorithm. No one reading your messages, not even us. EMChat is the private place for your friends, your family and your team.</p>
+    <div class="px-cta">
+      <a class="btn btn--primary btn--lg" href="<?= e(url('/login')) ?>">Create your free account</a>
+      <a class="btn btn--ghost btn--lg" href="<?= e(url('/transparency')) ?>">How we protect you</a>
     </div>
+    <p class="px-hero__note">Free forever. Sign in with your email, no password needed.</p>
+  </div>
 
-    <div class="hx-hero__media" aria-hidden="true">
-      <div class="hx-window" data-reveal="1">
-        <div class="hx-window__bar">
-          <span class="hx-dots"><i></i><i></i><i></i></span>
-          <span class="hx-window__title">Messages</span>
+  <div class="wrap">
+    <div class="px-app" aria-hidden="true" data-reveal-scroll>
+      <div class="px-app__bar"><span class="px-dots"><i></i><i></i><i></i></span><span class="px-app__url"><?= icon('lock', '', 11) ?> emchat.social</span></div>
+      <div class="px-app__body">
+        <nav class="px-side">
+          <span class="px-side__brand">EMCHAT</span>
+          <span class="is-on"><?= icon('home', '', 16) ?> Home</span>
+          <span><?= icon('compass', '', 16) ?> Explore</span>
+          <span><?= icon('mail', '', 16) ?> Messages <b>2</b></span>
+          <span><?= icon('bell', '', 16) ?> Notifications</span>
+          <span><?= icon('user', '', 16) ?> Profile</span>
+          <span><?= icon('settings', '', 16) ?> Settings</span>
+        </nav>
+        <div class="px-feed">
+          <div class="px-feed__head">Following <small>Newest first</small></div>
+          <article class="px-post">
+            <span class="px-ava px-ava--a">M</span>
+            <div><p class="px-post__who"><b>Mira Koleva</b> <span>@mira · 4m</span></p>
+              <p>First swim of the season. The lake was freezing and absolutely worth it.</p>
+              <div class="px-photo"><span class="px-photo__sun"></span><span class="px-photo__hill"></span></div>
+              <p class="px-post__meta"><?= icon('heart', '', 14) ?> 24 <?= icon('comment', '', 14) ?> 6</p></div>
+          </article>
+          <article class="px-post">
+            <span class="px-ava px-ava--b">L</span>
+            <div><p class="px-post__who"><b>Luka Petrov</b> <span>@luka · 18m</span></p>
+              <p>New studio is finally finished. Open house on Saturday from 4pm, everyone welcome.</p>
+              <p class="px-post__meta"><?= icon('heart', '', 14) ?> 41 <?= icon('comment', '', 14) ?> 12</p></div>
+          </article>
+          <article class="px-post">
+            <span class="px-ava px-ava--c">A</span>
+            <div><p class="px-post__who"><b>Ana Dimitrova</b> <span>@ana · 1h</span></p>
+              <p>Grandma's recipe, finally nailed it.</p>
+              <p class="px-post__meta"><?= icon('heart', '', 14) ?> 18 <?= icon('comment', '', 14) ?> 3</p></div>
+          </article>
         </div>
-        <div class="hx-chat">
-          <div class="hx-chat__head">
-            <span class="hx-ava hx-ava--a">A</span>
-            <span><strong>Ana Petrova</strong><small>Active now</small></span>
+        <div class="px-chat">
+          <div class="px-chat__head"><span class="px-ava px-ava--c">A</span><span><b>Ana Dimitrova</b><small>Active now</small></span></div>
+          <div class="px-chat__body">
+            <p class="px-msg px-msg--in">Are you coming on Saturday?</p>
+            <p class="px-msg px-msg--out">Yes, I'll bring the cake</p>
+            <p class="px-file"><?= icon('paperclip', '', 14) ?> <span><b>recipe.pdf</b><small>184 KB</small></span></p>
+            <p class="px-msg px-msg--in">Perfect, see you at 9</p>
+            <p class="px-seen">Seen</p>
           </div>
-          <div class="hx-chat__body">
-            <div class="hx-msg hx-msg--in">Are you coming to the lake on Saturday?</div>
-            <div class="hx-msg hx-msg--out">Yes! Bringing the camera 📷</div>
-            <div class="hx-photo hx-msg--out"><span class="hx-photo__sun"></span><span class="hx-photo__hill"></span></div>
-            <div class="hx-msg hx-msg--in">That light is unreal. Save me a spot</div>
-            <div class="hx-seen">Seen</div>
-          </div>
-          <div class="hx-chat__foot"><?= icon('lock', '', 12) ?> Messages, photos and files are end-to-end encrypted.</div>
+          <p class="px-chat__lock"><?= icon('lock', '', 12) ?> End-to-end encrypted</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="hx-strip wrap" aria-label="EMChat Media in numbers">
-  <div><b>0</b><span>ads, ever</span></div>
-  <div><b>0</b><span>ad trackers or pixels</span></div>
-  <div><b>100%</b><span>chronological feed</span></div>
-  <div><b>E2E</b><span>encrypted messages</span></div>
+<section class="px-principles wrap" aria-label="What EMChat stands for">
+  <div><?= icon('lock', '', 20) ?><h3>Encrypted by default</h3><p>Messages, photos and files are locked on your device before they leave it.</p></div>
+  <div><?= icon('shield', '', 20) ?><h3>No ads, ever</h3><p>No ad trackers, no profiling, no selling of data. Nothing to sell you.</p></div>
+  <div><?= icon('home', '', 20) ?><h3>No algorithm</h3><p>The people you follow, newest first. When you've seen it all, you're done.</p></div>
+  <div><?= icon('globe', '', 20) ?><h3>Open to inspect</h3><p>Our source code is public, so every promise on this page can be checked.</p></div>
 </section>
 
-<section class="hx-e2e wrap" data-reveal-scroll>
-  <div class="hx-e2e__head">
-    <p class="hx-eyebrow">End-to-end encryption</p>
-    <h2>Private by design. Encrypted by default.</h2>
-    <p>Every message, photo, video and file is locked on your device before it leaves. Our servers only ever hold the scrambled version, so not even we can read your conversations.</p>
-    <p class="hx-e2e__links"><a href="https://github.com/emchatsocial/emchat" rel="noopener" target="_blank">Read the source code on GitHub &rarr;</a> <span aria-hidden="true">&middot;</span> <a href="<?= e(url('/transparency')) ?>">How it works</a></p>
+<section class="px-feature wrap" data-reveal-scroll>
+  <div class="px-feature__text">
+    <p class="px-num">01 &mdash; Messaging</p>
+    <h2>Every message encrypted. Even from us.</h2>
+    <p>Chats, group chats, photos, videos and files are encrypted on your device before they're sent. Our servers only ever store the scrambled version, so no one at EMChat can read them, and we don't scan them.</p>
+    <ul class="px-ticks">
+      <li><?= icon('check', '', 14) ?> On by default, nothing to set up</li>
+      <li><?= icon('check', '', 14) ?> Location data removed from photos before encryption</li>
+      <li><?= icon('check', '', 14) ?> Optional backup PIN to restore your chats on a new browser</li>
+    </ul>
   </div>
-  <div class="hx-flow" aria-hidden="true">
-    <div class="hx-flow__node">
-      <span class="hx-flow__label">On your phone</span>
-      <div class="hx-msg hx-msg--out">See you at 9 🎉</div>
+  <div class="px-visual">
+    <div class="px-flow" aria-hidden="true">
+      <div class="px-flow__step"><span class="px-flow__label">Your phone</span><p class="px-msg px-msg--out">See you at 9</p></div>
+      <div class="px-flow__arrow"><?= icon('lock', '', 14) ?></div>
+      <div class="px-flow__step"><span class="px-flow__label">Our servers</span><code>e2e2:K9fQx2hT0qLm7vZbR4nWe8sJd1YcUa6p…</code></div>
+      <div class="px-flow__arrow"><?= icon('lock', '', 14) ?></div>
+      <div class="px-flow__step"><span class="px-flow__label">Their phone</span><p class="px-msg px-msg--in">See you at 9</p></div>
     </div>
-    <div class="hx-flow__line"><span></span></div>
-    <div class="hx-flow__node hx-flow__node--server">
-      <span class="hx-flow__label"><?= icon('lock', '', 12) ?> On our servers</span>
-      <code class="hx-cipher">e2e2:K9fQx2hT0qLm7vZbR4nWe8sJd1YcUa6p…</code>
-    </div>
-    <div class="hx-flow__line"><span></span></div>
-    <div class="hx-flow__node">
-      <span class="hx-flow__label">On their phone</span>
-      <div class="hx-msg hx-msg--in">See you at 9 🎉</div>
-    </div>
-  </div>
-  <ul class="hx-e2e__points">
-    <li><strong>On by default</strong><span>No setup, no switches. Chats, group chats and attachments are all covered.</span></li>
-    <li><strong>We don't scan messages</strong><span>There's nothing to scan: we only store what we can't read.</span></li>
-    <li><strong>Location removed from photos</strong><span>Hidden GPS data is stripped on your device, before encryption.</span></li>
-    <li><strong>Your keys, your backup</strong><span>An optional backup PIN keeps your history safe if you switch browsers.</span></li>
-  </ul>
-</section>
-
-<section class="hx-bento wrap">
-  <h2 class="hx-section-title" data-reveal-scroll>Everything you need. Nothing that uses you.</h2>
-  <div class="hx-bento__grid">
-    <article class="hx-tile hx-tile--wide" data-reveal-scroll>
-      <div class="hx-tile__text">
-        <h3>A feed in real order</h3>
-        <p>Posts from the people you follow, newest first. Nothing ranked to keep you scrolling, and nothing from strangers mixed in. When you've seen it all, you're done.</p>
-      </div>
-      <div class="hx-feed" aria-hidden="true">
-        <div class="hx-post"><span class="hx-ava hx-ava--b">L</span><span class="hx-post__lines"><b>Luka</b><i style="width:82%"></i><i style="width:56%"></i></span><em>2m</em></div>
-        <div class="hx-post"><span class="hx-ava hx-ava--c">M</span><span class="hx-post__lines"><b>Mira</b><i style="width:70%"></i></span><em>14m</em></div>
-        <div class="hx-post"><span class="hx-ava hx-ava--a">A</span><span class="hx-post__lines"><b>Ana</b><i style="width:88%"></i><i style="width:40%"></i></span><em>1h</em></div>
-      </div>
-    </article>
-
-    <article class="hx-tile" data-reveal-scroll>
-      <div class="lp-scan hx-scan" data-scan>
-        <div class="lp-scan__top"><span class="lp-scan__pulse"></span><span data-scan-label>Checking this page for ad tracking</span></div>
-        <div class="lp-scan__bar"><i data-scan-bar></i></div>
-        <ul class="lp-scan__list">
-          <li data-scan-item><span class="lp-scan__mark"><?= icon('check', '', 12) ?></span> No Meta or TikTok pixels</li>
-          <li data-scan-item><span class="lp-scan__mark"><?= icon('check', '', 12) ?></span> No advertising SDKs</li>
-          <li data-scan-item><span class="lp-scan__mark"><?= icon('check', '', 12) ?></span> No ad network requests</li>
-          <li data-scan-item><span class="lp-scan__mark"><?= icon('check', '', 12) ?></span> No fingerprinting</li>
-        </ul>
-        <div class="lp-scan__result"><span><b data-scan-n0>0</b> ad trackers</span><span><b data-scan-n1>1</b> analytics tool</span></div>
-      </div>
-      <h3>No tracking for ads</h3>
-      <p>No ad pixels, no ad SDKs, no fingerprinting. One analytics tool counts visits, and that's it.</p>
-    </article>
-
-    <article class="hx-tile" data-reveal-scroll>
-      <div class="hx-toggles" aria-hidden="true">
-        <div class="hx-toggle"><span>Private account</span><span class="switch__track switch__track--on"></span></div>
-        <div class="hx-toggle"><span>Discoverable</span><span class="switch__track"></span></div>
-        <div class="hx-toggle"><span>This post</span><span class="hx-pill"><?= icon('users', '', 12) ?> Followers</span></div>
-      </div>
-      <h3>Privacy you control</h3>
-      <p>Lock your account, approve followers, and choose who sees each post: everyone, followers, or only you.</p>
-    </article>
-
-    <article class="hx-tile" data-reveal-scroll>
-      <div class="hx-files" aria-hidden="true">
-        <div class="hx-file"><span>📷</span><b>lake-saturday.jpg</b><em><?= icon('lock', '', 11) ?></em></div>
-        <div class="hx-file"><span>🎬</span><b>birthday.mp4</b><em><?= icon('lock', '', 11) ?></em></div>
-        <div class="hx-file"><span>📄</span><b>trip-plan.pdf</b><em><?= icon('lock', '', 11) ?></em></div>
-      </div>
-      <h3>Group chats and files</h3>
-      <p>Photos, videos and files in one-to-one and group chats, all encrypted. Message requests keep strangers out of your inbox.</p>
-    </article>
-
-    <article class="hx-tile" data-reveal-scroll>
-      <div class="hx-profile" aria-hidden="true">
-        <span class="hx-ava hx-ava--lg hx-ava--c">Y</span>
-        <b>Your Name</b><small class="lp-mono">emchat.social/@you</small>
-        <span class="hx-profile__stats"><span><b>128</b> posts</span><span><b>342</b> followers</span></span>
-      </div>
-      <h3>A profile worth sharing</h3>
-      <p>Your photo, bio, links and posts on one clean page with its own address.</p>
-    </article>
   </div>
 </section>
 
-<section class="hx-own wrap" data-reveal-scroll>
-  <div>
-    <h2>Your data stays yours</h2>
-    <p>Export everything you've shared in one click, or delete your account and everything with it, any time, from Settings. No emails to support, no waiting period.</p>
+<section class="px-feature px-feature--flip wrap" data-reveal-scroll>
+  <div class="px-feature__text">
+    <p class="px-num">02 &mdash; Feed</p>
+    <h2>A feed that respects your time.</h2>
+    <p>Your home feed shows the people you follow, in the order they posted. Nothing is ranked to keep you scrolling, and nothing from strangers is mixed in. It has an end.</p>
+    <ul class="px-ticks">
+      <li><?= icon('check', '', 14) ?> Every post reaches every follower</li>
+      <li><?= icon('check', '', 14) ?> No suggested posts, no sponsored posts</li>
+    </ul>
   </div>
-  <a class="btn btn--ghost" href="<?= e(url('/privacy')) ?>">Read our Privacy Policy</a>
+  <div class="px-visual">
+    <div class="px-card px-mini-feed" aria-hidden="true">
+      <div class="px-mini"><span class="px-ava px-ava--b">L</span><span class="px-lines"><b>Luka</b><i style="width:80%"></i><i style="width:52%"></i></span><em>2m</em></div>
+      <div class="px-mini"><span class="px-ava px-ava--a">M</span><span class="px-lines"><b>Mira</b><i style="width:66%"></i></span><em>14m</em></div>
+      <div class="px-mini"><span class="px-ava px-ava--c">A</span><span class="px-lines"><b>Ana</b><i style="width:86%"></i><i style="width:38%"></i></span><em>1h</em></div>
+      <p class="px-caught"><?= icon('check', '', 14) ?> You're all caught up</p>
+    </div>
+  </div>
 </section>
 
-<section class="hx-cta wrap" data-reveal-scroll>
-  <div class="hx-cta__panel">
-    <h2>Your people. Nothing else.</h2>
-    <p>Free forever. Sign in with just your email, no password to remember.</p>
-    <div class="hx-hero__cta hx-cta__buttons">
-      <a class="btn btn--primary btn--lg" href="<?= e(url('/login')) ?>">Sign up now</a>
-      <a class="btn btn--ghost btn--lg" href="<?= e(url('/explore')) ?>">Find people to follow</a>
+<section class="px-feature wrap" data-reveal-scroll>
+  <div class="px-feature__text">
+    <p class="px-num">03 &mdash; Privacy</p>
+    <h2>Privacy you set, post by post.</h2>
+    <p>Make your account private and approve every follower. Choose who sees each post as you write it: everyone, your followers, or only you. Export or delete everything at any time.</p>
+    <ul class="px-ticks">
+      <li><?= icon('check', '', 14) ?> Stay out of search engines with one switch</li>
+      <li><?= icon('check', '', 14) ?> Block, mute and report in one tap</li>
+    </ul>
+  </div>
+  <div class="px-visual">
+    <div class="px-card px-settings" aria-hidden="true">
+      <div class="px-setting"><span><b>Private account</b><small>Approve new followers</small></span><span class="switch__track switch__track--on"></span></div>
+      <div class="px-setting"><span><b>Discoverable</b><small>Appear in search and on Google</small></span><span class="switch__track"></span></div>
+      <div class="px-setting"><span><b>Who can see this post</b><small>Chosen for each post</small></span><span class="px-pill"><?= icon('users', '', 12) ?> Followers</span></div>
     </div>
+  </div>
+</section>
+
+<section class="px-feature px-feature--flip wrap" data-reveal-scroll>
+  <div class="px-feature__text">
+    <p class="px-num">04 &mdash; Groups</p>
+    <h2>Your team, without WhatsApp.</h2>
+    <p>Group chats for your family, your club or your staff, with photos, videos and documents, all encrypted. No private phone numbers to share, and admins decide who's in.</p>
+    <ul class="px-ticks">
+      <li><?= icon('check', '', 14) ?> Message requests keep strangers out of your inbox</li>
+      <li><?= icon('check', '', 14) ?> "Seen" so you know when your message was read</li>
+    </ul>
+  </div>
+  <div class="px-visual">
+    <div class="px-card px-group" aria-hidden="true">
+      <div class="px-group__head"><span class="px-stack"><span class="px-ava px-ava--a">M</span><span class="px-ava px-ava--b">L</span><span class="px-ava px-ava--c">A</span></span><span><b>Weekend crew</b><small>6 members</small></span></div>
+      <p class="px-msg px-msg--in"><span class="px-msg__who">Mira</span>Who's driving on Saturday?</p>
+      <p class="px-msg px-msg--in"><span class="px-msg__who">Luka</span>I can take four people</p>
+      <p class="px-file px-file--out"><?= icon('paperclip', '', 14) ?> <span><b>route-plan.pdf</b><small>312 KB</small></span></p>
+      <p class="px-msg px-msg--out">Sent the route, leaving at 9</p>
+    </div>
+  </div>
+</section>
+
+<section class="px-proof wrap" data-reveal-scroll>
+  <div class="px-proof__text">
+    <p class="px-num">Verifiable, not just promised</p>
+    <h2>Read the code that protects you.</h2>
+    <p>EMChat's source code is public. Anyone can check how messages are encrypted, what we store and what we don't, instead of taking our word for it.</p>
+    <div class="px-cta">
+      <a class="btn btn--ghost" href="<?= e($gh) ?>" rel="noopener" target="_blank">View on GitHub &rarr;</a>
+      <a class="btn btn--ghost" href="<?= e(url('/transparency')) ?>">Transparency report</a>
+    </div>
+  </div>
+  <div class="px-code" aria-hidden="true">
+    <p class="px-code__file">public/assets/js/e2e.js</p>
+<pre><code><span class="c">// encryptV2(): a new random key for every message</span>
+<span class="k">var</span> raw = crypto.getRandomValues(<span class="k">new</span> Uint8Array(<span class="n">32</span>));
+<span class="k">var</span> msgKey = <span class="k">await</span> subtle.importKey(<span class="s">'raw'</span>, raw, <span class="s">'AES-GCM'</span>, <span class="k">false</span>, [<span class="s">'encrypt'</span>]);
+<span class="k">var</span> iv = crypto.getRandomValues(<span class="k">new</span> Uint8Array(<span class="n">12</span>));
+<span class="k">var</span> ct = <span class="k">await</span> subtle.encrypt({ name: <span class="s">'AES-GCM'</span>, iv: iv,
+  additionalData: aad2(cid, UID, s) }, msgKey,
+  enc.encode(JSON.stringify(payload)));</code></pre>
+  </div>
+</section>
+
+<section class="px-faq wrap" data-reveal-scroll>
+  <h2>Questions, answered</h2>
+  <div class="px-faq__list">
+    <details><summary>Is EMChat really free?</summary><p>Yes. EMChat has no ads and no paid features. You can create an account and use everything at no cost.</p></details>
+    <details><summary>Can EMChat read my messages?</summary><p>No. Messages, photos and files are end-to-end encrypted on your device, and we only store the encrypted version. If you report a message, your browser shares that message's text with us so we can review it.</p></details>
+    <details><summary>What if I clear my browser or use a new one?</summary><p>Your encryption key lives in your browser. Set a backup PIN in Settings &rarr; Encryption, and you can restore your chats anywhere. Without one, you can start fresh, but earlier encrypted messages won't show on that browser.</p></details>
+    <details><summary>Do you track me?</summary><p>We don't use ad trackers, ad pixels or fingerprinting, and we never sell data. One analytics tool counts visits to our pages, and nothing more.</p></details>
+    <details><summary>Who is behind EMChat?</summary><p>EMChat Media is built independently in North Macedonia by its founder, Egzon Mehmedi. You can reach him at egzon@emchat.social.</p></details>
+    <details><summary>Can I take my data with me?</summary><p>Yes. Export everything you've shared, or delete your account and everything with it, from Settings at any time.</p></details>
+  </div>
+</section>
+
+<section class="px-final wrap" data-reveal-scroll>
+  <h2>Your people. Nothing else.</h2>
+  <p>Join in a minute. No password, no ads, no algorithm.</p>
+  <div class="px-cta px-cta--center">
+    <a class="btn btn--primary btn--lg" href="<?= e(url('/login')) ?>">Sign up now</a>
+    <a class="btn btn--ghost btn--lg" href="<?= e(url('/explore')) ?>">Find people to follow</a>
   </div>
 </section>
