@@ -16,6 +16,7 @@
   <div class="field field--hp" aria-hidden="true">
     <label>Leave this blank<input type="text" name="website_url" tabindex="-1" autocomplete="off"></label>
   </div>
+  <?= \App\Security::turnstileWidget() ?>
   <button class="btn btn--primary btn--block btn--lg" type="submit">
     Email me a sign-in link <?= icon('arrow-right', '', 16) ?>
   </button>

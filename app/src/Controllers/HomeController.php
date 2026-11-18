@@ -153,6 +153,14 @@ final class HomeController extends Controller
             flash('Write a message (up to 4000 characters).');
             redirect('/contact');
         }
+        if (!App::limiter()->attempt('contact_ip:' . \App\Security::clientIp(), 5, 3600)) {
+            flash('You have sent too many messages. Please wait a while before trying again.', 'error');
+            redirect('/contact');
+        }
+        if (!\App\Security::turnstileOk()) {
+            flash('Please complete the security check and try again.', 'error');
+            redirect('/contact');
+        }
         unset($_SESSION['_old']);
         if (!App::limiter()->attempt('contact:' . $email, 5, 600)) {
             flash('You have sent too many messages. Please wait a while before trying again.', 'error');

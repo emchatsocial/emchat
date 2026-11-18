@@ -39,6 +39,20 @@ final class AuthController extends Controller
             redirect('/login/check');
         }
 
+        // Per-visitor limit, so nobody can request links for many different addresses.
+        $ipRate = config('login_ip_rate', ['max' => 8, 'per_seconds' => 3600]);
+        if (!App::limiter()->attempt('login_ip:' . \App\Security::clientIp(), $ipRate['max'], $ipRate['per_seconds'])) {
+            $_SESSION['_old']['email'] = $email;
+            flash('Too many sign-in requests from your connection. Please wait a while before trying again.', 'error');
+            redirect('/login');
+        }
+        // Captcha (Cloudflare Turnstile), when configured.
+        if (!\App\Security::turnstileOk()) {
+            $_SESSION['_old']['email'] = $email;
+            flash('Please complete the security check and try again.', 'error');
+            redirect('/login');
+        }
+
         $this->dispatchLink($email);
     }
 
@@ -61,6 +75,13 @@ final class AuthController extends Controller
         $limiter = App::limiter();
         if (!$limiter->attempt($emailBucket, $rate['max'], $rate['per_seconds'])) {
             flash('You have requested too many links. Please wait a while before trying again.', 'error');
+            redirect($isResend ? '/login/check' : '/login');
+        }
+
+        // Daily safety cap on all sign-in emails, so the email quota can't be drained.
+        $cap = (int) config('login_daily_cap', 90);
+        if ($cap > 0 && !$limiter->attempt('login_all', $cap, 86400)) {
+            flash('We\'re receiving too many sign-in requests right now. Please try again later.', 'error');
             redirect($isResend ? '/login/check' : '/login');
         }
 
