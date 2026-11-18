@@ -7,7 +7,7 @@ namespace App;
  * Abuse protection for forms that send email (sign-in, contact):
  * the visitor's real IP behind Cloudflare, a small always-visible picture
  * check ("tap the cat"), and Cloudflare Turnstile (a privacy-friendly captcha
- * that only shows itself when Cloudflare is unsure). Turnstile stays off until
+ * that is always shown as a box). Turnstile stays off until
  * both keys are set in config 'turnstile' => ['site_key' => ..., 'secret_key' => ...].
  */
 final class Security
@@ -88,7 +88,7 @@ final class Security
             return '';
         }
         $key = (string) App::config('turnstile')['site_key'];
-        return '<div class="cf-turnstile" data-sitekey="' . e($key) . '" data-theme="auto" data-size="flexible" data-appearance="interaction-only"></div>'
+        return '<div class="cf-turnstile" data-sitekey="' . e($key) . '" data-theme="auto" data-size="flexible" data-appearance="always"></div>'
             . '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer nonce="' . e(csp_nonce()) . '"></script>';
     }
 
