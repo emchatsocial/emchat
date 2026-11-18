@@ -1496,3 +1496,19 @@ body.admin{background:var(--bg)}
   .px-post{padding:16px}.px-feed__head{padding:16px}
   .px-card{padding:18px}.px-settings{padding:4px 18px}
 }
+
+/* ---- Picture check ("tap the cat") on sign-in and contact ---------------- */
+.pc{border:0;margin:2px 0 16px;padding:0;min-width:0}
+.pc__q{padding:0;margin:0 0 10px;font-size:14px;color:var(--muted)}
+.pc__q strong{color:var(--text);font-weight:700}
+.pc__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:340px}
+.pc__tile{position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.pc__tile input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.pc__img{display:flex;align-items:center;justify-content:center;aspect-ratio:1;
+  border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);
+  transition:border-color .15s,box-shadow .15s,background-color .15s,transform .15s var(--spring)}
+.pc__img svg{width:64%;height:64%;display:block}
+.pc__tile:hover .pc__img{border-color:var(--muted)}
+.pc__tile:active .pc__img{transform:scale(.95)}
+.pc__tile input:focus-visible + .pc__img{box-shadow:var(--ring)}
+.pc__tile input:checked + .pc__img{border-color:var(--text);box-shadow:0 0 0 2px var(--text);background:var(--brand-soft)}

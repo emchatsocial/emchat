@@ -46,10 +46,10 @@ final class AuthController extends Controller
             flash('Too many sign-in requests from your connection. Please wait a while before trying again.', 'error');
             redirect('/login');
         }
-        // Captcha (Cloudflare Turnstile), when configured.
-        if (!\App\Security::turnstileOk()) {
+        // Picture check ("tap the cat"), then Cloudflare Turnstile when configured.
+        if (!\App\Security::pictureOk('login') || !\App\Security::turnstileOk()) {
             $_SESSION['_old']['email'] = $email;
-            flash('Please complete the security check and try again.', 'error');
+            flash('Please tap the right picture and try again.', 'error');
             redirect('/login');
         }
 

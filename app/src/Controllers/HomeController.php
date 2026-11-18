@@ -157,8 +157,8 @@ final class HomeController extends Controller
             flash('You have sent too many messages. Please wait a while before trying again.', 'error');
             redirect('/contact');
         }
-        if (!\App\Security::turnstileOk()) {
-            flash('Please complete the security check and try again.', 'error');
+        if (!\App\Security::pictureOk('contact') || !\App\Security::turnstileOk()) {
+            flash('Please tap the right picture and try again.', 'error');
             redirect('/contact');
         }
         unset($_SESSION['_old']);

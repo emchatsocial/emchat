@@ -22,6 +22,7 @@
     <div class="field field--hp" aria-hidden="true">
       <label>Leave this blank<input type="text" name="website_url" tabindex="-1" autocomplete="off"></label>
     </div>
+    <?= \App\Security::pictureCheck('contact') ?>
     <?= \App\Security::turnstileWidget() ?>
     <button class="btn btn--primary btn--lg" type="submit">Send message</button>
   </form>
