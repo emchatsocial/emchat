@@ -1,4 +1,4 @@
-<?php /** @var string $query  @var array $people */
+<?php /** @var string $query  @var array $people  @var array $featured */
 $user = current_user(); ?>
 <div class="<?= $user ? '' : 'wrap ' ?>explore">
   <div class="page-head">
@@ -27,6 +27,17 @@ $user = current_user(); ?>
       </div>
     <?php endif; ?>
   </section>
+
+  <?php if (!empty($featured)): ?>
+    <section class="explore__section">
+      <h2 class="explore__label">Latest from EMChat Media</h2>
+      <div class="stream">
+        <?php foreach ($featured as $post): ?>
+          <?= $view->partial('post', ['post' => $post, 'viewer' => null]) ?>
+        <?php endforeach; ?>
+      </div>
+    </section>
+  <?php endif; ?>
 
   <?php if (!$user): ?>
     <div class="cta-band cta-band--inset">

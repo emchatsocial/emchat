@@ -41,6 +41,8 @@ final class FeedController extends Controller
         $q = trim((string) Request::input('q', ''));
 
         $people = $q !== '' ? User::search($q, 12, $viewer ? (int) $viewer['id'] : null) : [];
+        // Logged-out visitors see the owner's latest public posts, so the page isn't empty.
+        $featured = (!$viewer && $q === '') ? \App\Models\Post::featured(10) : [];
 
         $title = $q !== '' ? "Search: {$q} · " . config('app_name') : 'Find People · ' . config('app_name');
 
@@ -53,7 +55,8 @@ final class FeedController extends Controller
                 'robots'      => 'noindex,follow',
             ]),
             'query'  => $q,
-            'people' => $people,
+            'people'   => $people,
+            'featured' => $featured,
         ], $viewer ? 'app' : 'marketing');
     }
 

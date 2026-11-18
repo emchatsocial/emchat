@@ -211,6 +211,18 @@ final class Post
         return self::hydrate(App::db()->all($sql, $params), $viewerId);
     }
 
+    /**
+     * Posts shown to logged-out visitors on Explore: only the site owner's
+     * (admin accounts) top-level Public posts, so nothing unmoderated appears.
+     */
+    public static function featured(int $limit = 10): array
+    {
+        $sql = self::SELECT . "WHERE u.role = 'admin' AND u.suspended_at IS NULL
+                 AND p.deleted_at IS NULL AND p.reply_to_id IS NULL AND p.visibility = 'public'
+                 ORDER BY p.id DESC LIMIT ?";
+        return self::hydrate(App::db()->all($sql, [$limit]), null);
+    }
+
     public static function replies(int $postId, ?int $viewerId, int $limit = 100): array
     {
         $rows = App::db()->all(
