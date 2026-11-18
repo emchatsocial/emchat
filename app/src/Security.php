@@ -34,7 +34,7 @@ final class Security
             return '';
         }
         $key = (string) App::config('turnstile')['site_key'];
-        return '<div class="cf-turnstile" data-sitekey="' . e($key) . '" data-theme="auto" data-size="flexible"></div>'
+        return '<div class="cf-turnstile" data-sitekey="' . e($key) . '" data-theme="auto" data-size="flexible" data-appearance="always"></div>'
             . '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer nonce="' . e(csp_nonce()) . '"></script>';
     }
 
