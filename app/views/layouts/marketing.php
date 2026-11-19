@@ -46,6 +46,7 @@ $user = current_user();
       <a href="<?= e(url('/privacy')) ?>">Privacy Policy</a>
       <a href="<?= e(url('/terms')) ?>">Terms</a>
       <a href="<?= e(url('/transparency')) ?>">Transparency</a>
+      <a href="<?= e(url('/privacy')) ?>#cookies" data-cookie-settings>Cookie settings</a>
       <a href="https://github.com/emchatsocial/emchat" rel="noopener" target="_blank">Source code</a>
     </nav>
     <nav>

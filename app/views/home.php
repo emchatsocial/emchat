@@ -65,7 +65,7 @@ $gh = 'https://github.com/emchatsocial/emchat'; ?>
 
 <section class="px-principles wrap" aria-label="What EMChat stands for">
   <div><?= icon('lock', '', 20) ?><h3>Encrypted by default</h3><p>Messages, photos and files are locked on your device before they leave it.</p></div>
-  <div><?= icon('shield', '', 20) ?><h3>No ads, ever</h3><p>No ad trackers, no profiling, no selling of data. Nothing to sell you.</p></div>
+  <div><?= icon('shield', '', 20) ?><h3>No ads, ever</h3><p>No ads in your feed, no profiling, no selling of data. Nothing to sell you.</p></div>
   <div><?= icon('home', '', 20) ?><h3>No algorithm</h3><p>The people you follow, newest first. When you've seen it all, you're done.</p></div>
   <div><?= icon('globe', '', 20) ?><h3>Open to inspect</h3><p>Our source code is public, so every promise on this page can be checked.</p></div>
 </section>
@@ -180,7 +180,7 @@ $gh = 'https://github.com/emchatsocial/emchat'; ?>
     <details><summary>Is EMChat really free?</summary><p>Yes. EMChat has no ads and no paid features. You can create an account and use everything at no cost.</p></details>
     <details><summary>Can EMChat read my messages?</summary><p>No. Messages, photos and files are end-to-end encrypted on your device, and we only store the encrypted version. If you report a message, your browser shares that message's text with us so we can review it.</p></details>
     <details><summary>What if I clear my browser or use a new one?</summary><p>Your encryption key lives in your browser. Set a backup PIN in Settings &rarr; Encryption, and you can restore your chats anywhere. Without one, you can start fresh, but earlier encrypted messages won't show on that browser.</p></details>
-    <details><summary>Do you track me?</summary><p>We don't use ad trackers, ad pixels or fingerprinting, and we never sell data. One analytics tool counts visits to our pages, and nothing more.</p></details>
+    <details><summary>Do you track me?</summary><p>Inside your account, no: no ad trackers, ad pixels or fingerprinting, and we never sell data. On our public pages, one analytics tool counts visits, and Google Ads cookies measure our own ads on Google only if you click Accept.</p></details>
     <details><summary>Who is behind EMChat?</summary><p>EMChat Media is built independently in North Macedonia by its founder, Egzon Mehmedi. You can reach him at egzon@emchat.social.</p></details>
     <details><summary>Can I take my data with me?</summary><p>Yes. Export everything you've shared, or delete your account and everything with it, from Settings at any time.</p></details>
   </div>

@@ -4,7 +4,7 @@
 
   <h2>Data practices</h2>
   <ul>
-    <li>We do not use advertising trackers, advertising SDKs or ad targeting. Google Analytics is used only to measure visits and page popularity.</li>
+    <li>We do not show ads on EMChat Media or use advertising SDKs. Google Analytics is used only to measure visits and page popularity. We advertise EMChat Media on Google, and on our public pages Google Ads cookies measure those ads only if you accept them.</li>
     <li>We do not sell, rent or share your personal information.</li>
     <li>We do not carry out behavioural profiling. We do not scan messages, and private messages are never read for advertising or used to train models.</li>
   </ul>

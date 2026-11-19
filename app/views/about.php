@@ -7,7 +7,7 @@
 
   <h2>How EMChat Media is different</h2>
   <ul>
-    <li><strong>No ad trackers.</strong> No Meta Pixel, no advertising SDKs, no selling or sharing your data with advertisers. We use basic visit analytics to see how the site is doing, never to build an ad profile of you.</li>
+    <li><strong>No ads on EMChat.</strong> No Meta Pixel, no advertising SDKs, no selling or sharing your data with advertisers. We use basic visit analytics to see how the site is doing. We advertise EMChat itself on Google, and Google Ads cookies are used on our public pages only if you accept them, never inside your account.</li>
     <li><strong>No engagement ranking.</strong> Your timeline is the people you follow, newest first.</li>
     <li><strong>No passwords.</strong> You sign in with a link sent to your email that works once, so there's no password to breach.</li>
     <li><strong>Photo privacy by default.</strong> Every uploaded image is rebuilt on our server, which strips EXIF and GPS metadata.</li>

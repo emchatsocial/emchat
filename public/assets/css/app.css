@@ -1512,3 +1512,13 @@ body.admin{background:var(--bg)}
 .pc__tile:active .pc__img{transform:scale(.95)}
 .pc__tile input:focus-visible + .pc__img{box-shadow:var(--ring)}
 .pc__tile input:checked + .pc__img{border-color:var(--text);box-shadow:0 0 0 2px var(--text);background:var(--brand-soft)}
+
+/* ---- Cookie choice (Google Ads, public pages only) ------------------------ */
+.cookie-bar{position:fixed;left:16px;right:16px;bottom:16px;z-index:1000;max-width:520px;margin:0 auto;
+  display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;padding:14px 16px;
+  background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-md);
+  box-shadow:var(--shadow-lg);font-size:14px;line-height:1.45}
+.cookie-bar p{margin:0;flex:1 1 260px}
+.cookie-bar a{color:inherit;text-decoration:underline}
+.cookie-bar__btns{display:flex;gap:8px;margin-left:auto}
+.cookie-bar__btns .btn{min-width:88px;justify-content:center}

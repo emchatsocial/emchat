@@ -205,6 +205,12 @@ final class HomeController extends Controller
     private function updateEntries(): array
     {
         return [
+            ['date' => '2026-11-19', 'headline' => 'A cookie choice on our public pages',
+                'body' => 'We\'ve started advertising EMChat Media on Google. To see whether those ads work, our public '
+                    . 'pages (such as the homepage, Explore and sign-up) now ask whether we may use Google Ads cookies. '
+                    . 'They\'re only set if you click Accept, and you can change your mind any time with Cookie settings '
+                    . 'at the bottom of the page. Nothing changes inside your account: no ads in your feed, no ad '
+                    . 'cookies once you\'re signed in, and your messages stay end-to-end encrypted.'],
             ['date' => '2026-11-15', 'headline' => 'Your messages are now end-to-end encrypted',
                 'body' => 'Direct messages, group chats, and the photos, videos and files you send in them are now '
                     . 'encrypted on your device before they leave it. Only the people in the conversation can read '

@@ -1,6 +1,6 @@
 <section class="wrap prose">
   <h1>Privacy Policy</h1>
-  <p class="muted">Last updated November 15, 2026</p>
+  <p class="muted">Last updated November 19, 2026</p>
 
   <p>This Privacy Policy describes how EMChat Media collects, uses and protects personal information when you use emchat.social and its related services. It also explains the choices available to you.</p>
 
@@ -10,6 +10,7 @@
   <p><strong>Content you create.</strong> Posts, replies, photos, messages and attachments, together with interactions such as likes, follows, blocks and mutes. Direct messages are end-to-end encrypted, as described in section 2, so we store them only in a form we cannot read.</p>
   <p><strong>Encryption keys.</strong> Your browser creates an encryption key for your messages. We store its public part, which others use to send you encrypted messages. If you set a backup PIN, we also store a copy of your private keys that is encrypted with that PIN in your browser. We never receive your PIN or your private keys in readable form.</p>
   <p><strong>Usage information.</strong> We record when you were last active so that the service functions correctly. We also use Google Analytics to understand overall traffic, such as visitor numbers, popular pages and approximate regions. Google processes technical data, including IP addresses, on our behalf for this purpose.</p>
+  <p><strong>Advertising cookies, only if you accept them.</strong> We advertise EMChat Media on Google. On our public pages (such as the homepage, Explore and sign-up), we ask whether we may use Google Ads cookies. If you accept, Google Ads uses cookies to measure whether our ads lead people to visit and sign up, and to show our own ads on Google to people who have visited emchat.social. If you decline, these cookies are not set. They are never used once you are signed in, in your feed or in your messages.</p>
   <p><strong>Messages sent through our contact form.</strong> Your email address and message are forwarded to our team so that we can respond.</p>
 
   <h2>2. End-to-end encryption</h2>
@@ -31,9 +32,9 @@
 
   <h2>4. What we do not do</h2>
   <ul>
-    <li>We do not use advertising trackers, advertising SDKs or social media tracking pixels.</li>
+    <li>We do not show ads on EMChat Media, and we do not use advertising SDKs or social media tracking pixels. The only advertising cookies are the Google Ads cookies described above, and only if you accept them.</li>
     <li>We do not sell, rent or share personal information with advertisers or data brokers.</li>
-    <li>We do not carry out behavioural profiling or targeted advertising.</li>
+    <li>We do not profile you based on your posts, messages or activity, and no one can target ads at you on EMChat Media.</li>
     <li>We do not scan your messages. Our staff do not browse posts or messages, and encrypted messages cannot be read by us.</li>
   </ul>
 
@@ -43,11 +44,11 @@
   <h2>6. Photo metadata</h2>
   <p>Photos are re-encoded before they are stored, which removes embedded metadata such as camera details and GPS location. Photos in posts are re-encoded on our servers. Photos in encrypted messages are re-encoded in your browser before they are encrypted. Videos and other files are stored as they were sent.</p>
 
-  <h2>7. Cookies</h2>
-  <p>We use one strictly necessary cookie to keep you signed in. Google Analytics sets additional cookies to distinguish visits; these are not used for advertising. Your browser also stores your encryption keys locally so that you can read your messages; they are not sent to us.</p>
+  <h2 id="cookies">7. Cookies</h2>
+  <p>We use one strictly necessary cookie to keep you signed in, and one that remembers your cookie choice. Google Analytics sets additional cookies to distinguish visits; these are not used for advertising. If you accept advertising cookies on our public pages, Google Ads sets cookies for the purposes described in section 1. You can change your choice at any time using <a href="/privacy#cookies" data-cookie-settings>Cookie settings</a>, which is also linked at the bottom of our public pages. Your browser also stores your encryption keys locally so that you can read your messages; they are not sent to us.</p>
 
   <h2>8. Service providers</h2>
-  <p>We rely on a limited number of trusted providers to operate the service, including a security network, an email delivery service and Google Analytics. These providers process data only as needed to perform their services for us. They receive end-to-end encrypted messages only in encrypted form.</p>
+  <p>We rely on a limited number of trusted providers to operate the service, including a security network, an email delivery service, Google Analytics and, if you accept advertising cookies, Google Ads. These providers process data only as needed to perform their services for us. They receive end-to-end encrypted messages only in encrypted form.</p>
 
   <h2>9. Your choices and rights</h2>
   <ul>

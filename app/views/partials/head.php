@@ -17,9 +17,63 @@ $user = current_user();
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
+  // Consent Mode: advertising stays off unless the visitor accepts (see below).
+  gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
 
   gtag('config', 'G-GCB737L718');
 </script>
+<?php if (!$user): ?>
+<!-- Google Ads via Tag Manager: public pages only, loaded only after the visitor accepts cookies. -->
+<script nonce="<?= e(csp_nonce()) ?>">
+(function () {
+  var GTM = 'GTM-WRS7LGSN', NONCE = <?= json_encode(csp_nonce()) ?>, loaded = false;
+  function choice() { var m = document.cookie.match(/(?:^|; )emc_ads=(yes|no)/); return m ? m[1] : null; }
+  function remember(v) { document.cookie = 'emc_ads=' + v + '; Max-Age=15552000; Path=/; SameSite=Lax' + (location.protocol === 'https:' ? '; Secure' : ''); }
+  function load() {
+    if (loaded) return; loaded = true;
+    gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted' });
+    dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+    var s = document.createElement('script'); s.async = true; s.nonce = NONCE;
+    s.src = 'https://www.googletagmanager.com/gtm.js?id=' + GTM; document.head.appendChild(s);
+  }
+  function clearAdCookies() {
+    document.cookie.split('; ').forEach(function (c) {
+      var n = c.split('=')[0];
+      if (/^(_gcl_|_gac_)/.test(n)) {
+        ['', '; Domain=' + location.hostname, '; Domain=.' + location.hostname.replace(/^www\./, '')].forEach(function (d) {
+          document.cookie = n + '=; Max-Age=0; Path=/' + d;
+        });
+      }
+    });
+  }
+  function bar() {
+    var old = document.getElementById('cookie-bar'); if (old) old.remove();
+    var el = document.createElement('div'); el.id = 'cookie-bar'; el.className = 'cookie-bar';
+    el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', 'Cookie choice');
+    var p = document.createElement('p');
+    p.innerHTML = 'Can we use Google Ads cookies on our public pages? They show us whether our ads on Google bring people to EMChat. You won\u2019t see ads on EMChat either way. <a href="/privacy#cookies">Learn more</a>';
+    var row = document.createElement('div'); row.className = 'cookie-bar__btns';
+    [['Decline', 'no'], ['Accept', 'yes']].forEach(function (b) {
+      var btn = document.createElement('button'); btn.type = 'button';
+      btn.className = 'btn btn--sm ' + (b[1] === 'yes' ? 'btn--primary' : 'btn--ghost'); btn.textContent = b[0];
+      btn.addEventListener('click', function () {
+        var before = choice(); remember(b[1]); el.remove();
+        if (b[1] === 'yes') { load(); }
+        else if (before === 'yes') { clearAdCookies(); location.reload(); }
+      });
+      row.appendChild(btn);
+    });
+    el.appendChild(p); el.appendChild(row); document.body.appendChild(el);
+  }
+  if (choice() === 'yes') load();
+  document.addEventListener('DOMContentLoaded', function () { if (choice() === null) bar(); });
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest && e.target.closest('[data-cookie-settings]');
+    if (t) { e.preventDefault(); bar(); }
+  });
+})();
+</script>
+<?php endif; ?>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f5f5f3" media="(prefers-color-scheme: light)">
@@ -55,8 +109,8 @@ $user = current_user();
 <link rel="preload" href="/assets/fonts/Michroma.woff2?v=1" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/Bricolage.woff2?v=1" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/Hanken.woff2?v=1" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/css/app.css?v=108" as="style">
-<link rel="stylesheet" href="/assets/css/app.css?v=108">
+<link rel="preload" href="/assets/css/app.css?v=109" as="style">
+<link rel="stylesheet" href="/assets/css/app.css?v=109">
 <script nonce="<?= e(csp_nonce()) ?>">
 (function(){var d=document.documentElement;try{var t=localStorage.getItem('emc-theme');d.dataset.theme=(t==='light'||t==='dark')?t:'dark';}catch(e){d.dataset.theme='dark';}
 try{d.classList.add('js');}catch(e){}})();
